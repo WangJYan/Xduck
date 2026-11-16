@@ -1,0 +1,22 @@
+{
+  "target": "121",
+  "revision": "90b1a189c21703cfb1dd8ed36ccf7c4b0833543e",
+  "firmware_sha256": "e61ab768cfef16c10f5472ef887662e5408551a8e4b5fa4fe02bd81e0f6aa1ee",
+  "verify": "Verified OK",
+  "uid": [
+    "00220005",
+    "31345109",
+    "38373332"
+  ],
+  "auto_enable": false,
+  "threshold_write_performed": false,
+  "git_push_performed": false,
+  "source_kind": "Git commit recovered locally; STM32 source is absent on device 121",
+  "source_revision": "90b1a189c21703cfb1dd8ed36ccf7c4b0833543e",
+  "source_path": "10-source/stm32/stm32-h7-dm",
+  "deployment_record": "50-logs/deploy/stm32/clear-errors-test-20261024/deployment-summary.json",
+  "build_record": "30-artifacts/stm32/clear-errors-test-20261024/BUILD-INFO.txt",
+  "source_manifest_files_verified": 1166,
+  "archived_on": "2026-11-16",
+  "scope": "Source archive only; no flash or hardware verification performed during this import"
+}

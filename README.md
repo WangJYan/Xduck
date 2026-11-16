@@ -1,34 +1,42 @@
-# Xduck / xrange 工程工作区
+# Xduck 设备代码
 
-本目录是本地工程根目录。目录布局、文件归属、RK3566 SSH 配置、上传和编译流程统一由
-[`00-docs/ENGINEERING_WORKFLOW.md`](00-docs/ENGINEERING_WORKFLOW.md) 约束。
+`main` 按设备整理源码；原 `main` 完整保存在 [`driver`](https://github.com/x-rangecraft/Xduck/tree/driver) 分支。
 
-常用入口：
-
-```sh
-./60-tools/rk3566-workflow.sh check   # 只读预览同步差异
-./60-tools/rk3566-workflow.sh all     # 上传后在 RK3566 原生 release 编译
-./60-tools/ssh-rk3566.sh              # 连接固定目标机
-./60-tools/check-layout.sh            # 检查本地目录规范
+```text
+121/
+├── rk3566/
+│   ├── microduck/                 # 完整 Rust workspace
+│   ├── STM32_DMUSB_V4_PROTOCOL.md
+│   └── SOURCE-SHA256SUMS
+└── stm32/
+    ├── stm32-h7-dm/                # STM32 H7 工程
+    ├── SOURCE-SHA256SUMS
+    └── PROVENANCE.json
+122/
+├── rk3566/
+└── stm32/
+124/
+├── rk3566/
+└── stm32/
+125/
+├── rk3566/
+└── stm32/
 ```
 
-不要在根目录新增临时源码、日志或构建目录。
+121 已导入；122、124、125 当前为占位目录，尚未导入各自设备代码。
 
-## Git 工作目录
+## 121 来源与核验
 
-本项目位于 `x-rangecraft/DuckResource` 仓库的 `Xduck/` 子目录。
-本机开发目录为 `/Users/mac/xinchen/MicriDuck/DuckResource/Xduck`。
-Android、RK3566、STM32 和工具源码统一由仓库根目录的 Git 管理，RK3566 不再是嵌套仓库。
+整理日期：2026-11-16（Asia/Shanghai）。
 
-```sh
-cd /Users/mac/xinchen/MicriDuck/DuckResource/Xduck
-git status --short -- .
-git add .
-git commit -m "Describe the Xduck change"
-git push origin main
-```
+- RK3566：通过项目固定 SSH 配置，从身份核验通过的 121 设备 `/home/xduck1/xrange/10-source/rk3566/` 只读取得 `microduck/` 和 DMUSB v4 文档，共 331 个文件，下载后 SHA256 与设备逐文件一致。
+- 121 当前安装的 Linux 版本为 `0.10.0-dev.local.1794380400.g90b1a18`。本目录归档设备当前源码镜像；未发现该安装版本的完整源码清单，不能把镜像与运行二进制宣称为逐字节可复现对应。
+- STM32：121 设备上没有 STM32 源码目录，因此从本地烧录记录对应的 Git 提交 `90b1a189c21703cfb1dd8ed36ccf7c4b0833543e` 恢复工程。与 2026-10-24 clear-errors 烧录构建清单中的 1,166 个文件逐一核对，全部 SHA256 一致。来源细节见 `121/stm32/PROVENANCE.json`。
+- 排除 RK3566 的 `target/`、版本库元数据、临时缓存及开发签名密钥目录。STM32 保留原厂 CMSIS 库依赖。
 
-构建缓存、生成的固件和 APK、日志、临时文件及密钥不提交；这些目录仅保留占位文件。
-芯片厂商提供的预编译依赖库和运行所需模型保留在源码目录中。
-旧目录 `/Users/mac/xinchen/MicriDuck` 中原有工程保留为迁移前备份，后续修改在本目录完成。
-远端 RK3566 目录保持 `/home/xduck1/xrange`，更新后的工程规范将在下一次显式源码同步时传到板端。
+## 使用与后续维护
+
+RK3566 workspace 入口为 `121/rk3566/microduck/Cargo.toml`；STM32 CMake 入口为 `121/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt`。
+源码自带的工程说明保留原文，其中 `10-source/`、`20-build/` 等路径描述原开发环境。历史完整工程规范、工具和脚本见 `driver` 分支的 `00-docs/ENGINEERING_WORKFLOW.md`。
+
+本次仅重新整理、校验并上传源码，未编译、部署、烧录或操作电机。后续设备源码分别放入对应设备目录，避免跨设备混用配置、模型、标定和固件。
