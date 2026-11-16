@@ -1,0 +1,8 @@
+{
+  "version": "DUCK_V2.0.2",
+  "description": "修改了脖子限位，imu位置，脚的重量",
+  "submitted_by": "xingchen",
+  "entry": "scene.xml",
+  "source": "mujoco",
+  "isaacsim": "unilab MJCF adapter"
+}

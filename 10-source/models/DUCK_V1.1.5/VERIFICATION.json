@@ -1,0 +1,21 @@
+{
+  "scope": "MJCF compilation and all 14 limits per entry; no dynamics or hardware test",
+  "mujoco_version": "3.8.0",
+  "entries": [
+    {
+      "entry": "scene.xml",
+      "compiled": true,
+      "limits_matched": 14
+    },
+    {
+      "entry": "isaacsim/scene.xml",
+      "compiled": true,
+      "limits_matched": 14
+    },
+    {
+      "entry": "training_compatible/scene.xml",
+      "compiled": true,
+      "limits_matched": 14
+    }
+  ]
+}

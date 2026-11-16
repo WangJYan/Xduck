@@ -1,0 +1,80 @@
+{
+  "left": {
+    "joint": "left_ankle_pitch_joint",
+    "foot_hole_original_world_mm": [
+      -44.430503433628914,
+      150.63621582538252,
+      80.25634891614763
+    ],
+    "shank_hole_original_world_mm": [
+      -55.41234511615912,
+      134.94206997132238,
+      78.96400680626576
+    ],
+    "axis_world": [
+      -2.935430997605886e-07,
+      -0.9968017063026126,
+      0.07991469396871431
+    ],
+    "ankle_anchor_world_mm": [
+      -44.43050951632438,
+      137.93288439452365,
+      56.20554500395776
+    ],
+    "foot_hole_fit": {
+      "radius_mm": 1.5000006183918753,
+      "max_fit_residual_mm": 5.109826070270884e-06,
+      "sample_vertices": 62
+    },
+    "shank_hole_fit": {
+      "radius_mm": 1.5000004272764138,
+      "max_fit_residual_mm": 5.368364734525954e-06,
+      "sample_vertices": 72
+    },
+    "rotation_from_assembly_to_zero_rad": 0.455003757873437,
+    "new_assembly_joint_angle_rad": -0.455003757873437,
+    "new_coordinate_offset_rad": -3.7578734369825284e-06,
+    "zero_hole_axis_error_mm": 1.1103637816059494e-07,
+    "zero_side_projection_angle_deg": 89.99999695945695,
+    "note": "90 degrees is the side projection perpendicular to the actual ankle axis. The sole was flattened in CAD while the axle is tilted; it is not a claim of exact 3D sole-plane/shank perpendicularity."
+  },
+  "right": {
+    "joint": "right_ankle_pitch_joint",
+    "foot_hole_original_world_mm": [
+      -44.93050343362907,
+      -150.63621582538252,
+      80.2563489161475
+    ],
+    "shank_hole_original_world_mm": [
+      -55.912344981438665,
+      -134.94207003392953,
+      78.96400575144933
+    ],
+    "axis_world": [
+      -2.935430680242889e-07,
+      0.9968017063026103,
+      0.07991469396873963
+    ],
+    "ankle_anchor_world_mm": [
+      -44.93050951632145,
+      -137.93288439450453,
+      56.205543167350854
+    ],
+    "foot_hole_fit": {
+      "radius_mm": 1.5000006183918762,
+      "max_fit_residual_mm": 5.1098261184545635e-06,
+      "sample_vertices": 62
+    },
+    "shank_hole_fit": {
+      "radius_mm": 1.4999998829503731,
+      "max_fit_residual_mm": 5.011633727347586e-06,
+      "sample_vertices": 72
+    },
+    "rotation_from_assembly_to_zero_rad": -0.4550037392379021,
+    "new_assembly_joint_angle_rad": 0.4550037392379021,
+    "new_coordinate_offset_rad": 3.7392379020895206e-06,
+    "zero_hole_axis_error_mm": 1.0744017013710163e-06,
+    "zero_side_projection_angle_deg": 89.99999802719391,
+    "note": "90 degrees is the side projection perpendicular to the actual ankle axis. The sole was flattened in CAD while the axle is tilted; it is not a claim of exact 3D sole-plane/shank perpendicularity."
+  }
+}

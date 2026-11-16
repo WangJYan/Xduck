@@ -1,0 +1,78 @@
+{
+  "version": "DUCK_V1.1.5",
+  "source_zip": "DUCK_V1.1.4.zip",
+  "source_sha256": "995a0dc0c77d3ad74ab83e77e71e01166948c0d7ad7e134a0839b81f95ef2d2e",
+  "limits_source": "192.168.50.122:8080 saved settings read 2026-10-26 Asia/Shanghai",
+  "units": "rad",
+  "joint_limits": {
+    "left_hip_yaw": [
+      -1.1,
+      0.5
+    ],
+    "left_hip_roll": [
+      -0.12,
+      1
+    ],
+    "left_hip_pitch": [
+      -3,
+      3
+    ],
+    "left_knee": [
+      -1.3,
+      1.4
+    ],
+    "left_ankle": [
+      -1.4,
+      1.3
+    ],
+    "right_hip_yaw": [
+      -0.5,
+      1.1
+    ],
+    "right_hip_roll": [
+      -1,
+      0.2
+    ],
+    "right_hip_pitch": [
+      -3,
+      3
+    ],
+    "right_knee": [
+      -1.4,
+      1.3
+    ],
+    "right_ankle": [
+      -1.3,
+      1.4
+    ],
+    "neck_pitch": [
+      -0.4,
+      1.2
+    ],
+    "head_pitch": [
+      -1.2,
+      1.2
+    ],
+    "head_yaw": [
+      -2,
+      2
+    ],
+    "head_roll": [
+      -0.4,
+      0.4
+    ]
+  },
+  "verified_joint_count_per_file": {
+    "robot.xml": 14,
+    "isaacsim/scene.xml": 14,
+    "training_compatible/scene.xml": 14
+  },
+  "checks": [
+    "XML parsing",
+    "all 42 joint ranges match target",
+    "all other XML content and attributes preserved"
+  ],
+  "simulation_rerun": false,
+  "hardware_tested": false,
+  "inherited_verification": "VERIFICATION_1.1.3_inherited.json applies to original package only"
+}

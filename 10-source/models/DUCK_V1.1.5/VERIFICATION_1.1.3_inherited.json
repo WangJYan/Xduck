@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "physics_entries": [
+    {
+      "entry": "scene.xml",
+      "compiled": true,
+      "total_mass_kg": 9.31845,
+      "joint_count": 15,
+      "actuator_count": 14,
+      "body_aligned_probes": {
+        "forward": {
+          "gyro": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity": [
+            0.3,
+            0.0,
+            0.0
+          ]
+        },
+        "pitch": {
+          "gyro": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "physical_imu_preserved": true
+    },
+    {
+      "entry": "isaacsim/scene.xml",
+      "compiled": true,
+      "total_mass_kg": 9.31845,
+      "joint_count": 15,
+      "actuator_count": 14,
+      "body_aligned_probes": {
+        "forward": {
+          "gyro": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "velocity": [
+            0.3,
+            0.0,
+            0.0
+          ]
+        },
+        "pitch": {
+          "gyro": [
+            0.0,
+            1.0,
+            0.0
+          ],
+          "velocity": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      },
+      "physical_imu_preserved": true
+    },
+    {
+      "entry": "training_compatible/scene.xml",
+      "compiled": true,
+      "total_mass_kg": 9.31845,
+      "body_aligned_probes_passed": true,
+      "sim_dt_s": 0.001
+    }
+  ],
+  "scope": "MJCF load, masses and policy sensor frame tested; not hardware safety certification; no Isaac Sim process launched"
+}

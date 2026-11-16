@@ -1,0 +1,32 @@
+{
+  "actor_input": {
+    "name": "obs",
+    "shape": [
+      1,
+      61
+    ],
+    "dtype": "float32"
+  },
+  "actor_output": {
+    "name": "actions",
+    "shape": [
+      1,
+      14
+    ],
+    "kind": "raw deterministic action mean"
+  },
+  "period_s": 0.02,
+  "normalization_embedded_in_source250_onnx": true,
+  "policy_sensor_frame": "base_link aligned",
+  "aligned_sensors": [
+    "imu_ang_vel",
+    "imu_lin_vel",
+    "imu_upvector"
+  ],
+  "physical_imu_site": "imu",
+  "physical_imu_not_moved": true,
+  "gravity_observation": "Compute projected gravity from base quaternion; raw framezaxis is not projected gravity",
+  "training_aliases_file": "canonical_training_aliases.json",
+  "policy_weights_changed": false,
+  "source250_checkpoint_sha256": "c88659132d785c294a1c556b8896b85bf8bfca063f9f94bb7f4fe40cb02ee52f"
+}

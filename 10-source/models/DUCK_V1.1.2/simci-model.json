@@ -1,0 +1,8 @@
+{
+  "version": "DUCK_V1.1.2",
+  "description": "标准化版本号发布：模型源自 XDuckSimulation xingchen/sim@e351f109fd219a6acd92a223c0eb4ff5325c523a 的 walk/assets。与 DUCK_V1.1.2-xingchen-e2e-20261016 的 27 个原始模型文件一致；保留旧测试版本及历史任务。已完成双后端短训练链路验证，不代表步态或真机验收。",
+  "submitted_by": "saper",
+  "entry": "scene.xml",
+  "source": "mujoco",
+  "isaacsim": "unilab MJCF adapter"
+}

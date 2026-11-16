@@ -1,0 +1,43 @@
+{
+  "reference_frame": "base_link",
+  "sensor_body": "IMU",
+  "sensor_site": "imu",
+  "position_m": [
+    -0.03,
+    0.006,
+    -0.002626999999999935
+  ],
+  "position_mm": [
+    -30.0,
+    6.0,
+    -2.626999999999935
+  ],
+  "rotation_imu_to_base": [
+    [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      -1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "quaternion_wxyz_imu_to_base": [
+    0,
+    0,
+    0,
+    1
+  ],
+  "axis_mapping": "IMU +X = base -X; IMU +Y = base -Y; IMU +Z = base +Z.",
+  "axis_basis": "Final explicit user definition; not inferred from the historical CAD envelope rotation.",
+  "measurement_point_basis": "Front point on lateral centerline and thickness midplane: housing center +14 mm along base +X, 6 mm behind the front (+X) edge. Supersedes the earlier rear-origin inference.",
+  "base_link": "Original torso reference unchanged.",
+  "virtual_policy_frame": "policy_aligned_imu remains at base origin, identity axes."
+}

@@ -1,0 +1,372 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mujoco model="Xduck_V1_1_3_safe_recovery">
+  <compiler angle="radian" meshdir="../assets" />
+
+  <option timestep="0.001" tolerance="1e-10" integrator="implicitfast" />
+
+  <size nkey="2" />
+
+  <visual>
+    <global azimuth="160" elevation="-20" />
+    <headlight ambient="0.3 0.3 0.3" diffuse="0.6 0.6 0.6" specular="0 0 0" />
+    <rgba haze="0.15 0.25 0.35 1" />
+  </visual>
+
+  <default>
+    <default class="dm4340p">
+      <joint armature="0.2543" />
+      <general ctrlrange="-161.098 161.098" forcerange="-148.598 148.598" biastype="affine" biasprm="0 -1" />
+    </default>
+    <default class="visual">
+      <geom type="mesh" contype="0" conaffinity="0" group="2" />
+    </default>
+    <default class="collision">
+      <geom type="mesh" group="3" />
+    </default>
+  </default>
+
+  <custom>
+    <text name="source_version" data="xduck/1.1.3" />
+    <text name="motor_joint_order" data="left_hip_yaw_joint left_hip_roll_joint left_hip_pitch_joint left_knee_pitch_joint left_ankle_pitch_joint neck_pitch_joint head_pitch_joint head_yaw_joint head_roll_joint right_hip_yaw_joint right_hip_roll_joint right_hip_pitch_joint right_knee_pitch_joint right_ankle_pitch_joint" />
+    <text name="action_semantics" data="absolute joint targets in radians; all 14 axes reverse 1.1.1" />
+  </custom>
+
+  <asset>
+    <texture type="skybox" colorspace="auto" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+    <texture type="2d" colorspace="auto" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
+    <material name="imu_marker_material" rgba="1 0 0 1" />
+    <material name="base_link_material" rgba="0.34902 0.376471 0.4 0.2" />
+    <material name="Battery_material" rgba="0.901961 0.901961 0.901961 1" />
+    <material name="IMU_material" rgba="0.313725 0.486275 0.411765 1" />
+    <material name="neck_pitch_material" rgba="0.8 0.8 0.8 0.2" />
+    <material name="head_pitch_material" rgba="0.34902 0.376471 0.4 0.2" />
+    <material name="head_yaw_material" rgba="0.768627 0.886275 0.952941 0.2" />
+    <material name="head_roll_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="left_hip_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="left_hip_yaw_material" rgba="0.647059 0.647059 0.647059 0.2" />
+    <material name="left_hip_roll_material" rgba="0.262745 0.282353 0.301961 0.2" />
+    <material name="left_hip_pitch_material" rgba="0.866667 0.866667 0.866667 0.2" />
+    <material name="left_knee_pitch_material" rgba="0.811765 0.858824 0.898039 0.2" />
+    <material name="left_ankle_pitch_joint_material" rgba="0.980392 0.713725 0.00392157 1" />
+    <material name="control-box_material" rgba="0.294118 0.290196 0.290196 1" />
+    <material name="right_hip_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="right_hip_yaw_material" rgba="0.647059 0.647059 0.647059 0.2" />
+    <material name="right_hip_roll_material" rgba="0.262745 0.282353 0.301961 0.2" />
+    <material name="right_hip_pitch_material" rgba="0.866667 0.866667 0.866667 0.2" />
+    <material name="right_knee_pitch_material" rgba="0.811765 0.858824 0.898039 0.2" />
+    <material name="right_ankle_pitch_material" rgba="0.980392 0.713725 0.00392157 1" />
+    <material name="power-strip_material" rgba="0.55 0.2 0.2 1" />
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
+    <mesh name="Battery" content_type="model/stl" file="Battery.stl" />
+    <mesh name="IMU" content_type="model/stl" file="IMU.stl" />
+    <mesh name="base_link" content_type="model/stl" file="base_link.stl" />
+    <mesh name="control-box" content_type="model/stl" file="control-box.stl" />
+    <mesh name="head_pitch" content_type="model/stl" file="head_pitch.stl" />
+    <mesh name="head_roll" content_type="model/stl" file="head_roll.stl" />
+    <mesh name="head_yaw" content_type="model/stl" file="head_yaw.stl" />
+    <mesh name="left_ankle_pitch_joint" content_type="model/stl" file="left_ankle_pitch_joint.stl" />
+    <mesh name="left_hip" content_type="model/stl" file="left_hip.stl" />
+    <mesh name="left_hip_pitch" content_type="model/stl" file="left_hip_pitch.stl" />
+    <mesh name="left_hip_roll" content_type="model/stl" file="left_hip_roll.stl" />
+    <mesh name="left_hip_yaw" content_type="model/stl" file="left_hip_yaw.stl" />
+    <mesh name="left_knee_pitch" content_type="model/stl" file="left_knee_pitch.stl" />
+    <mesh name="neck_pitch" content_type="model/stl" file="neck_pitch.stl" />
+    <mesh name="power-strip" content_type="model/stl" file="power-strip.stl" />
+    <mesh name="right_ankle_pitch" content_type="model/stl" file="right_ankle_pitch.stl" />
+    <mesh name="right_hip" content_type="model/stl" file="right_hip.stl" />
+    <mesh name="right_hip_pitch" content_type="model/stl" file="right_hip_pitch.stl" />
+    <mesh name="right_hip_roll" content_type="model/stl" file="right_hip_roll.stl" />
+    <mesh name="right_hip_yaw" content_type="model/stl" file="right_hip_yaw.stl" />
+    <mesh name="right_knee_pitch" content_type="model/stl" file="right_knee_pitch.stl" />
+    <mesh name="sole_left" content_type="model/stl" file="sole_left.stl" />
+    <mesh name="sole_right" content_type="model/stl" file="sole_right.stl" />
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane" />
+    <light pos="0 0 8" dir="0 0 -1" type="directional" />
+    <body name="trunk_base" pos="0 0 0.32">
+      <inertial pos="-0.0734586 0.000486442 -0.045246" quat="0.909686 -0.100713 0.330634 -0.230237" mass="0.6223" diaginertia="0.00230587 0.00228489 0.0017431" />
+      <joint name="base_link_freejoint" type="free" />
+      <geom name="base_link_visual" class="visual" material="base_link_material" mesh="base_link" />
+      <geom name="base_link_collision" class="collision" material="base_link_material" mesh="base_link" />
+      <body name="left_hip" pos="-0.0299997 0.037 -0.0701001" quat="1.29867e-06 -0.707107 0.707107 -1.29867e-06">
+        <inertial pos="-4.01866e-05 -0.000134815 -0.0258588" quat="0.988333 -0.048607 0.00709031 -0.144168" mass="0.409" diaginertia="0.000182134 0.000180008 0.000165571" />
+        <geom name="left_hip_visual" class="visual" material="left_hip_material" mesh="left_hip" />
+        <geom name="left_hip_collision" class="collision" material="left_hip_material" mesh="left_hip" />
+        <body name="left_hip_yaw" pos="0 0 0.002">
+          <inertial pos="-0.000162505 -0.000436199 0.0350355" quat="0.66612 0.744989 -0.0343133 -0.00993187" mass="0.4625" diaginertia="0.000244895 0.000230996 0.000212952" />
+          <joint name="left_hip_yaw" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.2 0.5" />
+          <geom name="left_hip_yaw_visual" class="visual" material="left_hip_yaw_material" mesh="left_hip_yaw" />
+          <geom name="left_hip_yaw_collision" class="collision" material="left_hip_yaw_material" mesh="left_hip_yaw" />
+          <body name="left_hip_roll" pos="1.97678e-05 -0.0295 0.037" quat="0.5 0.5 0.5 -0.5">
+            <inertial pos="0.000170696 -0.0285529 -0.024589" quat="0.982657 -0.180527 -0.0109383 -0.0409353" mass="0.0915" diaginertia="8.37039e-05 7.48891e-05 4.0136e-05" />
+            <joint name="left_hip_roll" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-0.12 1" />
+            <geom name="left_hip_roll_visual" class="visual" material="left_hip_roll_material" mesh="left_hip_roll" />
+            <geom name="left_hip_roll_collision" class="collision" material="left_hip_roll_material" mesh="left_hip_roll" />
+            <body name="left_hip_pitch" pos="0 -0.055 -0.0295" quat="0.707107 -0.707107 0 0">
+              <inertial pos="-0.0197325 0.0403566 -0.0287768" quat="0.346449 0.601418 -0.372717 0.615915" mass="0.9437" diaginertia="0.00223365 0.00219663 0.000617775" />
+              <joint name="left_hip_pitch" class="dm4340p" pos="0 0 0" axis="0 0 1" range="-3 3" />
+              <geom name="left_hip_pitch_visual" class="visual" material="left_hip_pitch_material" mesh="left_hip_pitch" />
+              <geom name="left_hip_pitch_collision" class="collision" material="left_hip_pitch_material" mesh="left_hip_pitch" />
+              <body name="left_knee_pitch" pos="-0.0445293 0.0760232 0">
+                <inertial pos="-0.0788339 0.00030431 -0.0287451" quat="0.5306 0.444443 0.440208 0.571972" mass="0.53765" diaginertia="0.000528788 0.000459098 0.000287425" />
+                <joint name="left_knee" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.3 1.4" />
+                <geom name="left_knee_pitch_visual" class="visual" material="left_knee_pitch_material" mesh="left_knee_pitch" />
+                <geom name="left_knee_pitch_collision" class="collision" material="left_knee_pitch_material" mesh="left_knee_pitch" />
+                <body name="left_ankle_pitch_joint" pos="-0.088 -3.8147e-09 -0.05825" quat="0 0 -1 0">
+                  <inertial pos="0.0344131 -0.0112669 -0.025996" quat="0.952205 -0.286334 -0.0975896 0.0423781" mass="0.133" diaginertia="0.000226955 0.000154706 0.000141665" />
+                  <joint name="left_ankle" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.4 1.3" />
+                  <geom name="left_ankle_pitch_joint_visual" class="visual" material="left_ankle_pitch_joint_material" mesh="left_ankle_pitch_joint" />
+                  <geom name="left_ankle_collision" class="collision" material="left_ankle_pitch_joint_material" mesh="left_ankle_pitch_joint" />
+                  <geom name="left_foot_collision" class="collision" priority="1" mesh="sole_left" />
+                  <site name="left_foot" pos="0.053 -0.015445 -0.0291" quat="0.500001 0.500001 -0.499999 -0.499999" group="3" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="neck" pos="0.0250711 0.0291 0.000100089" quat="1.29867e-06 -1.29867e-06 0.707107 0.707107">
+        <inertial pos="-5.40694e-05 0.052 -0.0287362" quat="0.707076 0.707076 -0.00661901 0.00661901" mass="0.928" diaginertia="0.00281421 0.00273623 0.000484571" />
+        <joint name="neck_pitch" class="dm4340p" pos="0 0 0" axis="0 0 1" range="-0.1 1.7" />
+        <geom name="neck_pitch_visual" class="visual" material="neck_pitch_material" mesh="neck_pitch" />
+        <geom name="neck_pitch_collision" class="collision" material="neck_pitch_material" mesh="neck_pitch" />
+        <body name="neck_pitch" pos="0 0.104 0" quat="0.707107 0 0 -0.707107">
+          <inertial pos="-0.0175176 -0.000356252 -0.0211039" quat="0.754209 0.0880237 0.114803 0.6405" mass="0.062" diaginertia="5.86488e-05 5.40845e-05 2.43187e-05" />
+          <joint name="head_pitch" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.2 1.2" />
+          <geom name="head_pitch_visual" class="visual" material="head_pitch_material" mesh="head_pitch" />
+          <geom name="head_pitch_collision" class="collision" material="head_pitch_material" mesh="head_pitch" />
+          <body name="yaw_roll_motion" pos="-0.04 0 -0.0295" quat="0.707107 0 0.707107 0">
+            <inertial pos="0.000207245 0.0013683 -0.0285729" quat="0.999755 0.0183225 0.0097009 0.00779827" mass="0.459" diaginertia="0.000220937 0.000210359 0.00019464" />
+            <joint name="head_yaw" class="dm4340p" pos="0 0 0" axis="0 0 1" range="-2 2" />
+            <geom name="head_yaw_visual" class="visual" material="head_yaw_material" mesh="head_yaw" />
+            <geom name="head_yaw_collision" class="collision" material="head_yaw_material" mesh="head_yaw" />
+            <body name="jaw_soft" pos="1.97677e-05 0.035 -0.0295" quat="0 0 0.707107 -0.707107">
+              <inertial pos="-8.69479e-05 0.00609783 -0.00234564" quat="0.705752 -0.0412773 0.0417765 0.706021" mass="1.012" diaginertia="0.0043885 0.00385178 0.00202212" />
+              <joint name="head_roll" class="dm4340p" pos="0 0 0" axis="0 0 1" range="-0.4 0.4" />
+              <geom name="head_roll_visual" class="visual" material="head_roll_material" mesh="head_roll" />
+              <geom name="head_roll_collision" class="collision" material="head_roll_material" mesh="head_roll" />
+              <body name="control-box" pos="-0.00145096 -0.033 0.103761" quat="0.5 -0.5 0.5 0.5">
+                <inertial pos="-0.00187061 -0.0014312 0.0419" quat="0.707107 0.707107 0 0" mass="0.152" diaginertia="0.000388663 0.000316058 0.000165688" />
+                <geom name="control-box_visual" class="visual" material="control-box_material" mesh="control-box" />
+                <geom name="control-box_collision" class="collision" material="control-box_material" mesh="control-box" />
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip" pos="-0.0299997 -0.037 -0.0701001" quat="1.29867e-06 -0.707107 0.707107 -1.29867e-06">
+        <inertial pos="-7.52463e-05 0.000118867 -0.0258588" quat="0.959291 0.0471785 0.0136779 0.278115" mass="0.409" diaginertia="0.000182134 0.000180008 0.000165571" />
+        <geom name="right_hip_visual" class="visual" material="right_hip_material" mesh="right_hip" />
+        <geom name="right_hip_collision" class="collision" material="right_hip_material" mesh="right_hip" />
+        <body name="right_hip_yaw" pos="0 0 0.002">
+          <inertial pos="0.0002828 -8.76164e-06 0.0349243" quat="0.681691 0.731454 0.0164163 -0.00175594" mass="0.4625" diaginertia="0.000245948 0.000227761 0.00021266" />
+          <joint name="right_hip_yaw" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-0.5 1.2" />
+          <geom name="right_hip_yaw_visual" class="visual" material="right_hip_yaw_material" mesh="right_hip_yaw" />
+          <geom name="right_hip_yaw_collision" class="collision" material="right_hip_yaw_material" mesh="right_hip_yaw" />
+          <body name="right_hip_roll" pos="-1.97678e-05 -0.029 0.037" quat="0.5 0.5 0.5 -0.5">
+            <inertial pos="0.000170596 0.0285528 -0.0245891" quat="0.982657 0.180524 -0.0109429 0.0409436" mass="0.0915" diaginertia="8.40213e-05 7.51728e-05 4.02883e-05" />
+            <joint name="right_hip_roll" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1 0.2" />
+            <geom name="right_hip_roll_visual" class="visual" material="right_hip_roll_material" mesh="right_hip_roll" />
+            <geom name="right_hip_roll_collision" class="collision" material="right_hip_roll_material" mesh="right_hip_roll" />
+            <body name="right_hip_pitch" pos="0 0.055 -0.0295" quat="0 0 0.707107 -0.707107">
+              <inertial pos="0.0196418 0.0405671 -0.0288167" quat="0.598856 0.342282 -0.61848 0.376427" mass="0.9437" diaginertia="0.00222996 0.00219209 0.000621775" />
+              <joint name="right_hip_pitch" class="dm4340p" pos="0 0 0" axis="0 0 1" range="-3 3" />
+              <geom name="right_hip_pitch_visual" class="visual" material="right_hip_pitch_material" mesh="right_hip_pitch" />
+              <geom name="right_hip_pitch_collision" class="collision" material="right_hip_pitch_material" mesh="right_hip_pitch" />
+              <body name="right_knee_pitch" pos="0.0445293 0.0760232 0" quat="1 0 0 0">
+                <inertial pos="0.0787744 0.000360812 -0.0287271" quat="0.439302 0.569521 0.537222 0.440513" mass="0.53765" diaginertia="0.000527762 0.000457633 0.000284512" />
+                <joint name="right_knee" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.4 1.3" />
+                <geom name="right_knee_pitch_visual" class="visual" material="right_knee_pitch_material" mesh="right_knee_pitch" />
+                <geom name="right_knee_pitch_collision" class="collision" material="right_knee_pitch_material" mesh="right_knee_pitch" />
+                <body name="right_ankle_pitch" pos="0.088 -3.8147e-09 -0.05825" quat="0 0 -1 0">
+                  <inertial pos="-0.0344127 -0.0112671 -0.0259971" quat="0.952201 -0.286347 0.0975865 -0.0423709" mass="0.133" diaginertia="0.000226393 0.000154332 0.000141309" />
+                  <joint name="right_ankle" class="dm4340p" pos="0 0 0" axis="0 0 -1" range="-1.3 1.4" />
+                  <geom name="right_ankle_pitch_visual" class="visual" material="right_ankle_pitch_material" mesh="right_ankle_pitch" />
+                  <geom name="right_ankle_collision" class="collision" material="right_ankle_pitch_material" mesh="right_ankle_pitch" />
+                  <geom name="right_foot_collision" class="collision" priority="1" mesh="sole_right" />
+                  <site name="right_foot" pos="-0.053 -0.015513 -0.02921" quat="-0.499999 0.499999 -0.500001 0.500001" group="3" />
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="Battery" pos="-0.112234 0 -0.1046" quat="0.499999 0.500001 -0.500001 -0.499999">
+        <inertial pos="0 0 6.28264e-06" quat="0.5 0.5 -0.5 0.5" mass="0.807" diaginertia="0.00177984 0.00161529 0.000508186" />
+        <geom name="Battery_visual" class="visual" material="Battery_material" mesh="Battery" />
+        <geom name="Battery_collision" class="collision" material="Battery_material" mesh="Battery" />
+      </body>
+      <body name="IMU" pos="-0.0812283 0 -0.1611" quat="0.499999 0.500001 -0.500001 -0.499999">
+        <inertial pos="0 0.0255003 -0.00650008" quat="0.499998 0.500002 -0.500002 0.499998" mass="0.03045" diaginertia="7.82486e-06 5.5187e-06 2.86103e-06" />
+        <geom name="IMU_visual" class="visual" material="IMU_material" mesh="IMU" />
+        <geom name="IMU_collision" class="collision" material="IMU_material" mesh="IMU" />
+        <geom name="imu_marker" size="0.008" contype="0" conaffinity="0" group="2" rgba="1 0 0 1" />
+        <site name="imu" pos="0 0 0" size="0.003" group="3" />
+      </body>
+      <body name="power-strip" pos="-0.10601 0 -0.0220954" quat="0 -1 0 -1.8366e-06">
+        <inertial pos="0 0 5.00488e-06" quat="0.5 0.5 -0.5 0.5" mass="0.091" diaginertia="0.000155932 0.000116574 4.83583e-05" />
+        <geom name="power-strip_visual" class="visual" material="power-strip_material" mesh="power-strip" />
+        <geom name="power-strip_collision" class="collision" material="power-strip_material" mesh="power-strip" />
+      </body>
+    <site name="policy_aligned_imu" pos="0 0 0" quat="1 0 0 0" size=".001" group="5" rgba="0 0 0 0" /></body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="trunk_base" body2="left_hip_roll" />
+    <exclude body1="trunk_base" body2="right_hip_roll" />
+    <exclude body1="left_hip" body2="left_hip_roll" />
+    <exclude body1="left_hip" body2="right_hip_roll" />
+    <exclude body1="left_hip_roll" body2="right_hip" />
+    <exclude body1="left_hip_roll" body2="Battery" />
+    <exclude body1="left_hip_roll" body2="IMU" />
+    <exclude body1="left_hip_roll" body2="power-strip" />
+    <exclude body1="neck_pitch" body2="jaw_soft" />
+    <exclude body1="neck_pitch" body2="control-box" />
+    <exclude body1="right_hip" body2="right_hip_roll" />
+    <exclude body1="right_hip_roll" body2="Battery" />
+    <exclude body1="right_hip_roll" body2="IMU" />
+    <exclude body1="right_hip_roll" body2="power-strip" />
+  </contact>
+
+  <actuator>
+    <general name="left_hip_yaw" class="dm4340p" joint="left_hip_yaw" />
+    <general name="left_hip_roll" class="dm4340p" joint="left_hip_roll" />
+    <general name="left_hip_pitch" class="dm4340p" joint="left_hip_pitch" />
+    <general name="left_knee" class="dm4340p" joint="left_knee" />
+    <general name="left_ankle" class="dm4340p" joint="left_ankle" />
+    <general name="neck_pitch" class="dm4340p" joint="neck_pitch" />
+    <general name="head_pitch" class="dm4340p" joint="head_pitch" />
+    <general name="head_yaw" class="dm4340p" joint="head_yaw" />
+    <general name="head_roll" class="dm4340p" joint="head_roll" />
+    <general name="right_hip_yaw" class="dm4340p" joint="right_hip_yaw" />
+    <general name="right_hip_roll" class="dm4340p" joint="right_hip_roll" />
+    <general name="right_hip_pitch" class="dm4340p" joint="right_hip_pitch" />
+    <general name="right_knee" class="dm4340p" joint="right_knee" />
+    <general name="right_ankle" class="dm4340p" joint="right_ankle" />
+  </actuator>
+
+  <sensor>
+    <framequat objtype="site" objname="imu" name="orientation" noise="0.001" />
+    <gyro site="imu" name="angular-velocity" noise="0.005" />
+    <gyro site="policy_aligned_imu" name="imu_ang_vel" />
+    <velocimeter site="policy_aligned_imu" name="imu_lin_vel" />
+    <accelerometer site="imu" name="imu_accel" />
+    <subtreeangmom body="trunk_base" name="root_angmom" />
+    <framezaxis objtype="site" objname="policy_aligned_imu" name="imu_upvector" />
+    <contact geom1="floor" geom2="left_foot_collision" data="force" reduce="netforce" name="left_foot_contact" />
+    <contact geom1="floor" geom2="right_foot_collision" data="force" reduce="netforce" name="right_foot_contact" />
+    <contact geom1="floor" geom2="left_foot_collision" name="left_foot_found" />
+    <contact geom1="floor" geom2="right_foot_collision" name="right_foot_found" />
+    <framepos objtype="site" objname="left_foot" name="left_foot_pos" />
+    <framepos objtype="site" objname="right_foot" name="right_foot_pos" />
+    <framelinvel objtype="site" objname="left_foot" name="left_foot_vel" />
+    <framelinvel objtype="site" objname="right_foot" name="right_foot_vel" />
+    <contact subtree1="trunk_base" subtree2="trunk_base" name="self_collision_found" />
+
+    <actuatorfrc actuator="left_hip_yaw" name="torque_left_hip_yaw" />
+
+    <actuatorfrc actuator="left_hip_roll" name="torque_left_hip_roll" />
+
+    <actuatorfrc actuator="left_hip_pitch" name="torque_left_hip_pitch" />
+
+    <actuatorfrc actuator="left_knee" name="torque_left_knee" />
+
+    <actuatorfrc actuator="left_ankle" name="torque_left_ankle" />
+
+    <actuatorfrc actuator="neck_pitch" name="torque_neck_pitch" />
+
+    <actuatorfrc actuator="head_pitch" name="torque_head_pitch" />
+
+    <actuatorfrc actuator="head_yaw" name="torque_head_yaw" />
+
+    <actuatorfrc actuator="head_roll" name="torque_head_roll" />
+
+    <actuatorfrc actuator="right_hip_yaw" name="torque_right_hip_yaw" />
+
+    <actuatorfrc actuator="right_hip_roll" name="torque_right_hip_roll" />
+
+    <actuatorfrc actuator="right_hip_pitch" name="torque_right_hip_pitch" />
+
+    <actuatorfrc actuator="right_knee" name="torque_right_knee" />
+
+    <actuatorfrc actuator="right_ankle" name="torque_right_ankle" />
+    <framepos objtype="body" objname="trunk_base" name="track_pos_w_trunk_base" />
+    <framequat objtype="body" objname="trunk_base" name="track_quat_w_trunk_base" />
+    <framepos objtype="body" objname="left_hip" name="track_pos_w_left_hip" />
+    <framequat objtype="body" objname="left_hip" name="track_quat_w_left_hip" />
+    <framepos objtype="body" objname="left_hip_yaw" name="track_pos_w_left_hip_yaw" />
+    <framequat objtype="body" objname="left_hip_yaw" name="track_quat_w_left_hip_yaw" />
+    <framepos objtype="body" objname="left_hip_roll" name="track_pos_w_left_hip_roll" />
+    <framequat objtype="body" objname="left_hip_roll" name="track_quat_w_left_hip_roll" />
+    <framepos objtype="body" objname="left_hip_pitch" name="track_pos_w_left_hip_pitch" />
+    <framequat objtype="body" objname="left_hip_pitch" name="track_quat_w_left_hip_pitch" />
+    <framepos objtype="body" objname="left_knee_pitch" name="track_pos_w_left_knee_pitch" />
+    <framequat objtype="body" objname="left_knee_pitch" name="track_quat_w_left_knee_pitch" />
+    <framepos objtype="body" objname="left_ankle_pitch_joint" name="track_pos_w_left_ankle_pitch_joint" />
+    <framequat objtype="body" objname="left_ankle_pitch_joint" name="track_quat_w_left_ankle_pitch_joint" />
+    <framepos objtype="body" objname="neck" name="track_pos_w_neck" />
+    <framequat objtype="body" objname="neck" name="track_quat_w_neck" />
+    <framepos objtype="body" objname="neck_pitch" name="track_pos_w_neck_pitch" />
+    <framequat objtype="body" objname="neck_pitch" name="track_quat_w_neck_pitch" />
+    <framepos objtype="body" objname="yaw_roll_motion" name="track_pos_w_yaw_roll_motion" />
+    <framequat objtype="body" objname="yaw_roll_motion" name="track_quat_w_yaw_roll_motion" />
+    <framepos objtype="body" objname="jaw_soft" name="track_pos_w_jaw_soft" />
+    <framequat objtype="body" objname="jaw_soft" name="track_quat_w_jaw_soft" />
+    <framepos objtype="body" objname="control-box" name="track_pos_w_control-box" />
+    <framequat objtype="body" objname="control-box" name="track_quat_w_control-box" />
+    <framepos objtype="body" objname="right_hip" name="track_pos_w_right_hip" />
+    <framequat objtype="body" objname="right_hip" name="track_quat_w_right_hip" />
+    <framepos objtype="body" objname="right_hip_yaw" name="track_pos_w_right_hip_yaw" />
+    <framequat objtype="body" objname="right_hip_yaw" name="track_quat_w_right_hip_yaw" />
+    <framepos objtype="body" objname="right_hip_roll" name="track_pos_w_right_hip_roll" />
+    <framequat objtype="body" objname="right_hip_roll" name="track_quat_w_right_hip_roll" />
+    <framepos objtype="body" objname="right_hip_pitch" name="track_pos_w_right_hip_pitch" />
+    <framequat objtype="body" objname="right_hip_pitch" name="track_quat_w_right_hip_pitch" />
+    <framepos objtype="body" objname="right_knee_pitch" name="track_pos_w_right_knee_pitch" />
+    <framequat objtype="body" objname="right_knee_pitch" name="track_quat_w_right_knee_pitch" />
+    <framepos objtype="body" objname="right_ankle_pitch" name="track_pos_w_right_ankle_pitch" />
+    <framequat objtype="body" objname="right_ankle_pitch" name="track_quat_w_right_ankle_pitch" />
+    <framepos objtype="body" objname="Battery" name="track_pos_w_Battery" />
+    <framequat objtype="body" objname="Battery" name="track_quat_w_Battery" />
+    <framepos objtype="body" objname="IMU" name="track_pos_w_IMU" />
+    <framequat objtype="body" objname="IMU" name="track_quat_w_IMU" />
+    <framepos objtype="body" objname="power-strip" name="track_pos_w_power-strip" />
+    <framequat objtype="body" objname="power-strip" name="track_quat_w_power-strip" />
+    <contact geom1="floor" geom2="base_link_collision" name="safe_floor_base_link_collision" />
+    <contact geom1="floor" geom2="left_hip_collision" name="safe_floor_left_hip_collision" />
+    <contact geom1="floor" geom2="left_hip_yaw_collision" name="safe_floor_left_hip_yaw_collision" />
+    <contact geom1="floor" geom2="left_hip_roll_collision" name="safe_floor_left_hip_roll_collision" />
+    <contact geom1="floor" geom2="left_hip_pitch_collision" name="safe_floor_left_hip_pitch_collision" />
+    <contact geom1="floor" geom2="left_knee_pitch_collision" name="safe_floor_left_knee_pitch_collision" />
+    <contact geom1="floor" geom2="neck_pitch_collision" name="safe_floor_neck_pitch_collision" />
+    <contact geom1="floor" geom2="head_pitch_collision" name="safe_floor_head_pitch_collision" />
+    <contact geom1="floor" geom2="head_yaw_collision" name="safe_floor_head_yaw_collision" />
+    <contact geom1="floor" geom2="head_roll_collision" name="safe_floor_head_roll_collision" />
+    <contact geom1="floor" geom2="control-box_collision" name="safe_floor_control-box_collision" />
+    <contact geom1="floor" geom2="right_hip_collision" name="safe_floor_right_hip_collision" />
+    <contact geom1="floor" geom2="right_hip_yaw_collision" name="safe_floor_right_hip_yaw_collision" />
+    <contact geom1="floor" geom2="right_hip_roll_collision" name="safe_floor_right_hip_roll_collision" />
+    <contact geom1="floor" geom2="right_hip_pitch_collision" name="safe_floor_right_hip_pitch_collision" />
+    <contact geom1="floor" geom2="right_knee_pitch_collision" name="safe_floor_right_knee_pitch_collision" />
+    <contact geom1="floor" geom2="Battery_collision" name="safe_floor_Battery_collision" />
+    <contact geom1="floor" geom2="IMU_collision" name="safe_floor_IMU_collision" />
+    <contact geom1="floor" geom2="power-strip_collision" name="safe_floor_power-strip_collision" />
+    <distance geom1="left_foot_collision" geom2="neck_pitch_collision" name="safe_distance_left_neck_pitch_collision" cutoff="0.04" />
+    <distance geom1="left_foot_collision" geom2="head_pitch_collision" name="safe_distance_left_head_pitch_collision" cutoff="0.04" />
+    <distance geom1="left_foot_collision" geom2="head_yaw_collision" name="safe_distance_left_head_yaw_collision" cutoff="0.04" />
+    <distance geom1="left_foot_collision" geom2="head_roll_collision" name="safe_distance_left_head_roll_collision" cutoff="0.04" />
+    <distance geom1="left_foot_collision" geom2="base_link_collision" name="safe_distance_left_base_link_collision" cutoff="0.04" />
+    <distance geom1="right_foot_collision" geom2="neck_pitch_collision" name="safe_distance_right_neck_pitch_collision" cutoff="0.04" />
+    <distance geom1="right_foot_collision" geom2="head_pitch_collision" name="safe_distance_right_head_pitch_collision" cutoff="0.04" />
+    <distance geom1="right_foot_collision" geom2="head_yaw_collision" name="safe_distance_right_head_yaw_collision" cutoff="0.04" />
+    <distance geom1="right_foot_collision" geom2="head_roll_collision" name="safe_distance_right_head_roll_collision" cutoff="0.04" />
+    <distance geom1="right_foot_collision" geom2="base_link_collision" name="safe_distance_right_base_link_collision" cutoff="0.04" />
+  </sensor>
+
+  <keyframe>
+    <key name="HOME" qpos="0 0 0.323227 1 0 0 0 0 0.08 0.394 -0.061 -0.455 0.019 0.06 0 0 0 -0.08 -0.394 0.061 0.455" ctrl="0 0.08 0.394 -0.061 -0.455 0.019 0.06 0 0 0 -0.08 -0.394 0.061 0.455" />
+    <key name="STAND" qpos="0 0 0.323227 1 0 0 0 0 0.08 0.394 -0.061 -0.455 0.019 0.06 0 0 0 -0.08 -0.394 0.061 0.455" ctrl="0 0.08 0.394 -0.061 -0.455 0.019 0.06 0 0 0 -0.08 -0.394 0.061 0.455" />
+  </keyframe>
+</mujoco>

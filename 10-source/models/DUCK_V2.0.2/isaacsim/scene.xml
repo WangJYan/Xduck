@@ -1,0 +1,371 @@
+<mujoco model="Xduck_20261107_view">
+  <default><default class="dm4340p">
+      <joint damping="0" frictionloss="0" armature="0.25429975910988406" />
+      <position forcerange="-148.5977380931125 148.5977380931125" ctrlrange="-161.0977380931125 161.0977380931125" />
+    </default>
+    <default class="visual">
+      <geom type="mesh" contype="0" conaffinity="0" group="2" />
+    </default>
+    <default class="collision">
+      <geom type="mesh" group="3" friction="1 0.005 0.0001" density="0" rgba=".1 .8 1 .55" contype="2" conaffinity="1" />
+    </default>
+  </default><compiler angle="radian" autolimits="true" fusestatic="false" inertiafromgeom="false" meshdir="assets" texturedir="assets" />
+  <option timestep="0.002" integrator="implicitfast" solver="Newton" iterations="100" tolerance="1e-10" gravity="0 0 -9.81" />
+  <asset>
+    <material name="imu_marker_material" rgba="1 0 0 1" />
+    <material name="base_link_material" rgba="0.34902 0.376471 0.4 0.2" />
+    <material name="Battery_material" rgba="0.901961 0.901961 0.901961 1" />
+    <material name="IMU_material" rgba="0.313725 0.486275 0.411765 1" />
+    <material name="neck_pitch_material" rgba="0.8 0.8 0.8 0.2" />
+    <material name="head_pitch_material" rgba="0.34902 0.376471 0.4 0.2" />
+    <material name="head_yaw_material" rgba="0.768627 0.886275 0.952941 0.2" />
+    <material name="head_roll_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="left_hip_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="left_hip_yaw_material" rgba="0.647059 0.647059 0.647059 0.2" />
+    <material name="left_hip_roll_material" rgba="0.262745 0.282353 0.301961 0.2" />
+    <material name="left_hip_pitch_material" rgba="0.866667 0.866667 0.866667 0.2" />
+    <material name="left_knee_pitch_material" rgba="0.811765 0.858824 0.898039 0.2" />
+    <material name="left_ankle_pitch_joint_material" rgba="0.980392 0.713725 0.00392157 1" />
+    <material name="control-box_material" rgba="0.294118 0.290196 0.290196 1" />
+    <material name="right_hip_material" rgba="0.901961 0.901961 0.901961 0.2" />
+    <material name="right_hip_yaw_material" rgba="0.647059 0.647059 0.647059 0.2" />
+    <material name="right_hip_roll_material" rgba="0.262745 0.282353 0.301961 0.2" />
+    <material name="right_hip_pitch_material" rgba="0.866667 0.866667 0.866667 0.2" />
+    <material name="right_knee_pitch_material" rgba="0.811765 0.858824 0.898039 0.2" />
+    <material name="right_ankle_pitch_material" rgba="0.980392 0.713725 0.00392157 1" />
+    <material name="power-strip_material" rgba="0.55 0.2 0.2 1" />
+    <mesh name="new_Head_Connector_Repaired" file="mesh-0.stl" inertia="shell" />
+    <mesh name="new_Front_Chest_Armor_STEP" file="mesh-1.stl" inertia="shell" />
+    <mesh name="new_Shank_Right_Armor_STEP_Panel_1" file="mesh-2.stl" inertia="shell" />
+    <mesh name="new_Shank_Right_Armor_STEP_Panel_2" file="mesh-3.stl" inertia="shell" />
+    <mesh name="new_Shank_Left_Armor_STEP_Panel_1" file="mesh-4.stl" inertia="shell" />
+    <mesh name="new_Shank_Left_Armor_STEP_Panel_2" file="mesh-5.stl" inertia="shell" />
+    <mesh name="new_Side_Armor_Right_Merged_STEP_Body" file="mesh-6.stl" inertia="shell" />
+    <mesh name="new_Side_Armor_Left_Merged_STEP_Body" file="mesh-7.stl" inertia="shell" />
+    <mesh name="new_V107_Lower_Shell" file="mesh-8.stl" inertia="shell" />
+    <mesh name="new_V107_Visor" file="mesh-9.stl" inertia="shell" />
+    <mesh name="new_V107_Upper_Narrow_Slots" file="mesh-10.stl" inertia="shell" />
+    <mesh name="new_Battery_Combined_Solid" file="mesh-11.stl" inertia="shell" />
+    <mesh name="new_PCB_Original_UNMODIFIED" file="mesh-12.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Roll_Motor" file="mesh-13.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Yaw_Motor" file="mesh-14.stl" inertia="shell" />
+    <mesh name="new_CAD_Neck_Pitch_Motor_Lower" file="mesh-15.stl" inertia="shell" />
+    <mesh name="new_CAD_Neck_Pitch_Motor_Upper" file="mesh-16.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Pitch_Bracket" file="mesh-17.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Yaw_Support" file="mesh-18.stl" inertia="shell" />
+    <mesh name="new_CAD_Original_right_hip_yaw" file="mesh-19.stl" inertia="shell" />
+    <mesh name="new_CAD_Original_left_hip_yaw" file="mesh-20.stl" inertia="shell" />
+    <mesh name="new_Exact_right_hip_roll" file="mesh-21.stl" inertia="shell" />
+    <mesh name="new_Exact_right_hip_pitch" file="mesh-22.stl" inertia="shell" />
+    <mesh name="new_Exact_right_shank" file="mesh-23.stl" inertia="shell" />
+    <mesh name="new_Exact_right_side_plate" file="mesh-24.stl" inertia="shell" />
+    <mesh name="new_Exact_left_hip_roll" file="mesh-25.stl" inertia="shell" />
+    <mesh name="new_Exact_left_hip_pitch" file="mesh-26.stl" inertia="shell" />
+    <mesh name="new_Exact_left_shank" file="mesh-27.stl" inertia="shell" />
+    <mesh name="new_Exact_left_side_plate" file="mesh-28.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_right_hip__motor_hip_yaw" file="mesh-29.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_right_hip_yaw__motor_hip_roll" file="mesh-30.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_right_hip_pitch__motor_hip_pitch" file="mesh-31.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_right_hip_pitch__motor_knee_pitch" file="mesh-32.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_right_knee_pitch__motor_ankle_pitch" file="mesh-33.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_left_hip__motor_hip_yaw" file="mesh-34.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_left_hip_yaw__motor_hip_roll" file="mesh-35.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_left_hip_pitch__motor_hip_pitch" file="mesh-36.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_left_hip_pitch__motor_knee_pitch" file="mesh-37.stl" inertia="shell" />
+    <mesh name="new_Anchor_REF_Motor_left_knee_pitch__motor_ankle_pitch" file="mesh-38.stl" inertia="shell" />
+    <mesh name="new_RightFoot_OriginalMotorAligned" file="mesh-39.stl" inertia="shell" />
+    <mesh name="new_LeftFoot_OriginalMotor_Clearance" file="mesh-40.stl" inertia="shell" />
+    <mesh name="new_IMU_12mm_Vertical" file="mesh-41.stl" inertia="shell" />
+    <mesh name="new_power-strip" file="mesh-42.stl" inertia="shell" />
+    <mesh name="new_Neck_Structure" file="mesh-43.stl" inertia="shell" />
+    <mesh name="new_Hip_Left_Rebuilt_RearPlus3mm" file="mesh-44.stl" inertia="shell" />
+    <mesh name="new_Hip_Right_Rebuilt_RearPlus3mm" file="mesh-45.stl" inertia="shell" />
+    <mesh name="new_PCB_Cover_No_Extension" file="mesh-46.stl" inertia="shell" />
+    <mesh name="new_Upper_Cover_Battery_Opening" file="mesh-47.stl" inertia="shell" />
+    <mesh name="new_Chassis_Motor_Mounts_Flush_Reinforced" file="mesh-48.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Yaw_Output" file="mesh-49.stl" inertia="shell" />
+    <mesh name="new_CAD_Head_Pitch_Output" file="mesh-50.stl" inertia="shell" />
+    <mesh name="mesh_train_left_hip_armor" file="mesh-51.obj" maxhullvert="32" />
+    <mesh name="mesh_train_left_shank_panel_1" file="mesh-52.obj" maxhullvert="32" />
+    <mesh name="mesh_train_left_shank_panel_2" file="mesh-53.obj" maxhullvert="32" />
+    <mesh name="mesh_train_right_hip_armor" file="mesh-54.obj" maxhullvert="32" />
+    <mesh name="mesh_train_right_shank_panel_1" file="mesh-55.obj" maxhullvert="32" />
+    <mesh name="mesh_train_right_shank_panel_2" file="mesh-56.obj" maxhullvert="32" />
+    <mesh name="mesh_train_head_shell" file="mesh-57.obj" maxhullvert="32" />
+    <mesh name="train_left_sole_mesh" file="mesh-58.obj" />
+    <mesh name="train_right_sole_mesh" file="mesh-59.obj" />
+    <mesh name="mesh_self_head_core" file="mesh-60.obj" maxhullvert="32" />
+    <mesh name="new_IMU_Bridge" file="mesh-61.stl" inertia="shell" />
+    <mesh name="new_Switch_Housing" file="mesh-62.stl" inertia="shell" />
+    <mesh name="new_Rocker" file="mesh-63.stl" inertia="shell" />
+    <mesh name="new_Terminal_1" file="mesh-64.stl" inertia="shell" />
+    <mesh name="new_Terminal_2" file="mesh-65.stl" inertia="shell" />
+    <mesh name="new_Terminal_3" file="mesh-66.stl" inertia="shell" />
+    <mesh name="new_Display_Housing" file="mesh-67.stl" inertia="shell" />
+    <mesh name="new_Visible_Window" file="mesh-68.stl" inertia="shell" />
+    <mesh name="new_Connector_Approximate_1" file="mesh-69.stl" inertia="shell" />
+    <mesh name="new_Connector_Approximate_2" file="mesh-70.stl" inertia="shell" />
+  </asset>
+  <worldbody>
+    <body name="base_link" pos="0 0 0.32">
+      <freejoint name="base_link_freejoint" />
+      <inertial pos="-0.0734586265124471 0.000486441903936063 -0.0452459972548476" mass="1.05925000" fullinertia="0.0035183755385339382 0.003896768863823319 0.0033660635321928253 -3.0219910404574746e-05 -0.00046814359208670802 -1.2127222274454038e-05" />
+      <body name="left_hip" pos="-0.029999707266420698 0.036999999999999998 -0.070100110195550694" quat="1.29867411857803e-06 -0.70710678118535364 0.70710678118535619 -1.2986741186646302e-06">
+        <inertial pos="-0.0000401866435841001 -0.000134815113372539 -0.0258588252788185" mass="0.409" fullinertia="0.000181949525942832 0.00018005393845782 0.00016571019539092299 -6.2014142011927802e-07 -4.0271789850404601e-07 -1.35102926407099e-06" />
+        <body name="left_hip_yaw" pos="7.1054273576010005e-18 0 0.002" quat="1 -9.91435653497805e-17 -1.416384671597e-16 -1.1675926827877651e-32">
+          <joint name="left_hip_yaw_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-1.2 0.34999999999999998" limited="true" />
+          <inertial pos="-0.000162504654684909 -0.000436199230086103 0.0350354624539029" mass="0.4625" fullinertia="0.00024475798981505703 0.00021330392230410001 0.000230781731886199 -1.97513499299847e-06 3.0589058114107899e-07 -2.0386782573909301e-06" />
+          <body name="left_hip_roll" pos="1.9767761230468799e-05 -0.0294999923706055 0.036999999999999998" quat="0.49999999999999817 0.5 0.5 -0.50000000000000178">
+            <joint name="left_hip_roll_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-0.12 1.2" limited="true" />
+            <inertial pos="0.000170695599132458 -0.028552887229587 -0.02458901728807" mass="0.0915" fullinertia="8.3639159708529499e-05 7.0543942215542003e-05 4.4545903223234e-05 -5.8888910183247102e-07 5.3679906831142002e-07 -1.15770840006136e-05" />
+            <body name="left_hip_pitch" pos="-1.4210854715202001e-17 -0.055 -0.0294999923706055" quat="0.70710678118654624 -0.70710678118654879 1.6435113745787285e-16 -3.5955903753110892e-17">
+              <joint name="left_hip_pitch_joint" type="hinge" class="dm4340p" axis="0 0 1" range="-3 3" />
+              <inertial pos="-0.0197325179206721 0.0403566078498215 -0.0287768370234038" mass="1.08797" fullinertia="0.0021085857608034247 0.0011361571554660201 0.0025750406277366971 0.00076939523002622992 -4.6580665111840836e-07 -2.9009951582527807e-06" />
+              <body name="left_knee_pitch" pos="-0.0445292854309082 0.076023162841796804 -8.5265128291211999e-17" quat="1 -1.8488927466117451e-32 -5.55923163788125e-33 8.2718061255303006e-25">
+                <joint name="left_knee_pitch_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-1.1 0.8" limited="true" />
+                <inertial pos="-0.0788339119467065 0.000304310279606639 -0.0287450840915386" mass="0.59275" fullinertia="0.0003261515731952082 0.00058252180740146937 0.0004973358633356507 -9.1070164104467822e-06 -4.0269561213652099e-05 1.8516913341550815e-06" />
+                <body name="left_ankle_pitch_joint" pos="-0.087999999999999995 -3.8146973082575596e-09 -0.058250007629394501" quat="4.2410519540680999e-14 1.6155445744325183e-15 -1 -1.6155445744325183e-15">
+                  <joint name="left_ankle_pitch_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-1.3999999999999999 1.3" limited="true" ref="-3.7578734369825284e-06" />
+                  <inertial pos="0.036788888475963434 -0.015217141854538577 -0.028622417685396292" mass="0.189" fullinertia="0.00044928536120002351 0.00023883551541912767 0.00033733792011053128 9.1975877987089393e-06 1.420321523759353e-05 -2.6234569152112632e-06" />
+                  <site group="3" name="left_foot" pos="0.053000 -0.015445 -0.029100" quat="0.500001 0.500001 -0.499999 -0.499999" />
+                  <geom name="new_LeftFoot_OriginalMotor_Clearance" type="mesh" mesh="new_LeftFoot_OriginalMotor_Clearance" contype="0" conaffinity="0" group="2" rgba="0.913725 0.898039 0.862745 1.000000" pos="0 0 0" quat="1 0 0 0" />
+                  <geom name="left_foot_collision" class="collision" type="mesh" mesh="train_left_sole_mesh" priority="1" condim="3" margin=".0001" solref=".01 1" rgba=".9 .3 .1 .65" contype="6" conaffinity="5" />
+                  <geom name="train_left_foot_pad" class="collision" type="box" pos="0.050675445985150835 -0.015409641529398324 -0.028877909755905672" quat="0.47960634052534168 0.51959560126741711 -0.51959383957848115 -0.4796044319473417" size="0.058143852233886718 0.041363605499267576 0.0060000000000000001" contype="6" conaffinity="5" />
+                  <geom name="train_left_ankle_mount" class="collision" type="box" pos="0.0047750208848744841 -4.7821471335653624e-06 -0.032406516812303748" quat="0.47960634052534168 0.51959560126741711 -0.51959383957848115 -0.4796044319473417" size="0.029999999999999995 0.048318933486938484 0.030035553027501809" />
+                  <geom name="self_left_ankle_core" class="collision" type="capsule" fromto="0.0066785036651571834 -4.7821471344555475e-06 -0.056149270354392454 0.0028715381045917843 -4.7821471326612996e-06 -0.0086637632702150288" size="0.0245" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+                </body>
+                <geom name="new_Shank_Left_Armor_STEP_Panel_1" type="mesh" mesh="new_Shank_Left_Armor_STEP_Panel_1" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+                <geom name="new_Shank_Left_Armor_STEP_Panel_2" type="mesh" mesh="new_Shank_Left_Armor_STEP_Panel_2" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+                <geom name="new_Exact_left_shank" type="mesh" mesh="new_Exact_left_shank" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+                <geom name="new_Exact_left_side_plate" type="mesh" mesh="new_Exact_left_side_plate" contype="0" conaffinity="0" group="2" rgba="0.800000 0.800000 0.800000 1.000000" />
+                <geom name="new_Anchor_REF_Motor_left_knee_pitch__motor_ankle_pitch" type="mesh" mesh="new_Anchor_REF_Motor_left_knee_pitch__motor_ankle_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+                <geom name="train_left_shank" class="collision" type="capsule" fromto="-4.1875566534958968e-05 1.8464368052201764e-05 -0.028445342008158573 -0.087966563752402444 -2.1704231660049488e-05 -0.029616141508735559" size="0.0295" contype="6" conaffinity="5" />
+                <geom name="train_left_shank_panel_1" class="collision" type="mesh" mesh="mesh_train_left_shank_panel_1" contype="6" conaffinity="5" />
+                <geom name="train_left_shank_panel_2" class="collision" type="mesh" mesh="mesh_train_left_shank_panel_2" contype="6" conaffinity="5" />
+              </body>
+              <geom name="new_Exact_left_hip_pitch" type="mesh" mesh="new_Exact_left_hip_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Anchor_REF_Motor_left_hip_pitch__motor_hip_pitch" type="mesh" mesh="new_Anchor_REF_Motor_left_hip_pitch__motor_hip_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Anchor_REF_Motor_left_hip_pitch__motor_knee_pitch" type="mesh" mesh="new_Anchor_REF_Motor_left_hip_pitch__motor_knee_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Hip_Left_Rebuilt_RearPlus3mm" type="mesh" mesh="new_Hip_Left_Rebuilt_RearPlus3mm" contype="0" conaffinity="0" group="2" rgba="0.929412 0.423529 0.086275 1.000000" />
+              <geom name="train_left_thigh" class="collision" type="capsule" fromto="-4.2922258059644536e-05 1.5882317369508354e-05 -0.028445341150471152 -0.04457220874017806 0.076039040041849471 -0.028445342008158667" size="0.0295" contype="6" conaffinity="5" />
+              <geom name="train_left_hip_armor" class="collision" type="mesh" mesh="mesh_train_left_hip_armor" />
+            </body>
+            <geom name="new_Exact_left_hip_roll" type="mesh" mesh="new_Exact_left_hip_roll" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+            <geom name="train_left_hip_roll" class="collision" type="box" pos="0.0013147224363698922 -0.015577435625249958 -0.029000059908680677" quat="-0.028276781311570909 0.70653987354578951 0.028276677445344279 0.70654246881642524" size="0.03850000073241 0.040629877926871158 0.027844932706837217" />
+          </body>
+          <geom name="new_CAD_Original_left_hip_yaw" type="mesh" mesh="new_CAD_Original_left_hip_yaw" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+          <geom name="new_Anchor_REF_Motor_left_hip_yaw__motor_hip_roll" type="mesh" mesh="new_Anchor_REF_Motor_left_hip_yaw__motor_hip_roll" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+          <geom name="train_left_hip_yaw" class="collision" type="box" pos="-0.00043307337909936113 0.0025999988612878185 0.033500018602040833" quat="-1.2986741186080785e-06 -0.70710678118535364 0.70710678118535619 -1.2986741184943717e-06" size="0.033100003400630497 0.030467995442450151 0.033499999919950341" />
+        </body>
+        <geom name="new_Anchor_REF_Motor_left_hip__motor_hip_yaw" type="mesh" mesh="new_Anchor_REF_Motor_left_hip__motor_hip_yaw" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+      </body>
+      <body name="neck_pitch" pos="0.025071102684279398 0.0291000003814697 0.00010008903954522586" quat="-0.012976792503095318 0.012976792503097655 0.70698769639671477 0.70698769639671222">
+        <joint name="neck_pitch_joint" type="hinge" class="dm4340p" axis="0 0 1" range="-0.45 1.3" ref="-0.26000000000000001" limited="true" />
+        <inertial pos="-0.0000540694111350035 0.0520000136391868 -0.0287362362669519" mass="0.928" fullinertia="0.0028141852106911402 0.00048457149549553403 0.0027362584886472799 5.7656912181228001e-11 1.4595988715933301e-06 -3.90496006997586e-10" />
+        <body name="head_pitch" pos="0.00019157704970488649 0.1051363284147937 -5.1459155494174921e-08" quat="0.67181589201045966 -2.3987822372199645e-07 -1.231624438568626e-06 -0.74071816991391204">
+          <joint name="head_pitch_joint" type="hinge" class="dm4340p" axis="3.90707763905269e-05 -5.43775522457023e-05 -0.999999997758278" range="-1.5374811281089491 0.86251887189105081" pos="0.00271090827561585 0.0306268491183293 -1.55949580050048e-06" ref="-0.24" />
+          <inertial pos="-0.0175175786302144 -0.000356251952111052 -0.0211039133456007" mass="0.062" fullinertia="5.1758065104886998e-05 5.8519011263404502e-05 2.6774963065463801e-05 5.6793889084808701e-07 -8.1969328619595197e-06 -6.7941778152376296e-07" />
+          <body name="head_yaw" pos="-0.040000000000000001 -2.8421709430404002e-17 -0.029499999999999998" quat="0.70710678118654624 5.6378194766508631e-17 0.70710678118654879 -5.637819476650884e-17">
+            <joint name="head_yaw_joint" type="hinge" class="dm4340p" axis="1.92783667835574e-05 0.0409850064227563 0.999159761438015" range="-2 2" pos="2.32382136240748e-07 0.028821593145858 -0.00118224655382131" />
+            <inertial pos="0.000207244894321298 0.0013682978573346 -0.0285728891764977" mass="0.459" fullinertia="0.000220923927386006 0.00021034094005010999 0.00019467130500595199 1.7992619175801899e-07 -5.1120796954673295e-07 5.69777681852459e-07" />
+            <body name="head_roll" pos="1.9767701625824001e-05 0.035000000000000003 -0.029499999999999998" quat="1.0776782059954705e-14 -1.9769607244134062e-14 0.70710678118654879 -0.70710678118654624">
+              <joint name="head_roll_joint" type="hinge" class="dm4340p" axis="0 0 1" range="-0.45000000000000001 0.45000000000000001" limited="true" />
+              <inertial pos="-0.0000869479370437931 0.00609783188461341 -0.00234564003281801" mass="0.829" fullinertia="0.0031552647845114264 0.0035682740230740043 0.001683108716533373 -3.0365716478102662e-07 -9.9404163406954476e-07 -0.0002257236434750743" />
+              <geom name="new_Head_Connector_Repaired" type="mesh" mesh="new_Head_Connector_Repaired" contype="0" conaffinity="0" group="2" rgba="0.125490203499794 0.13725490868091583 0.1568627506494522 1" />
+              <geom name="new_V107_Lower_Shell" type="mesh" mesh="new_V107_Lower_Shell" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+              <geom name="new_V107_Visor" type="mesh" mesh="new_V107_Visor" contype="0" conaffinity="0" group="2" rgba="0.0941176488995552 0.10196078568696976 0.11764705926179886 1" />
+              <geom name="new_V107_Upper_Narrow_Slots" type="mesh" mesh="new_V107_Upper_Narrow_Slots" contype="0" conaffinity="0" group="2" rgba="0.929411768913269 0.42352941632270813 0.08627451211214066 1" />
+              <geom name="train_head_shell" class="collision" type="mesh" mesh="mesh_train_head_shell" />
+              <geom name="self_head_core" class="collision" type="mesh" mesh="mesh_self_head_core" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+            </body>
+            <geom name="new_CAD_Head_Roll_Motor" type="mesh" mesh="new_CAD_Head_Roll_Motor" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+            <geom name="new_CAD_Head_Yaw_Motor" type="mesh" mesh="new_CAD_Head_Yaw_Motor" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" pos="-0.02950000000000013 4.3454644967837128e-17 0.039999999999999862" quat="0.70710678118654624 -1.2349853933780346e-16 -0.70710678118654846 7.2453861614469469e-18" />
+            <geom name="new_CAD_Head_Yaw_Support" type="mesh" mesh="new_CAD_Head_Yaw_Support" contype="0" conaffinity="0" group="2" rgba="0.913725 0.898039 0.862745 1.000000" pos="-0.02950000000000013 4.3454644967837128e-17 0.039999999999999862" quat="0.70710678118654624 -1.2349853933780346e-16 -0.70710678118654846 7.2453861614469469e-18" />
+          </body>
+          <geom name="new_CAD_Head_Pitch_Output" type="mesh" mesh="new_CAD_Head_Pitch_Output" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+          <geom name="new_CAD_Head_Yaw_Output" type="mesh" mesh="new_CAD_Head_Yaw_Output" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" pos="-0.039999999999999973 -2.9643171555103586e-17 -0.029499999999999992" quat="0.70710678118654624 1.2349853933780346e-16 0.70710678118654846 -7.2453861614469469e-18" />
+          <geom name="new_CAD_Head_Pitch_Bracket" type="mesh" mesh="new_CAD_Head_Pitch_Bracket" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" pos="0.10381287138459258 0.0062362575888406761 -1.2845973200045382e-15" quat="0.6855785854008829 5.0077259584538781e-15 4.8857020753540496e-15 0.72799862859741971" />
+        </body>
+        <geom name="new_CAD_Neck_Pitch_Motor_Upper" type="mesh" mesh="new_CAD_Neck_Pitch_Motor_Upper" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+        <geom name="new_Neck_Structure" type="mesh" mesh="new_Neck_Structure" contype="0" conaffinity="0" group="2" rgba="0.913725 0.898039 0.862745 1.000000" />
+        <geom name="train_neck_spine" class="collision" type="capsule" fromto="-8.7507798194972622e-07 -7.1695535833802409e-07 -0.028250215098261804 0.03040774627306465 0.099457454005633106 -0.027250217035430038" size="0.021" />
+      </body>
+      <body name="right_hip" pos="-0.029999707266420698 -0.036999999999999998 -0.070100110195550694" quat="1.29867411857803e-06 -0.70710678118535364 0.70710678118535619 -1.2986741186646302e-06">
+        <inertial pos="-0.0000752462691967963 0.000118867189629555 -0.0258588253160049" mass="0.409" fullinertia="0.00018148629780637699 0.00018051717143339999 0.00016571019866355399 1.02376283351259e-06 -7.54055256757014e-07 1.1911605861814401e-06" />
+        <body name="right_hip_yaw" pos="7.1054273576010005e-18 0 0.002" quat="1 5.2633310470847002e-17 -1.1388289154407101e-16 7.8968856395016008e-33">
+          <joint name="right_hip_yaw_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-0.34999999999999998 1.2" limited="true" />
+          <inertial pos="0.000282800052153476 -0.00000876163984789002 0.0349242715711091" mass="0.4625" fullinertia="0.000245921906869875 0.00021274973377650199 0.00022769672466916099 6.9139869065720405e-07 -4.3240800950848301e-07 -1.07288385122643e-06" />
+          <body name="right_hip_roll" pos="-1.9767761230468799e-05 -0.0289999923706055 0.036999999999999998" quat="0.49999999999999817 0.5 0.5 -0.50000000000000178">
+            <joint name="right_hip_roll_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-1.2 0.20000000000000001" limited="true" />
+            <inertial pos="0.000170596123859511 0.0285528247440874 -0.0245890619943807" mass="0.0915" fullinertia="8.3956217276150394e-05 7.0811369906337098e-05 4.4714799812165302e-05 5.9118837785370304e-07 5.3915592727892399e-07 1.1620706285965099e-05" />
+            <body name="right_hip_pitch" pos="0 0.055 -0.0294999923706055" quat="4.0123780340515658e-14 -4.003753065798042e-14 0.70710678118654879 -0.70710678118654624">
+              <joint name="right_hip_pitch_joint" type="hinge" class="dm4340p" axis="0 0 1" range="-3 2" />
+              <inertial pos="0.0196418153731314 0.0405671332511318 -0.0288166727193262" mass="1.08797" fullinertia="0.0021048461918709667 0.001139331188513985 0.0025707365289647072 -0.0007657921732816533 -1.540713784194325e-06 2.231084206506996e-06" />
+              <body name="right_knee_pitch" pos="0.0445292854309082 0.076023162841796901 3.1405988920596401e-15" quat="1 -2.8506745609077699e-16 9.2451613313733491e-16 -8.2723754141919267e-25">
+                <joint name="right_knee_pitch_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-0.8 1.1" limited="true" />
+                <inertial pos="0.0787743735458052 0.000360811992638816 -0.0287271168019714" mass="0.59275" fullinertia="0.00032364508048384133 0.00058154742628854284 0.00049485902061137269 7.7109123189138479e-06 4.2069204455314122e-05 1.1308001292417864e-06" />
+                <body name="right_ankle_pitch" pos="0.087999999999999995 -3.8146968108776499e-09 -0.058250007629394501" quat="-1.8045189908305338e-16 -1.6155445744325869e-15 -1 1.6155445744325869e-15">
+                  <joint name="right_ankle_pitch_joint" type="hinge" class="dm4340p" axis="0 0 -1" range="-1.3 1.3999999999999999" limited="true" ref="3.7392379020895206e-06" />
+                  <inertial pos="-0.036788886543167559 -0.015217141825735418 -0.02862241782833402" mass="0.189" fullinertia="0.00044928536106447352 0.00023883551575310292 0.00033733792035077866 -9.1975872879632611e-06 -1.4203214921427481e-05 -2.62345701317154e-06" />
+                  <site group="3" name="right_foot" pos="-0.053000 -0.015513 -0.029210" quat="-0.499999 0.499999 -0.500001 0.500001" />
+                  <geom name="new_RightFoot_OriginalMotorAligned" type="mesh" mesh="new_RightFoot_OriginalMotorAligned" contype="0" conaffinity="0" group="2" rgba="0.913725 0.898039 0.862745 1.000000" pos="0 0 0" quat="1 0 0 0" />
+                  <geom name="right_foot_collision" class="collision" type="mesh" mesh="train_right_sole_mesh" priority="1" condim="3" margin=".0001" solref=".01 1" rgba=".9 .3 .1 .65" contype="6" conaffinity="5" />
+                  <geom name="train_right_foot_pad" class="collision" type="box" pos="-0.050675444154417146 -0.015409641529401193 -0.028877909902657678" quat="0.47960443194734309 -0.51959383957847949 0.51959560126743098 -0.47960634052532686" size="0.058143852233886718 0.041363605499267576 0.0060000000000000001" contype="6" conaffinity="5" />
+                  <geom name="train_right_ankle_mount" class="collision" type="box" pos="-0.004775019054165928 -4.7889866928690183e-06 -0.032406516959054429" quat="0.47960443194734309 -0.51959383957847949 0.51959560126743098 -0.47960634052532686" size="0.029999999999999999 0.048318933486938484 0.030035553027501809" />
+                  <geom name="self_right_ankle_core" class="collision" type="capsule" fromto="-0.0028715362738826202 -4.788986692727541e-06 -0.0086637634169657619 -0.0066785018344492353 -4.7889866930104957e-06 -0.056149270501143086" size="0.0245" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+                </body>
+                <geom name="new_Shank_Right_Armor_STEP_Panel_1" type="mesh" mesh="new_Shank_Right_Armor_STEP_Panel_1" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+                <geom name="new_Shank_Right_Armor_STEP_Panel_2" type="mesh" mesh="new_Shank_Right_Armor_STEP_Panel_2" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+                <geom name="new_Exact_right_shank" type="mesh" mesh="new_Exact_right_shank" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+                <geom name="new_Exact_right_side_plate" type="mesh" mesh="new_Exact_right_side_plate" contype="0" conaffinity="0" group="2" rgba="0.800000 0.800000 0.800000 1.000000" />
+                <geom name="new_Anchor_REF_Motor_right_knee_pitch__motor_ankle_pitch" type="mesh" mesh="new_Anchor_REF_Motor_right_knee_pitch__motor_ankle_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+                <geom name="train_right_shank" class="collision" type="capsule" fromto="4.0750799343098061e-05 2.1327789757006843e-05 -0.028845337874440637 0.087966566563007872 -2.1710470825020952e-05 -0.029616141607735551" size="0.0295" contype="6" conaffinity="5" />
+                <geom name="train_right_shank_panel_1" class="collision" type="mesh" mesh="mesh_train_right_shank_panel_1" contype="6" conaffinity="5" />
+                <geom name="train_right_shank_panel_2" class="collision" type="mesh" mesh="mesh_train_right_shank_panel_2" contype="6" conaffinity="5" />
+              </body>
+              <geom name="new_Exact_right_hip_pitch" type="mesh" mesh="new_Exact_right_hip_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Anchor_REF_Motor_right_hip_pitch__motor_hip_pitch" type="mesh" mesh="new_Anchor_REF_Motor_right_hip_pitch__motor_hip_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Anchor_REF_Motor_right_hip_pitch__motor_knee_pitch" type="mesh" mesh="new_Anchor_REF_Motor_right_hip_pitch__motor_knee_pitch" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+              <geom name="new_Hip_Right_Rebuilt_RearPlus3mm" type="mesh" mesh="new_Hip_Right_Rebuilt_RearPlus3mm" contype="0" conaffinity="0" group="2" rgba="0.929412 0.423529 0.086275 1.000000" />
+              <geom name="train_right_thigh" class="collision" type="capsule" fromto="4.1971817614398984e-05 1.8809102976333057e-05 -0.028845336944778675 0.044571260625387084 0.076041966706066499 -0.028845337874437511" size="0.0295" contype="6" conaffinity="5" />
+              <geom name="train_right_hip_armor" class="collision" type="mesh" mesh="mesh_train_right_hip_armor" />
+            </body>
+            <geom name="new_Exact_right_hip_roll" type="mesh" mesh="new_Exact_right_hip_roll" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+            <geom name="train_right_hip_roll" class="collision" type="box" pos="0.0013147243048609166 0.015577435624781229 -0.029000059908680705" quat="0.028276781311568439 0.70653987354578929 -0.02827667744534175 0.70654246881642557" size="0.038500000732409993 0.040629877926871102 0.027844932712701734" />
+          </body>
+          <geom name="new_CAD_Original_right_hip_yaw" type="mesh" mesh="new_CAD_Original_right_hip_yaw" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+          <geom name="new_Anchor_REF_Motor_right_hip_yaw__motor_hip_roll" type="mesh" mesh="new_Anchor_REF_Motor_right_hip_yaw__motor_hip_roll" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+          <geom name="train_right_hip_yaw" class="collision" type="box" pos="0.00043307337909937501 0.0025999988612879082 0.033500018602040833" quat="-1.2986741186957748e-06 -0.70710678118535364 0.70710678118535619 -1.2986741186213203e-06" size="0.0331000034006304 0.030467995442449942 0.033499999919950341" />
+        </body>
+        <geom name="new_Anchor_REF_Motor_right_hip__motor_hip_yaw" type="mesh" mesh="new_Anchor_REF_Motor_right_hip__motor_hip_yaw" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+      </body>
+      <body name="Battery" pos="-0.112233514942756 3.6227636142578499e-17 -0.104600412257425" quat="0.49999908169787999 0.50000091830043158 -0.50000091830043347 -0.49999908169788171">
+        <inertial pos="0.0052661992330512433 0.07008447533362 0.01262330470748755" mass="1.017" fullinertia="0.0024267295625015582 0.0007605864234415243 0.0026210484846328707 2.0727053864906557e-05 -1.4270795623299977e-06 3.6692338146718238e-06" />
+        <geom name="new_Battery_Combined_Solid" type="mesh" mesh="new_Battery_Combined_Solid" contype="0" conaffinity="0" group="2" rgba="0.6823529601097107 0.7254902124404907 0.7411764860153198 1" pos="-3.5131665132459263e-16 0.10459999999999947 -0.11223389916076695" quat="0.49999908169787999 -0.50000091830043158 0.50000091830043347 0.49999908169788165" />
+        <geom name="train_battery" class="collision" type="box" pos="0.0050000008195639481 0.073447975615831926 0.012641213151885516" quat="0.49999908169787999 -0.50000091830043158 0.50000091830043347 0.49999908169788165" size="0.030035000294446959 0.037259997799992547 0.098875004798173877" />
+        <geom name="self_battery_core" class="collision" type="box" pos="0.0050000008195639481 0.073447975615831926 0.012641213151885516" quat="0.49999908169787999 -0.50000091830043158 0.50000091830043347 0.49999908169788165" size="0.028035000294446957 0.035259997799992546 0.096875004798173875" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+      </body>
+      <body name="IMU" pos="-0.029999999999999999 0.0060000000000000001 -0.0026269999999999349" quat="0 0 0 1">
+        <inertial pos="0.014000000484527028 3.4619095118978288e-07 7.1361760778376748e-08" mass="0.03045" fullinertia="8.4667269315400972e-06 4.3588006168372203e-06 1.209476811885862e-05 -3.2179387049020276e-15 5.1521199944750413e-15 8.5596280576743868e-11" />
+        <site name="imu" pos="0 0 0" group="3" size="0.003" quat="1 0 0 0" />
+        <geom name="new_IMU_12mm_Vertical" type="mesh" mesh="new_IMU_12mm_Vertical" contype="0" conaffinity="0" group="2" rgba="0.313725 0.486275 0.411765 1.000000" pos="0 0 0" quat="1 0 0 0" />
+      </body>
+      <body name="power-strip" pos="-0.12486240131923187 0.00020780819220383087 -0.13582056760787889" quat="1 0 0 0">
+        <inertial pos="0 0 0" mass="0.091" fullinertia="5.6094835703082665e-05 2.9811620842909749e-05 8.5868299676149942e-05 1.6150243628732054e-07 -9.9039051175778082e-18 -1.4223209325565555e-20" />
+        <geom name="new_PCB_Original_UNMODIFIED" type="mesh" mesh="new_PCB_Original_UNMODIFIED" contype="0" conaffinity="0" group="2" rgba="0.1411764770746231 0.48235294222831726 0.27450981736183167 1" pos="0.12486240131923187 -0.00020780819220383087 0.13582056760787889" quat="1 0 0 0" />
+      </body>
+      <site name="policy_aligned_imu" pos="0 0 0" quat="1 0 0 0" size=".001" group="5" rgba="0 0 0 0" />
+      <geom name="new_Front_Chest_Armor_STEP" type="mesh" mesh="new_Front_Chest_Armor_STEP" contype="0" conaffinity="0" group="2" rgba="0.9137254953384399 0.8980392217636108 0.8627451062202454 1" />
+      <geom name="new_Side_Armor_Right_Merged_STEP_Body" type="mesh" mesh="new_Side_Armor_Right_Merged_STEP_Body" contype="0" conaffinity="0" group="2" rgba="0.929411768913269 0.42352941632270813 0.08627451211214066 1" />
+      <geom name="new_Side_Armor_Left_Merged_STEP_Body" type="mesh" mesh="new_Side_Armor_Left_Merged_STEP_Body" contype="0" conaffinity="0" group="2" rgba="0.929411768913269 0.42352941632270813 0.08627451211214066 1" />
+      <geom name="new_CAD_Neck_Pitch_Motor_Lower" type="mesh" mesh="new_CAD_Neck_Pitch_Motor_Lower" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" />
+      <geom name="new_PCB_Cover_No_Extension" type="mesh" mesh="new_PCB_Cover_No_Extension" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" pos="0 0 0" quat="1 0 0 0" />
+      <geom name="new_Upper_Cover_Battery_Opening" type="mesh" mesh="new_Upper_Cover_Battery_Opening" contype="0" conaffinity="0" group="2" rgba="0.913725 0.898039 0.862745 1.000000" pos="0 0 0" quat="1 0 0 0" />
+      <geom name="new_Chassis_Motor_Mounts_Flush_Reinforced" type="mesh" mesh="new_Chassis_Motor_Mounts_Flush_Reinforced" contype="0" conaffinity="0" group="2" rgba="0.125490 0.137255 0.156863 1.000000" pos="0 0 0" quat="1 0 0 0" />
+      <body name="control-box" pos="-0.08300000000000006 -0.012519998550414959 -0.027726999999999891" quat="1 0 0 0">
+        <inertial pos="0 0 0" mass="0.152" fullinertia="0.00022451649610900665 7.4099761098495856e-05 0.00015611659620808557 1.647277916609505e-19 1.5655518350743647e-10 -2.9284940739724536e-19" />
+        <geom name="new_power-strip" type="mesh" mesh="new_power-strip" contype="0" conaffinity="0" group="2" rgba=".235294 .568627 .352941 .6" pos="0 0 0" quat="1 0 0 0" />
+      </body>
+      <geom name="train_torso_upper" class="collision" type="box" pos="-0.067475149407982826 0 -0.027044809422728577" quat="1 0 0 0" size="0.095524853095412254 0.071999999999999995 0.052144714630481759" />
+      <geom name="train_torso_rear_lower" class="collision" type="box" pos="-0.11874981751323024 0 -0.089808596371945909" quat="1 0 0 0" size="0.044250184990164844 0.071999999999999995 0.045619072318735548" />
+      <geom name="train_torso_side_left" class="collision" type="box" pos="-0.059044524095952511 0.082467813044786453 -0.02125785406678915" quat="1 0 0 0" size="0.079750002361834049 0.0085321851074695587 0.044534363783895969" />
+      <geom name="train_torso_side_right" class="collision" type="box" pos="-0.059044524095952511 -0.082467813044786453 -0.02125785406678915" quat="1 0 0 0" size="0.079750002361834049 0.0085321851074695587 0.044534363783895969" />
+      <geom name="train_battery_tray" class="collision" type="box" pos="-0.124875 0.001899999618530275 -0.14397709155273436" quat="1 0 0 0" size="0.034125000000000003 0.047899999618530274 0.0089499053955078012" />
+      <geom name="train_upper_cover_crest" class="collision" type="box" pos="-0.11117552185058593 0 0.031086278198242223" quat="1 0 0 0" size="0.077175521850585932 0.081929550170898438 0.0089860382080078072" />
+      <geom name="train_neck_base_motor" class="collision" type="box" pos="0.025071950862184167 0.00084978528320789337 9.9340453743934631e-05" quat="1 0 0 0" size="0.028501482447609305 0.028251586481928825 0.028500961139798164" />
+      <geom name="self_torso_upper" class="collision" type="box" pos="-0.067475149407982826 0 -0.020346156321465969" quat="1 0 0 0" size="0.095524853095412254 0.085000000000000006 0.045446061529219151" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+      <geom name="self_torso_rear_wall" class="collision" type="box" pos="-0.15950000250339508 0 -0.089808596371945909" quat="1 0 0 0" size="0.0035000000000000031 0.045999999999999999 0.045619072318735548" contype="4" conaffinity="4" group="4" rgba=".7 .25 .9 .3" />
+      <geom name="new_IMU_Bridge" type="mesh" mesh="new_IMU_Bridge" contype="0" conaffinity="0" group="2" rgba="0.89803900000000003 0.64313699999999996 0.28235300000000002 1" />
+      <geom name="new_Switch_Housing" type="mesh" mesh="new_Switch_Housing" contype="0" conaffinity="0" group="2" rgba="0.080000000000000002 0.089999999999999997 0.10000000000000001 1" />
+      <geom name="new_Rocker" type="mesh" mesh="new_Rocker" contype="0" conaffinity="0" group="2" rgba="0.12 0.13 0.14999999999999999 1" />
+      <geom name="new_Terminal_1" type="mesh" mesh="new_Terminal_1" contype="0" conaffinity="0" group="2" rgba="0.65000000000000002 0.67000000000000004 0.69999999999999996 1" />
+      <geom name="new_Terminal_2" type="mesh" mesh="new_Terminal_2" contype="0" conaffinity="0" group="2" rgba="0.65000000000000002 0.67000000000000004 0.69999999999999996 1" />
+      <geom name="new_Terminal_3" type="mesh" mesh="new_Terminal_3" contype="0" conaffinity="0" group="2" rgba="0.65000000000000002 0.67000000000000004 0.69999999999999996 1" />
+      <geom name="new_Display_Housing" type="mesh" mesh="new_Display_Housing" contype="0" conaffinity="0" group="2" rgba="0.12 0.13 0.14999999999999999 1" />
+      <geom name="new_Visible_Window" type="mesh" mesh="new_Visible_Window" contype="0" conaffinity="0" group="2" rgba="0.035000000000000003 0.070000000000000007 0.080000000000000002 1" />
+      <geom name="new_Connector_Approximate_1" type="mesh" mesh="new_Connector_Approximate_1" contype="0" conaffinity="0" group="2" rgba="0.90196100000000001 0.91372500000000001 0.85097999999999996 0.55000000000000004" />
+      <geom name="new_Connector_Approximate_2" type="mesh" mesh="new_Connector_Approximate_2" contype="0" conaffinity="0" group="2" rgba="0.90196100000000001 0.91372500000000001 0.85097999999999996 0.55000000000000004" />
+      <geom name="train_rear_display" class="collision" type="box" pos="-0.1734499969482422 0 0.007023000000000057" quat="1 0 0 0" size="0.0092499999999999943 0.03075 0.016750000000000015" />
+    </body>
+  </worldbody>
+  <contact />
+  <actuator>
+    <position class="dm4340p" kp="1" kv="0" name="left_hip_yaw" joint="left_hip_yaw_joint" ctrlrange="-1.2 0.34999999999999998" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="left_hip_roll" joint="left_hip_roll_joint" ctrlrange="-0.12 1.2" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="left_hip_pitch" joint="left_hip_pitch_joint" />
+    <position class="dm4340p" kp="1" kv="0" name="left_knee_pitch" joint="left_knee_pitch_joint" ctrlrange="-1.1 0.8" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="left_ankle_pitch" joint="left_ankle_pitch_joint" ctrlrange="-1.3999999999999999 1.3" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="neck_pitch" joint="neck_pitch_joint" ctrlrange="-0.45 1.3" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="head_pitch" joint="head_pitch_joint" ctrlrange="-161.43521922122144 160.76025696500355" />
+    <position class="dm4340p" kp="1" kv="0" name="head_yaw" joint="head_yaw_joint" />
+    <position class="dm4340p" kp="1" kv="0" name="head_roll" joint="head_roll_joint" ctrlrange="-0.45000000000000001 0.45000000000000001" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="right_hip_yaw" joint="right_hip_yaw_joint" ctrlrange="-0.34999999999999998 1.2" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="right_hip_roll" joint="right_hip_roll_joint" ctrlrange="-1.2 0.20000000000000001" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="right_hip_pitch" joint="right_hip_pitch_joint" />
+    <position class="dm4340p" kp="1" kv="0" name="right_knee_pitch" joint="right_knee_pitch_joint" ctrlrange="-0.8 1.1" ctrllimited="true" />
+    <position class="dm4340p" kp="1" kv="0" name="right_ankle_pitch" joint="right_ankle_pitch_joint" ctrlrange="-1.3 1.3999999999999999" ctrllimited="true" />
+  </actuator>
+  <sensor>
+    <framequat name="orientation" objtype="site" noise="0.001" objname="imu" />
+    <gyro name="angular-velocity" site="imu" noise="0.005" />
+    <gyro name="imu_ang_vel" site="policy_aligned_imu" />
+    <velocimeter name="imu_lin_vel" site="policy_aligned_imu" />
+    <accelerometer name="imu_accel" site="imu" />
+    <subtreeangmom name="root_angmom" body="base_link" />
+  </sensor>
+  <custom>
+    <text name="source_version" data="xduck/1.1.3" />
+    <text name="motor_joint_order" data="left_hip_yaw_joint left_hip_roll_joint left_hip_pitch_joint left_knee_pitch_joint left_ankle_pitch_joint neck_pitch_joint head_pitch_joint head_yaw_joint head_roll_joint right_hip_yaw_joint right_hip_roll_joint right_hip_pitch_joint right_knee_pitch_joint right_ankle_pitch_joint" />
+    <text name="action_semantics" data="absolute joint targets in radians; all 14 axes reverse 1.1.1" />
+    <text name="mechanical_zero_mapping" data="q_new = q_previous - offset; offsets in mechanical_zero_validation.json" />
+  </custom>
+<sensor>
+    <framezaxis name="imu_upvector" objtype="site" objname="policy_aligned_imu" />
+    <contact name="left_foot_contact" geom1="floor" data="force" num="1" reduce="netforce" subtree2="left_ankle_pitch_joint" />
+    <contact name="right_foot_contact" geom1="floor" data="force" num="1" reduce="netforce" subtree2="right_ankle_pitch" />
+    <contact name="left_foot_found" geom1="floor" data="found" num="1" reduce="none" subtree2="left_ankle_pitch_joint" />
+    <contact name="right_foot_found" geom1="floor" data="found" num="1" reduce="none" subtree2="right_ankle_pitch" />
+    <framepos name="left_foot_pos" objtype="site" objname="left_foot" />
+    <framepos name="right_foot_pos" objtype="site" objname="right_foot" />
+    <framelinvel name="left_foot_vel" objtype="site" objname="left_foot" />
+    <framelinvel name="right_foot_vel" objtype="site" objname="right_foot" />
+    <contact name="self_collision_found" subtree1="base_link" subtree2="base_link" data="found" num="1" reduce="none" />
+    <actuatorfrc name="torque_left_hip_yaw" actuator="left_hip_yaw" />
+    <actuatorfrc name="torque_left_hip_roll" actuator="left_hip_roll" />
+    <actuatorfrc name="torque_left_hip_pitch" actuator="left_hip_pitch" />
+    <actuatorfrc name="torque_left_knee" actuator="left_knee_pitch" />
+    <actuatorfrc name="torque_left_ankle" actuator="left_ankle_pitch" />
+    <actuatorfrc name="torque_neck_pitch" actuator="neck_pitch" />
+    <actuatorfrc name="torque_head_pitch" actuator="head_pitch" />
+    <actuatorfrc name="torque_head_yaw" actuator="head_yaw" />
+    <actuatorfrc name="torque_head_roll" actuator="head_roll" />
+    <actuatorfrc name="torque_right_hip_yaw" actuator="right_hip_yaw" />
+    <actuatorfrc name="torque_right_hip_roll" actuator="right_hip_roll" />
+    <actuatorfrc name="torque_right_hip_pitch" actuator="right_hip_pitch" />
+    <actuatorfrc name="torque_right_knee" actuator="right_knee_pitch" />
+    <actuatorfrc name="torque_right_ankle" actuator="right_ankle_pitch" />
+  </sensor>
+<keyframe>
+    <key name="GAIT_REFERENCE" qpos="0 0 0.31345899999999999 1 0 0 0 -0 -0 0.38400000000000001 -0 -0.38400375787343699 -0.26000000000000001 -0.33748112810894915 -0 -0 -0 -0 -0.38400000000000001 -0 0.3840037392379021" ctrl="-0 -0 0.38400000000000001 -0 -0.38400375787343699 -0.26000000000000001 -0.33748112810894915 -0 -0 -0 -0 -0.38400000000000001 -0 0.3840037392379021" />
+  </keyframe>
+<visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0" />
+    <rgba haze="0.15 0.25 0.35 1" />
+    <global azimuth="160" elevation="-20" />
+  </visual>
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
+  </asset>
+  <worldbody>
+    <light pos="0 0 8" dir="0 0 -1" directional="true" />
+    <geom name="floor" size="0 0 0.05" pos="0 0 0" type="plane" material="groundplane" />
+  </worldbody>
+  <keyframe>
+    <key name="HOME" qpos="0 0 0.32322699999999999 1 0 0 0 0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 -0.455003757873437 -0.26000000000000001 -0.27748112810894915 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0.45500373923790211" ctrl="0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 -0.455003757873437 -0.26000000000000001 -0.27748112810894915 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0.45500373923790211" />
+    <key name="MECHANICAL_ZERO" qpos="0 0 0.343227 1 0 0 0 0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 0 0 0 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0" ctrl="0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 0 0 0 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0" />
+    <key name="ASSEMBLY_INITIAL" qpos="0 0 0.32322699999999999 1 0 0 0 0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 -0.455003757873437 -0.26000000000000001 -0.23999999999999999 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0.45500373923790211" ctrl="0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 -0.455003757873437 -0.26000000000000001 -0.23999999999999999 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0.45500373923790211" />
+    <key name="ANKLE_ZERO_CHECK" qpos="0 0 0.343227 1 0 0 0 0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 0 -0.26000000000000001 -0.23999999999999999 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0" ctrl="0 0.080000000000000002 0.39400000000000002 -0.060999999999999999 0 -0.26000000000000001 -0.23999999999999999 0 0 0 -0.080000000000000002 -0.39400000000000002 0.060999999999999999 0" />
+  </keyframe>
+</mujoco>

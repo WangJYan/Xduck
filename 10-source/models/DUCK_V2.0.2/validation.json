@@ -1,0 +1,118 @@
+{
+  "status": "PASS",
+  "mujoco_version": "3.17.0",
+  "mass_kg": 10.29314,
+  "body_count_excluding_world": 21,
+  "hinges": 14,
+  "actuators": 14,
+  "collision_geoms": 37,
+  "training_meshes": 10,
+  "training_mesh_vertices": 636,
+  "visual_geoms": 61,
+  "other_joint_limits_axes_actuators_unchanged": true,
+  "neck_pitch_confirmed_range_rad": [
+    -0.45,
+    1.3
+  ],
+  "assembly_physical_pose_preserved": true,
+  "unchanged_visual_placement_max_error_m": 0.0,
+  "changed_geometry_matches_current_assembly": [
+    {
+      "geom": "new_LeftFoot_OriginalMotor_Clearance",
+      "world_mesh_error_mm": 1.1737166782838857e-05
+    },
+    {
+      "geom": "new_RightFoot_OriginalMotorAligned",
+      "world_mesh_error_mm": 1.1749603732856267e-05
+    },
+    {
+      "geom": "new_PCB_Cover_No_Extension",
+      "world_mesh_error_mm": 9.55275900112573e-06
+    },
+    {
+      "geom": "new_Chassis_Motor_Mounts_Flush_Reinforced",
+      "world_mesh_error_mm": 1.4271737377782265e-05
+    },
+    {
+      "geom": "new_Upper_Cover_Battery_Opening",
+      "world_mesh_error_mm": 1.1099171167335436e-05
+    },
+    {
+      "geom": "new_IMU_12mm_Vertical",
+      "world_mesh_error_mm": 2.445528461973321e-06
+    },
+    {
+      "geom": "new_power-strip",
+      "world_mesh_error_mm": 7.4832144924204284e-06
+    },
+    {
+      "geom": "new_IMU_Bridge",
+      "world_mesh_error_mm": 4.576824455090208e-06
+    },
+    {
+      "geom": "new_Switch_Housing",
+      "world_mesh_error_mm": 9.709602279058858e-06
+    },
+    {
+      "geom": "new_Rocker",
+      "world_mesh_error_mm": 9.266125825649854e-06
+    },
+    {
+      "geom": "new_Terminal_1",
+      "world_mesh_error_mm": 5.015534115085118e-06
+    },
+    {
+      "geom": "new_Terminal_2",
+      "world_mesh_error_mm": 5.344734573752397e-06
+    },
+    {
+      "geom": "new_Terminal_3",
+      "world_mesh_error_mm": 5.876627170981956e-06
+    },
+    {
+      "geom": "new_Display_Housing",
+      "world_mesh_error_mm": 6.443996050378741e-06
+    },
+    {
+      "geom": "new_Visible_Window",
+      "world_mesh_error_mm": 2.816011410191854e-06
+    },
+    {
+      "geom": "new_Connector_Approximate_1",
+      "world_mesh_error_mm": 6.2106636174266125e-06
+    },
+    {
+      "geom": "new_Connector_Approximate_2",
+      "world_mesh_error_mm": 6.202278573128449e-06
+    }
+  ],
+  "imu_frame_right_handed_and_matches_final_user_axis_definition": true,
+  "imu_origin_at_front_centerline_and_mid_thickness": true,
+  "zero_ear_hole_axis_error_mm": {
+    "left": 1.1103639229911613e-07,
+    "right": 1.0744016708961466e-06
+  },
+  "keyframes": {
+    "ASSEMBLY_INITIAL": {
+      "self_penetrations_over_0_1mm": [],
+      "max_floor_penetration_mm": 6.0995228679059516e-06
+    },
+    "ANKLE_ZERO_CHECK": {
+      "self_penetrations_over_0_1mm": [],
+      "max_floor_penetration_mm": 0.0
+    },
+    "MECHANICAL_ZERO": {
+      "self_penetrations_over_0_1mm": [],
+      "max_floor_penetration_mm": 0.0
+    },
+    "HOME": {
+      "self_penetrations_over_0_1mm": [],
+      "max_floor_penetration_mm": 6.0995228679059516e-06
+    },
+    "GAIT_REFERENCE": {
+      "self_penetrations_over_0_1mm": [],
+      "max_floor_penetration_mm": 8.954913501700556
+    }
+  },
+  "source_cad_and_previous_model_unchanged": true
+}

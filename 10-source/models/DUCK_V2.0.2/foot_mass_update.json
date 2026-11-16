@@ -1,0 +1,12 @@
+{
+  "user_request": "Both feet 189 g each",
+  "previous_mass_kg_per_foot": {
+    "left_ankle_pitch_joint": 0.176,
+    "right_ankle_pitch": 0.176
+  },
+  "mass_kg_per_foot": 0.189,
+  "previous_total_mass_kg": 10.26714,
+  "total_mass_kg": 10.29314,
+  "inertia_method": "Unchanged geometry and COM; inertia scales by 189/176 with mass.",
+  "home_zeros_limits_IMU_other_masses_unchanged": true
+}

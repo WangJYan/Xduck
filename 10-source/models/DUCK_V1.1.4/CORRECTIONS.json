@@ -1,0 +1,30 @@
+{
+  "source_zip_sha256": "8d505ef3f3e6afefd72dcba0cbc4ad9486f2ac9e5f88442e5668523841a24cb3",
+  "mass_changes": [
+    {
+      "file": "robot.xml",
+      "body": "left_hip_yaw",
+      "old_kg": 4.625,
+      "new_kg": 0.4625
+    },
+    {
+      "file": "robot.xml",
+      "body": "right_hip_yaw",
+      "old_kg": 4.625,
+      "new_kg": 0.4625
+    },
+    {
+      "file": "isaacsim/scene.xml",
+      "body": "left_hip_yaw",
+      "old_kg": 4.625,
+      "new_kg": 0.4625
+    },
+    {
+      "file": "isaacsim/scene.xml",
+      "body": "right_hip_yaw",
+      "old_kg": 4.625,
+      "new_kg": 0.4625
+    }
+  ],
+  "policy_weights_changed": false
+}

@@ -1,0 +1,8 @@
+{
+  "version": "DUCK_V1.1.4",
+  "description": "修复重量",
+  "submitted_by": "xingchen",
+  "entry": "scene.xml",
+  "source": "mujoco",
+  "isaacsim": "unilab MJCF adapter"
+}

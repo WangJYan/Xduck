@@ -1,0 +1,8 @@
+{
+  "version": "DUCK_V2.0.1",
+  "description": "新模型外观",
+  "submitted_by": "xingchen",
+  "entry": "scene.xml",
+  "source": "mujoco",
+  "isaacsim": "unilab MJCF adapter"
+}
