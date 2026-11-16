@@ -3,7 +3,17 @@
   "original_commit": "7c9a61d06d3d4a243245c00e52df7a4ed8ab319b",
   "destination": "v1/",
   "verified_original_files": 3868,
-  "verification": "Every original tracked blob is identical at v1/<original path>; no original content edits",
+  "verification": "Historical verification at e9d896b: all3868 original blobs were identical after migration. Subsequent user-requested changes are listed below.",
   "v2_walk": "Desktop/v3/P12_flexDR100.onnx;3142PPO",
-  "date": "2026-11-16"
+  "date": "2026-11-16",
+  "subsequent_changes": {
+    "date": "2026-11-16",
+    "version_meaning": {
+      "v1": "第一版XDuck1",
+      "v2": "第二版XDuck2"
+    },
+    "removed_task": "v1/xl330",
+    "removed_tracked_files": 73,
+    "documentation": "Root and version READMEs rewritten for robot product versions"
+  }
 }

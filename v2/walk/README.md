@@ -1,10 +1,10 @@
-# v2行走：2.0.2机体，累计3142更新的柔性模型
+# XDuck2行走：v2.0.2机体，累计3142更新的柔性模型
 
 归档日期：2026-11-16。最终文件与桌面 `v3/P12_flexDR100.onnx` 一致。
 
 ONNX SHA-256：`40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20`。
 
-这是原实际 UniLab/Warp 训练链路的归档，包含源码快照、关键检查点、训练数据和物理资产；没有声称已迁移为本仓库新版UniLab任务，也没有声称已完成真机验收。
+本目录保存第二版XDuck2机器人在v2.0.2机体上的实际UniLab/Warp行走训练记录，包含源码快照、关键检查点、训练数据和物理资产。该任务尚未完成UniLab 1.3.1训练接口移植及真机验收。
 
 ## 文件入口
 
@@ -19,7 +19,7 @@ ONNX SHA-256：`40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20
 | 每个文件SHA-256及归档范围 | [PACKAGE_MANIFEST.json](PACKAGE_MANIFEST.json) |
 | 档案完整性检查 | `uv run --no-project python tools/verify_archive.py` |
 
-报告沿用用户的“v1柔性行走”内部称呼；本仓库按用户本次要求将其归入 `v2/walk/`，两者是同一个3142更新模型。HTML下载后用浏览器打开可观看相对路径视频；GitHub网页不直接渲染HTML。
+报告沿用用户的“v1柔性行走”内部称呼；本仓库按第二版XDuck2机器人将其归入 `v2/walk/`，两者是同一个3142更新模型。HTML下载后用浏览器打开可观看相对路径视频；GitHub网页不直接渲染HTML。
 
 ## 选用训练血缘
 
@@ -55,7 +55,7 @@ gzip -dc archives/effective_training.mjb.gz > restored/flex/physics/effective_tr
 tar -xzf archives/rigid_lineage_checkpoints_and_sources.tar.gz -C restored/rigid
 ```
 
-这是**训练现场快照**，保留原 `/home/xingchen/...` 路径以便审计。任意新路径恢复后，需要修正配置、脚本、XML中指向原工作区的绝对路径，并准备对应依赖；不能把解压成功当作已验证一键复训。最终continuation快照含该阶段完整project源码；刚性早期部分保存阶段脚本/owner而非每阶段重复完整工程。部分早期运行/依赖还需参考原工作区或v1历史归档。报告包自身的“未包含checkpoint/网格”范围仅针对 `training_report/`，本目录额外的三份archives补充了这些材料。
+这是**训练现场快照**，保留原 `/home/xingchen/...` 路径以便审计。任意新路径恢复后，需要修正配置、脚本、XML中指向原工作区的绝对路径，并准备对应依赖；不能把解压成功当作已验证一键复训。最终continuation快照含该阶段完整project源码；刚性早期部分保存阶段脚本/owner而非每阶段重复完整工程。部分早期运行/依赖还需参考原工作区或XDuck1相关运行环境记录。报告包自身的“未包含checkpoint/网格”范围仅针对 `training_report/`，本目录额外的三份archives补充了这些材料。
 
 原训练机分支：
 
@@ -63,7 +63,7 @@ tar -xzf archives/rigid_lineage_checkpoints_and_sources.tar.gz -C restored/rigid
 - `xduck_2_0_2_v201route_step10_fromP07_20261109`：继承P07，按10cm目标重训P09～P12。
 - `xduck_2_0_2_P12_flexDR100_20261114`：P12之后新增100次柔性续训。
 
-归档内旧route_plan的路径/历史checkpoint说明有遗留值；实际选用记录以 `REMOTE_TRAINING_EVIDENCE.json`、checkpoint元数据、各阶段完成记录和文件SHA为准，不按模板里的旧2.0.1路径或P13计划推断本模型血缘。
+归档内route_plan的路径和历史checkpoint说明有遗留值；实际选用记录以 `REMOTE_TRAINING_EVIDENCE.json`、checkpoint元数据、各阶段完成记录和文件SHA为准，不按模板里的2.0.1路径或P13计划推断本模型血缘。
 
 ## 结果与限制
 
