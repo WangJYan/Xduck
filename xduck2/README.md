@@ -1,12 +1,35 @@
-# Xduck 2 策略版本记录
+# Xduck 2｜Sim-to-Real 策略迭代
 
-这里按桌面目录归档 v1 和 v2，保留各自的原始文件名。说明依据文件及脚本内容；仅凭这两个目录无法还原完整训练过程或证明性能变化。
+本目录按桌面提供的文件保存 Xduck 2 的 **v1、v2** 策略。v1 包含行走、站立恢复和坐下／起立相关文件；v2 保存一个 P12 flexDR100 模型候选。
 
-| 版本 | 内容与变化 |
+## 版本记录
+
+### [v1](v1/)：行走、站立与坐起
+
+| 文件 | 作用 |
 | --- | --- |
-| [v1](v1/) | 包含 `xc_walk.onnx`、`xc_standing.onnx`、`xc_site.onnx` 以及行走/站立和坐下/起立的 API-v2 脚本。行走/站立脚本标注适用于 v2.0.2 P12 Walk 与 Stand/recovery；坐下/起立脚本标注使用当前关节速度反馈。 |
-| [v2](v2/) | 提供单独的 `P12_flexDR100.onnx`，文件名表明是 P12 的 flexDR100 变体。本目录没有配套脚本或训练记录，具体与 v1 的训练继承关系和效果差异尚无法从归档确认。 |
+| `xc_walk.onnx` | 行走模型。 |
+| `xc_standing.onnx` | 站立／恢复模型。 |
+| `xc_walk_stand.py` | 行走与站立共用的 API-v2 策略接口；脚本标注适用于 v2.0.2 P12 Walk 与 Stand／recovery。 |
+| `xc_site.onnx` | 坐下／起立相关模型。 |
+| `xc_site.py` | 坐下／起立接口；脚本标注使用当前关节速度反馈，并在模式切换时保留状态。 |
 
-## 使用时核对
+### [v2](v2/)：P12 flexDR100 候选
 
-v1 的 `xc_site.py` 内嵌配置记录的模型名为 `xduck_v202_descent600.onnx`，记录的 ONNX SHA-256 为 `54f2feee7aac0e527f7bc23146e56c074aada6de8d331acdb3e7b04c8c41cf2b`；目录中 `xc_site.onnx` 的 SHA-256 为 `b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2`，两者不一致。请先确认实际模型及脚本配对，不能仅凭名称假定兼容。v2 没有独立配套接口，部署前也需核对观测、动作、关节顺序及控制配置。
+目录包含 `P12_flexDR100.onnx`。文件名标识其为 P12 的 flexDR100 变体；本次归档没有配套接口、训练配置或评估记录，因此无法确认它与 v1 的训练继承关系或效果差异。
+
+## 模型与接口配对
+
+`v1/xc_site.py` 内嵌配置记录的模型为 `xduck_v202_descent600.onnx`，记录的 SHA-256 为：
+
+```text
+54f2feee7aac0e527f7bc23146e56c074aada6de8d331acdb3e7b04c8c41cf2b
+```
+
+归档的 `v1/xc_site.onnx` 的 SHA-256 为：
+
+```text
+b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2
+```
+
+两者不一致，请先确认模型和脚本的实际配对。v2 也需要先找到对应的部署接口和配置，再核对观测与动作维度、关节顺序、IMU 坐标及控制周期。Python 策略接口由部署框架调用，不能单独替代机器人驱动。
