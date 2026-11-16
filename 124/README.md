@@ -2,7 +2,7 @@
 
 设备：`rk3566-3`；SoC：`cd291a37700858c3`；STM32 USB 序列号：`385733633134`。
 
-- `rk3566/microduck/`：从该设备只读取得的完整 Rust workspace。
+- `rk3566/xduck/`：从该设备只读取得的完整 Rust workspace。
 - `stm32/stm32-h7-dm/`：对应 STM32 工程。
 
 STM32 来自本地当前工程，与 2026-11-16 DM 峰值版本构建清单 1,093 项全部匹配。该设备为 5+5、DM-J10422P-2EC，构建时必须使用 `H7DM_RIDER_5X5=ON` 和 `H7DM_DM_J10422P=ON`；RK3566 使用 `robotd/rider-5x5` 与 `mediad/rider-5x5` 特性。电机调试验收门禁仍保留，不能只凭源码归档视为已完成运动验收。

@@ -1,0 +1,19 @@
+{
+  "device": "121",
+  "hostname": "rk3566-1",
+  "source_kind": "read-only device source mirror",
+  "source_path": "/home/xduck1/xrange/10-source/rk3566",
+  "archived_on": "2026-11-16",
+  "verification": "Original device download hashes preserved in DEVICE-SOURCE-SHA256SUMS.",
+  "repository_layout_update": {
+    "date": "2026-11-16",
+    "workspace_path": "121/rk3566/xduck",
+    "changes": [
+      "Renamed imported workspace directory from microduck to xduck",
+      "Replaced upstream README with device-specific xduck introduction"
+    ],
+    "original_download_manifest": "DEVICE-SOURCE-SHA256SUMS",
+    "current_repository_manifest": "SOURCE-SHA256SUMS",
+    "release_source_comparison_scope": "Import-time snapshot, before the README and directory-name update; historical source paths and release manifests are preserved."
+  }
+}

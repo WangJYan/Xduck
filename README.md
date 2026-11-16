@@ -1,4 +1,4 @@
-# Xduck
+# xduck
 
 **基于 RK3566 与 STM32 H7 的机器人控制软件，按设备保存上位机程序与下位机固件。**
 
@@ -14,10 +14,10 @@
 
 | 设备 | 平台与配置 | 主要区别 | 源码入口 |
 | --- | --- | --- | --- |
-| **121** | **xduck1**，14 电机 GF/I2RT 配置 | 基础设备版本，包含控制、策略、网页与媒体相关模块 | [RK3566](121/rk3566/microduck/) · [STM32](121/stm32/stm32-h7-dm/) |
-| **122** | **xduck2**，14 电机 GF/I2RT 配置 | 独立蓝牙屏、IMU 安装方向适配，以及 CPU 隔离、CPU/DDR 性能与策略超时诊断相关改动 | [设备说明](122/README.md) · [RK3566](122/rk3566/microduck/) · [STM32](122/stm32/stm32-h7-dm/) |
-| **124** | Rider，10 电机 DM-J10422P-2EC 配置 | CAN1 ID 1–5、CAN2 ID 6–10；5+5 关节布局、Rider 网页、单个 SuperMimic 策略槽 | [设备说明](124/README.md) · [RK3566](124/rk3566/microduck/) · [STM32](124/stm32/stm32-h7-dm/) |
-| **125** | Rider Mini，12 电机配置 | CAN1 奇数 ID／右侧、CAN2 偶数 ID／左侧；独立 Yesense USB IMU，网页以 HTTP-only 模式运行 | [设备说明](125/README.md) · [适配记录](125/RIDER_MINI_PORT.md) · [RK3566](125/rk3566/microduck/) · [STM32](125/stm32/stm32-h7-dm/) |
+| **121** | **xduck1**，14 电机 GF/I2RT 配置 | 基础设备版本，包含控制、策略、网页与媒体相关模块 | [RK3566](121/rk3566/xduck/) · [STM32](121/stm32/stm32-h7-dm/) |
+| **122** | **xduck2**，14 电机 GF/I2RT 配置 | 独立蓝牙屏、IMU 安装方向适配，以及 CPU 隔离、CPU/DDR 性能与策略超时诊断相关改动 | [设备说明](122/README.md) · [RK3566](122/rk3566/xduck/) · [STM32](122/stm32/stm32-h7-dm/) |
+| **124** | Rider，10 电机 DM-J10422P-2EC 配置 | CAN1 ID 1–5、CAN2 ID 6–10；5+5 关节布局、Rider 网页、单个 SuperMimic 策略槽 | [设备说明](124/README.md) · [RK3566](124/rk3566/xduck/) · [STM32](124/stm32/stm32-h7-dm/) |
+| **125** | Rider Mini，12 电机配置 | CAN1 奇数 ID／右侧、CAN2 偶数 ID／左侧；独立 Yesense USB IMU，网页以 HTTP-only 模式运行 | [设备说明](125/README.md) · [适配记录](125/RIDER_MINI_PORT.md) · [RK3566](125/rk3566/xduck/) · [STM32](125/stm32/stm32-h7-dm/) |
 
 四台设备共享部分软件架构，但电机数量、路由、IMU、策略接口和构建参数存在差异。开发和构建时，请从目标设备自己的目录进入。
 
@@ -28,7 +28,7 @@ Xduck/
 ├── README.md
 ├── 121/                         # xduck1 基础设备
 │   ├── rk3566/
-│   │   ├── microduck/           # 完整 Rust workspace、网页、脚本和设计文档
+│   │   ├── xduck/               # 完整 Rust workspace、网页、脚本和设计文档
 │   │   ├── SOURCE-SHA256SUMS    # 归档源码校验清单
 │   │   └── ...
 │   └── stm32/
@@ -101,11 +101,11 @@ cd Xduck/122
 
 | 想了解的内容 | 从所选设备目录进入 |
 | --- | --- |
-| 上位机工程与依赖 | `rk3566/microduck/Cargo.toml` |
-| 系统架构与服务设计 | `rk3566/microduck/docs/design/` |
-| 网页界面 | `rk3566/microduck/mediad/webclient/` |
-| 控制服务与策略实现 | `rk3566/microduck/robotd/` |
-| 上下位机通信与传感器适配 | `rk3566/microduck/duck-control/` |
+| 上位机工程与依赖 | `rk3566/xduck/Cargo.toml` |
+| 系统架构与服务设计 | `rk3566/xduck/docs/design/` |
+| 网页界面 | `rk3566/xduck/mediad/webclient/` |
+| 控制服务与策略实现 | `rk3566/xduck/robotd/` |
+| 上下位机通信与传感器适配 | `rk3566/xduck/duck-control/` |
 | 下位机应用 | `stm32/stm32-h7-dm/CtrBoard-H7_ALL/App/` |
 | 下位机构建入口 | `stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt` |
 
@@ -124,7 +124,7 @@ cd Xduck/122
 
 ## 源码来源与校验
 
-四台设备的 RK3566 源码均从各自设备只读取得，归档后与设备逐文件核对 SHA256。STM32 源码按已有烧录记录、本地工程和构建清单分别恢复或整理。
+四台设备的 RK3566 源码均从各自设备只读取得，导入时与设备逐文件核对 SHA256。STM32 源码按已有烧录记录、本地工程和构建清单分别恢复或整理。
 
 | 设备 | STM32 源码来源 | 已有核对依据 |
 | --- | --- | --- |
@@ -133,7 +133,9 @@ cd Xduck/122
 | 124 | 本地 DM 峰值版本工程 | 固件构建清单 **1,093** 项全部匹配；[来源记录](124/stm32/PROVENANCE.json) |
 | 125 | Rider Mini 工作区 | 保留适配记录，并对复制后的文件计算快照哈希；[来源记录](125/stm32/PROVENANCE.json) |
 
-122、124 的 RK3566 源码还与已安装版本的源码清单进行了比对，除主动排除的 `deploy/dev-key/` 两个文件外全部一致。121、125 缺少完整的已安装版本源码清单；122、125 的 STM32 也缺少完整历史源码哈希清单。这些目录保存了可追溯的源码快照，尚不能据此保证运行二进制可逐字节重现。
+导入时，122、124 的 RK3566 源码还与已安装版本的源码清单进行了比对，除主动排除的 `deploy/dev-key/` 两个文件外全部一致。121、125 缺少完整的已安装版本源码清单；122、125 的 STM32 也缺少完整历史源码哈希清单。这些目录保存了可追溯的源码快照，尚不能据此保证运行二进制可逐字节重现。
+
+RK3566 工程目录现统一命名为 `xduck/`，其 README 使用本项目的设备介绍。`SOURCE-SHA256SUMS` 对应当前仓库源码；RK3566 的 `DEVICE-SOURCE-SHA256SUMS` 和已有发布清单保留导入时的历史路径与哈希，来源记录注明了重命名及 README 更新。
 
 在仓库根目录校验某个源码目录，例如 122 的 STM32：
 
@@ -150,4 +152,4 @@ sha256sum -c SOURCE-SHA256SUMS       # Linux
 - 在对应设备目录维护代码，同一设备的 RK3566 与 STM32 协议、关节映射和配置需配套更新。
 - 更新设备快照时，同时维护来源说明、构建参数和源码校验清单。
 - 构建缓存、运行数据、设备私钥和个人凭据不提交到源码目录。
-- 遵循各模块与第三方依赖的许可证声明；RK3566 workspace 的许可证见各自 `microduck/LICENSE`。
+- 遵循各模块与第三方依赖的许可证声明；RK3566 workspace 的许可证见各自 `xduck/LICENSE`。
