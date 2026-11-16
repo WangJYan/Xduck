@@ -1,0 +1,390 @@
+//! The page, served by the daemon it drives.
+//!
+//! One route, one file, no build step. `http://<robot>:8080/` and there is nothing else to run —
+//! which is the whole of it, and `webrtc-console.md` §1 is why it is worth a dependency and a
+//! second port.
+//!
+//! **It deletes four problems rather than one.** No `python3 -m http.server`, so the instruction is
+//! an address rather than two commands. No URL to type, because a page served by the robot knows
+//! which robot it came from and derives its signalling target from `location.hostname`. Chrome's
+//! Private Network Access check stops applying, because that check is on requests from a *public or
+//! opaque* origin to a private address — and a page served from `192.168.x` has a private one, so
+//! the failure that made `file://` unusable cannot happen. And page and binary ship together, so a
+//! client from a checkout can no longer be pointed at a robot from a release.
+//!
+//! ## The port and the API version are filled in here, not carried by the page
+//!
+//! [`page`] substitutes both into the embedded page once, at startup. That is what makes `--port`
+//! safe to change: nothing holds a second copy of it. The *host* is the browser's to fill —
+//! `location.hostname`, which is the robot that served the page — so this is one number and not a
+//! URL.
+//!
+//! The API version is the same idea applied to the skew banner. A page cannot compare versions
+//! without knowing which one it speaks, and a literal in the page would be the second copy of
+//! [`proto::API_VERSION`] — wrong on the day it is bumped, and wrong in the direction that reports
+//! agreement. Substituted, a page served by a robot is a page that speaks that robot's release, and
+//! the banner it shows is about a *checkout* page pointed at a robot, which is the case it exists
+//! for.
+//!
+//! A page opened straight from the source tree keeps the token, reads it as `NaN`, and falls back to
+//! `webrtcsink`'s own 8443. It also then knows it was *not* served by a robot, which is what lets it
+//! tell "wrong host" apart from "the robot served me but its signalling port did not answer" — the
+//! one failure two ports can produce, and §1.3's requirement that it reach a person as a diagnosis.
+//!
+//! ## Portable, unlike [`crate::pipeline`]
+//!
+//! Nothing here touches GStreamer, so it compiles and its tests run on a laptop. The substitution is
+//! the part worth a test: a page served with the token still in it would connect to the wrong port
+//! and say nothing about why.
+
+use std::collections::HashMap;
+use std::net::{IpAddr, SocketAddr};
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant};
+
+use anyhow::{Context, Result};
+use axum::extract::{ConnectInfo, State};
+use axum::response::{Html, Json};
+use axum::routing::{get, post};
+use axum::Router;
+use duck_ipc_proto as proto;
+use serde_json::json;
+
+/// The page as it sits in the source tree.
+///
+/// `include_str!` rather than a file read at request time, and that is a decision: installing it
+/// under `current/webclient/` would cost an `--include` line in three places that already drift
+/// (`_build-release.yml`, `dev.yml`, `scripts/dev-push.sh`), put a filesystem read behind a network
+/// request in a unit running `ProtectSystem=strict`, and make "which page is this robot serving" a
+/// question with two answers. The cost is a rebuild to change a stylesheet, which is the right trade
+/// for a page that is part of the daemon's interface.
+const PAGE: &str = include_str!("../webclient/index.html");
+
+/// Where the page carries its signalling port until this module fills one in.
+const PORT_TOKEN: &str = "{{SIGNALLING_PORT}}";
+
+/// Where it carries the API version this release speaks.
+const API_TOKEN: &str = "{{API_VERSION}}";
+const HTTP_ONLY_TOKEN: &str = "{{HTTP_ONLY}}";
+
+/// An 8 KiB model chunk is hex encoded by the console, so its payload alone is 16 KiB. Leave room
+/// for the JSON-RPC envelope while staying below robotd's 64 KiB line limit.
+const CONTROL_BODY_LIMIT: usize = 32 * 1024;
+
+/// A browser is considered connected while it renews this lease. The browser sends the lease only
+/// after its HTTP-control or WebRTC connection is ready, so merely opening the page is not enough.
+const CLIENT_PRESENCE_TTL: Duration = Duration::from_secs(15);
+
+/// The active console clients, keyed by their page instance and source IP.
+#[derive(Clone, Default)]
+pub struct ConnectedClients(Arc<Mutex<HashMap<(IpAddr, String), Instant>>>);
+
+impl ConnectedClients {
+    fn update(&self, ip: IpAddr, client_id: String, connected: bool) {
+        let mut clients = self.0.lock().unwrap_or_else(|error| error.into_inner());
+        if connected {
+            clients.insert((ip, client_id), Instant::now());
+        } else {
+            clients.remove(&(ip, client_id));
+        }
+    }
+
+    fn ips(&self) -> Vec<String> {
+        let now = Instant::now();
+        let mut clients = self.0.lock().unwrap_or_else(|error| error.into_inner());
+        clients.retain(|_, last_seen| now.duration_since(*last_seen) <= CLIENT_PRESENCE_TTL);
+        let mut ips: Vec<_> = clients.keys().map(|(ip, _)| ip.to_string()).collect();
+        ips.sort();
+        ips.dedup();
+        ips
+    }
+}
+
+/// The page, with the signalling port and the API version filled in.
+pub fn page(signalling_port: u32) -> String {
+    PAGE.replace(PORT_TOKEN, &signalling_port.to_string())
+        .replace(API_TOKEN, &proto::API_VERSION.to_string())
+        .replace(HTTP_ONLY_TOKEN, "false")
+}
+
+pub fn page_http_only(signalling_port: u32) -> String {
+    PAGE.replace(PORT_TOKEN, &signalling_port.to_string())
+        .replace(API_TOKEN, &proto::API_VERSION.to_string())
+        .replace(HTTP_ONLY_TOKEN, "true")
+}
+
+/// Serve `page` on `host:port` until the process ends.
+///
+/// Returns only on failure — a bind that was refused, or a listener that died. The caller decides
+/// what that costs; in `mediad` it costs the page and not the video, because a robot that streams
+/// and answers control calls with no console is a great deal better than one that does neither.
+pub async fn serve(host: &str, port: u16, page: String, clients: ConnectedClients) -> Result<()> {
+    let address: SocketAddr = format!("{host}:{port}")
+        .parse()
+        .with_context(|| format!("{host}:{port} is not an address to listen on"))?;
+    let listener = tokio::net::TcpListener::bind(address)
+        .await
+        .with_context(|| format!("could not listen on {address}"))?;
+
+    tracing::info!(%address, "serving the console");
+    axum::serve(
+        listener,
+        router(page, clients).into_make_service_with_connect_info::<SocketAddr>(),
+    )
+        .await
+        .context("the console's listener stopped")
+}
+
+/// Record whether the page's control/video connection is alive, using the HTTP source IP.
+async fn client_presence(
+    ConnectInfo(address): ConnectInfo<SocketAddr>,
+    State(clients): State<ConnectedClients>,
+    Json(presence): Json<serde_json::Value>,
+) -> Json<serde_json::Value> {
+    let client_id = presence
+        .get("client_id")
+        .and_then(serde_json::Value::as_str)
+        .unwrap_or_default();
+    let connected = presence
+        .get("connected")
+        .and_then(serde_json::Value::as_bool)
+        .unwrap_or(false);
+    if !client_id.is_empty() && client_id.len() <= 128 {
+        clients.update(address.ip(), client_id.to_owned(), connected);
+    }
+    Json(json!({"clients": clients.ips()}))
+}
+
+/// One route, returning `page`.
+fn router(page: String, clients: ConnectedClients) -> Router {
+    Router::new()
+        .route("/", get(move || std::future::ready(Html(page))))
+        .route("/api/client-presence", post(client_presence))
+        .route(
+            "/api/connected-clients",
+            get(|State(clients): State<ConnectedClients>| async move {
+                Json(json!({"clients": clients.ips()}))
+            }),
+        )
+        .route("/api/control", post(crate::control_http::call))
+        .route("/api/motor-experiment/capabilities", get(crate::experiment_tasks_http::capabilities))
+        .route("/api/motor-experiment/tasks", get(crate::experiment_tasks_http::list))
+        .route("/api/motor-experiment/tasks/upload", post(crate::experiment_tasks_http::upload))
+        .route("/api/motor-experiment/tasks/{id}", get(crate::experiment_tasks_http::status))
+        .route("/api/motor-experiment/tasks/{id}/start", post(crate::experiment_tasks_http::start))
+        .route("/api/motor-experiment/tasks/{id}/stop", post(crate::experiment_tasks_http::stop))
+        .route("/api/motor-experiment/tasks/{id}/result", get(crate::experiment_tasks_http::download))
+        .route("/api/motor-experiment/tasks/{id}/acknowledge", post(crate::experiment_tasks_http::acknowledge))
+        .route("/api/policy-experiment/capabilities", get(crate::policy_experiment_http::capabilities))
+        .route("/api/policy-experiment/sessions", get(crate::policy_experiment_http::list).post(crate::policy_experiment_http::configure))
+        .route("/api/policy-experiment/sessions/{id}", get(crate::policy_experiment_http::status))
+        .route("/api/policy-experiment/sessions/{id}/initialize", post(crate::policy_experiment_http::initialize))
+        .route("/api/policy-experiment/sessions/{id}/start", post(crate::policy_experiment_http::start))
+        .route("/api/policy-experiment/sessions/{id}/stop", post(crate::policy_experiment_http::stop))
+        .route("/api/policy-experiment/sessions/{id}/result", get(crate::policy_experiment_http::download))
+        .route("/api/policy-experiment/sessions/{id}/acknowledge", post(crate::policy_experiment_http::acknowledge))
+        .route("/api/logs", get(crate::journal_http::download))
+        .route("/motor-experiment.md", get(|| async { ([("content-type","text/plain; charset=utf-8")], include_str!("../webclient/motor-experiment/motor-experiment.md")) }))
+        .route("/motor_experiment.py", get(|| async { ([("content-type","text/x-python; charset=utf-8"),("content-disposition","attachment; filename=motor_experiment.py")], include_str!("../webclient/motor-experiment/motor_experiment.py")) }))
+        .route("/policy-experiment.md", get(|| async { ([("content-type","text/plain; charset=utf-8")], include_str!("../webclient/policy-experiment/policy-experiment.md")) }))
+        .route("/policy_experiment.py", get(|| async { ([("content-type","text/x-python; charset=utf-8"),("content-disposition","attachment; filename=policy_experiment.py")], include_str!("../webclient/policy-experiment/policy_experiment.py")) }))
+        .route("/policy-experiment-example.json", get(|| async { ([("content-type","application/json"),("content-disposition","attachment; filename=policy-experiment-example.json")], include_str!("../webclient/policy-experiment/example.json")) }))
+        .layer(axum::extract::DefaultBodyLimit::max(CONTROL_BODY_LIMIT))
+        .with_state(clients)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The whole of what this module does to the page.
+    #[test]
+    fn both_tokens_are_filled_in() {
+        let served = page(8443);
+        assert!(
+            !served.contains(PORT_TOKEN),
+            "the page went out with its port token still in it"
+        );
+        assert!(
+            !served.contains(API_TOKEN),
+            "the page went out with its API version token still in it"
+        );
+        assert!(!served.contains(HTTP_ONLY_TOKEN));
+        assert!(served.contains("8443"));
+        assert!(served.contains(&proto::API_VERSION.to_string()));
+    }
+
+    #[test]
+    fn http_only_page_disables_video_transport() {
+        let served = page_http_only(8443);
+        assert!(served.contains("const HTTP_ONLY = \"true\" === \"true\""));
+        assert!(!served.contains(HTTP_ONLY_TOKEN));
+    }
+
+    /// The banner exists to catch a page from a checkout against a robot from a release, so the
+    /// version it compares against has to be this release's rather than a literal in the page.
+    #[test]
+    fn the_page_carries_the_api_token_this_module_replaces() {
+        assert!(
+            PAGE.contains(API_TOKEN),
+            "the page has no {API_TOKEN} for the API version"
+        );
+    }
+
+    /// A non-default `--port` reaches the page, which is the reason the substitution exists at all:
+    /// a page carrying a constant would still be dialling 8443.
+    #[test]
+    fn a_moved_port_reaches_the_page() {
+        assert!(page(9000).contains("9000"));
+    }
+
+    /// The route, end to end, over a real socket: a `GET /` answers 200 with the page. Cheap, and
+    /// it is the whole of what a browser does — the alternative is discovering on a board that the
+    /// one route is mounted somewhere a browser does not ask.
+    #[tokio::test]
+    async fn the_route_answers_with_the_page() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .expect("a loopback port");
+        let address = listener.local_addr().expect("the port it took");
+        tokio::spawn(async move {
+            let _ = axum::serve(
+                listener,
+                router(page(8443), ConnectedClients::default())
+                    .into_make_service_with_connect_info::<SocketAddr>(),
+            )
+            .await;
+        });
+
+        let mut stream = tokio::net::TcpStream::connect(address)
+            .await
+            .expect("the server is listening");
+        stream
+            .write_all(b"GET / HTTP/1.1\r\nHost: robot\r\nConnection: close\r\n\r\n")
+            .await
+            .expect("wrote the request");
+        let mut answer = String::new();
+        stream
+            .read_to_string(&mut answer)
+            .await
+            .expect("read the answer");
+
+        assert!(
+            answer.starts_with("HTTP/1.1 200"),
+            "the console did not answer 200: {}",
+            answer.lines().next().unwrap_or("nothing at all")
+        );
+        assert!(answer.contains("Rider Mini 机器人控制台"), "that was not the page");
+        assert!(
+            !answer.contains(PORT_TOKEN),
+            "the page went out over the wire with its port token still in it"
+        );
+    }
+
+    #[tokio::test]
+    async fn connected_clients_track_only_live_page_connections() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .expect("a loopback port");
+        let address = listener.local_addr().expect("the port it took");
+        tokio::spawn(async move {
+            let _ = axum::serve(
+                listener,
+                router(page(8443), ConnectedClients::default())
+                    .into_make_service_with_connect_info::<SocketAddr>(),
+            )
+            .await;
+        });
+
+        let mut stream = tokio::net::TcpStream::connect(address)
+            .await
+            .expect("the server is listening");
+        stream
+            .write_all(
+                b"POST /api/client-presence HTTP/1.1\r\nHost: robot\r\nContent-Type: application/json\r\nContent-Length: 37\r\nConnection: close\r\n\r\n{\"client_id\":\"test\",\"connected\":true}",
+            )
+            .await
+            .expect("wrote the request");
+        let mut answer = String::new();
+        stream
+            .read_to_string(&mut answer)
+            .await
+            .expect("read the answer");
+
+        assert!(answer.starts_with("HTTP/1.1 200"), "{answer}");
+        assert!(answer.contains(r#"{"clients":["127.0.0.1"]}"#), "{answer}");
+    }
+
+    /// Model uploads carry 8 KiB as hexadecimal, which is already exactly 16 KiB before the
+    /// JSON-RPC envelope. Keep the HTTP fallback large enough for the same chunk the WebRTC data
+    /// channel accepts. An unknown method makes the request stop locally with structured JSON, so
+    /// this test never reaches a real robotd socket even when it runs on a robot.
+    #[tokio::test]
+    async fn http_control_accepts_a_full_model_chunk_envelope() {
+        use tokio::io::{AsyncReadExt, AsyncWriteExt};
+
+        let listener = tokio::net::TcpListener::bind("127.0.0.1:0")
+            .await
+            .expect("a loopback port");
+        let address = listener.local_addr().expect("the port it took");
+        tokio::spawn(async move {
+            let _ = axum::serve(
+                listener,
+                router(page(8443), ConnectedClients::default())
+                    .into_make_service_with_connect_info::<SocketAddr>(),
+            )
+            .await;
+        });
+
+        let body = serde_json::json!({
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "test.unknown",
+            "params": { "hex": "00".repeat(8192) }
+        })
+        .to_string();
+        assert!(body.len() > 16 * 1024);
+        assert!(body.len() < CONTROL_BODY_LIMIT);
+
+        let request = format!(
+            "POST /api/control HTTP/1.1\r\nHost: robot\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+            body.len(),
+            body
+        );
+        let mut stream = tokio::net::TcpStream::connect(address)
+            .await
+            .expect("the server is listening");
+        stream
+            .write_all(request.as_bytes())
+            .await
+            .expect("wrote the request");
+        let mut answer = String::new();
+        stream
+            .read_to_string(&mut answer)
+            .await
+            .expect("read the answer");
+
+        assert!(
+            answer.starts_with("HTTP/1.1 400"),
+            "the request was rejected before JSON-RPC parsing: {}",
+            answer.lines().next().unwrap_or("nothing at all")
+        );
+        assert!(answer.contains("content-type: application/json"));
+        assert!(!answer.contains("length limit exceeded"));
+    }
+
+    /// The token is in the page, spelled the way this module spells it. Without this, a rename on
+    /// either side leaves a page that silently falls back to 8443 — which works on every robot
+    /// until someone moves the port, and then fails with nothing to read.
+    #[test]
+    fn the_page_carries_the_token_this_module_replaces() {
+        assert!(
+            PAGE.contains(PORT_TOKEN),
+            "the page has no {PORT_TOKEN} for the signalling port"
+        );
+    }
+}

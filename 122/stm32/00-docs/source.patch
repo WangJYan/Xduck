@@ -1,0 +1,70 @@
+diff --git a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/App/Src/imu_task.c b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/App/Src/imu_task.c
+index bced6cb..a692cba 100644
+--- a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/App/Src/imu_task.c
++++ b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/App/Src/imu_task.c
+@@ -19,7 +19,18 @@
+ #define STATIONARY_ACCEL_MIN_G   0.85f
+ #define STATIONARY_ACCEL_MAX_G   1.15f
+ 
+-/* BMI088 sensor axes -> robot body forward/left/up.  The production mounting
++/* BMI088 sensor axes -> robot body forward/left/up. */
++#if H7DM_IMU_MOUNT_Z180
++/* 122 remount (2026-11-11): sensor X -> body -X, Y -> -Y, Z -> +Z.
++ * Apply this proper rotation before both gyro calibration and AHRS fusion. */
++#define BODY_X_SENSOR_AXIS 0U
++#define BODY_Y_SENSOR_AXIS 1U
++#define BODY_Z_SENSOR_AXIS 2U
++#define BODY_X_SENSOR_SIGN -1.0f
++#define BODY_Y_SENSOR_SIGN -1.0f
++#define BODY_Z_SENSOR_SIGN 1.0f
++#else
++/* The original production mounting
+  * was measured on the assembled robot with a six-face gravity test:
+  * body X = +sensor Z, body Y = -sensor Y, body Z = +sensor X. */
+ #define BODY_X_SENSOR_AXIS 2U
+@@ -28,6 +39,7 @@
+ #define BODY_X_SENSOR_SIGN 1.0f
+ #define BODY_Y_SENSOR_SIGN -1.0f
+ #define BODY_Z_SENSOR_SIGN 1.0f
++#endif
+ 
+ static imu_snapshot_t g_snapshot = {
+   {0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, -1.0f}, {1.0f, 0.0f, 0.0f, 0.0f}, 0U, 0U, 0U
+diff --git a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMAKE_BUILD.md b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMAKE_BUILD.md
+index 3dff0d9..0a01978 100644
+--- a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMAKE_BUILD.md
++++ b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMAKE_BUILD.md
+@@ -23,6 +23,13 @@ cmake -S . -B "$STM32_BUILD_DIR" -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi-gcc.
+ cmake --build "$STM32_BUILD_DIR"
+ ```
+ 
++For device 122's 2026-11-11 IMU remount, configure a separate build directory
++with `-DH7DM_IMU_MOUNT_Z180=ON`. This maps body axes to
++`[-sensor X, -sensor Y, +sensor Z]` before gyro bias calibration and attitude
++fusion. Leave this option OFF for the original mounting on other devices.
++After reset, keep the IMU still until calibration completes; verify forward/back
++and left/right tilts before using the motion policy.
++
+ Outputs:
+ 
+ ```text
+diff --git a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt
+index faf0b88..2c1eed8 100644
+--- a/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt
++++ b/10-source/stm32/stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt
+@@ -13,6 +13,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
+ # production robotd's required 14-slot stream. Never enable automatically.
+ option(H7DM_BENCH_ID1_ONLY "Build an isolated CAN1 ID1 commissioning image" OFF)
+ option(H7DM_CAN_CAPTURE "Build debugger-triggered motor command and CAN capture support" ON)
++option(H7DM_IMU_MOUNT_Z180 "IMU mounting: body = [-sensor X, -sensor Y, +sensor Z] (122 remount)" OFF)
+ set(TARGET_NAME CtrBoard-H7_ALL)
+ set(LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/STM32H723VGTX_FLASH.ld)
+ set(DM_OPENOCD_INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/cmake/openocd/dm-cmsis-dap.cfg CACHE FILEPATH "OpenOCD interface configuration for flash and reset")
+@@ -134,6 +135,7 @@ target_compile_definitions(${TARGET_NAME}.elf PRIVATE
+   H7DM_MOTOR_AUTO_ENABLE=0
+   H7DM_BENCH_ID1_ONLY=$<BOOL:${H7DM_BENCH_ID1_ONLY}>
+   H7DM_CAN_CAPTURE=$<BOOL:${H7DM_CAN_CAPTURE}>
++  H7DM_IMU_MOUNT_Z180=$<BOOL:${H7DM_IMU_MOUNT_Z180}>
+   DMUSB_BINARY_PROTOCOL=1
+ )
+ 

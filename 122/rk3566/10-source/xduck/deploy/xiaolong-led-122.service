@@ -1,0 +1,34 @@
+[Unit]
+Description=Xiaolong persistent Bluetooth LED connection owner
+After=bluetooth.service
+Wants=bluetooth.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=linaro
+Group=linaro
+WorkingDirectory=/opt/robot/daemon/current/addons/bluetooth-led
+ExecStart=/home/xduck2/xrange/20-build/xiaolong-voice-led-20261108/bin/python /opt/robot/daemon/current/addons/bluetooth-led/led_manager.py --initial-gif /opt/robot/daemon/current/addons/bluetooth-led/eyes/02-red-hunter-32x16.gif
+Environment=PYTHONUNBUFFERED=1
+RuntimeDirectory=xiaolong-led
+RuntimeDirectoryMode=0750
+StateDirectory=xiaolong-led
+StateDirectoryMode=0700
+Restart=always
+RestartSec=3
+TimeoutStopSec=8
+Nice=10
+AllowedCPUs=0-2
+CPUQuota=20%
+MemoryMax=200M
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadOnlyPaths=/home/xduck2/xrange/10-source /opt/robot /etc/robot
+PrivateTmp=yes
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

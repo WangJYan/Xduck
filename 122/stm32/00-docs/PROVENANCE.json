@@ -1,0 +1,25 @@
+{
+  "source_kind": "Recovered from recorded Git base plus archived build patch",
+  "source_revision": "90b1a189c21703cfb1dd8ed36ccf7c4b0833543e",
+  "patch": "source.patch",
+  "patch_sha256": "70b55ab66acec9bc7222fcd17a3c0dc66df719d4fd2fd4b6ab2a25d072e1b1d0",
+  "build_options": [
+    "CMAKE_BUILD_TYPE=Release",
+    "H7DM_IMU_MOUNT_Z180=ON",
+    "H7DM_CAN_CAPTURE=ON",
+    "H7DM_BENCH_ID1_ONLY=OFF"
+  ],
+  "auto_enable": false,
+  "verification": "Base exported from Git, recorded patch applied cleanly, snapshot SHA256 recorded. No full historical firmware source manifest is available.",
+  "device": "122",
+  "archived_on": "2026-11-16",
+  "stm32_usb_serial": "354C35743333",
+  "partitioned_repository_layout": {
+    "source_directory": "122/stm32/10-source/stm32-h7-dm",
+    "documentation_directory": "122/stm32/00-docs",
+    "source_manifest": "00-docs/SOURCE-SHA256SUMS",
+    "manifest_working_directory": "122/stm32",
+    "layout": "00-docs,10-source,20-build,30-artifacts,40-deploy,50-logs,60-tools,90-temp",
+    "device_runtime_paths_changed": false
+  }
+}
