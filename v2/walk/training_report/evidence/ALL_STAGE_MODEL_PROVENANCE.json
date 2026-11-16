@@ -1,0 +1,358 @@
+[
+  {
+    "stage": "P00",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P00/ppo_run/model_199.pt",
+    "actual_sha256": "05ad691837213a47e4b7405a124fe768230befbb78726b45e0fb2bacff6a2858",
+    "recorded_sha256": "05ad691837213a47e4b7405a124fe768230befbb78726b45e0fb2bacff6a2858",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P00",
+      "mode": "train",
+      "parent_sha256": null,
+      "completed_updates": 200,
+      "cumulative_updates": 200,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 4800,
+      "iteration": 200,
+      "dr_multiplier": 1.0,
+      "air_time_threshold_s": 0.1,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0
+    }
+  },
+  {
+    "stage": "P01",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P01/ppo_run/model_700.pt",
+    "actual_sha256": "f8f951ae42ac3b5f4b463827343790b1941b1d2abb0d1120a2b9744d113199ac",
+    "recorded_sha256": "f8f951ae42ac3b5f4b463827343790b1941b1d2abb0d1120a2b9744d113199ac",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P01",
+      "mode": "train",
+      "parent_sha256": "05ad691837213a47e4b7405a124fe768230befbb78726b45e0fb2bacff6a2858",
+      "completed_updates": 701,
+      "cumulative_updates": 901,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 21624,
+      "iteration": 901,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.45,
+      "cadence_weight": 0.15
+    }
+  },
+  {
+    "stage": "P02",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P02/ppo_run/model_298.pt",
+    "actual_sha256": "f8906d3b12946d0fe18d39391a49c075f9fdecec5c1c02c8cdc9e8812728367e",
+    "recorded_sha256": "f8906d3b12946d0fe18d39391a49c075f9fdecec5c1c02c8cdc9e8812728367e",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P02",
+      "mode": "train",
+      "parent_sha256": "f8f951ae42ac3b5f4b463827343790b1941b1d2abb0d1120a2b9744d113199ac",
+      "completed_updates": 299,
+      "cumulative_updates": 1200,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 28800,
+      "iteration": 1200,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.45,
+      "cadence_weight": 0.15
+    }
+  },
+  {
+    "stage": "P03",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P03/ppo_run/model_29.pt",
+    "actual_sha256": "c770b6dc97c24e901da2b7c8cb7e775a734d8d4314bb6d5bffa85a13bc449306",
+    "recorded_sha256": "c770b6dc97c24e901da2b7c8cb7e775a734d8d4314bb6d5bffa85a13bc449306",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P03",
+      "mode": "train",
+      "parent_sha256": "f8906d3b12946d0fe18d39391a49c075f9fdecec5c1c02c8cdc9e8812728367e",
+      "completed_updates": 30,
+      "cumulative_updates": 1230,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 29520,
+      "iteration": 1230,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.45,
+      "cadence_weight": 0.15
+    }
+  },
+  {
+    "stage": "P05",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P05/ppo_run/model_80.pt",
+    "actual_sha256": "ac82a06824847891b709adfea2a3c570ff27fee11f4a5b655a30fbc9052da9c7",
+    "recorded_sha256": "ac82a06824847891b709adfea2a3c570ff27fee11f4a5b655a30fbc9052da9c7",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P05",
+      "mode": "train",
+      "parent_sha256": "c770b6dc97c24e901da2b7c8cb7e775a734d8d4314bb6d5bffa85a13bc449306",
+      "completed_updates": 81,
+      "cumulative_updates": 1311,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 31464,
+      "iteration": 1311,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0
+    }
+  },
+  {
+    "stage": "P06",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P06/ppo_run/model_150.pt",
+    "actual_sha256": "179c5e57d11b2e42e5d0c1060e4bd4be6cad4fdb85783edcdb961836608f51b9",
+    "recorded_sha256": "179c5e57d11b2e42e5d0c1060e4bd4be6cad4fdb85783edcdb961836608f51b9",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P06",
+      "mode": "train",
+      "parent_sha256": "ac82a06824847891b709adfea2a3c570ff27fee11f4a5b655a30fbc9052da9c7",
+      "completed_updates": 151,
+      "cumulative_updates": 1462,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 35088,
+      "iteration": 1462,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0
+    }
+  },
+  {
+    "stage": "P07",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P07/ppo_run/model_179.pt",
+    "actual_sha256": "b9817154d25d16e65e332927f14d3f9d2146f41d5e2cd969bd1c77af5e058701",
+    "recorded_sha256": "b9817154d25d16e65e332927f14d3f9d2146f41d5e2cd969bd1c77af5e058701",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step13_20261108",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P07",
+      "mode": "train",
+      "parent_sha256": "999d1f3fd9d5dc04a0f1f5a3b1965949985cff66a367110bf6402f77a9801bff",
+      "completed_updates": 180,
+      "cumulative_updates": 1642,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 39408,
+      "iteration": 1642,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0
+    }
+  },
+  {
+    "stage": "P09",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P09/ppo_run/model_399.pt",
+    "actual_sha256": "f0ea708111c199d2141f2a4d3ef4f59639dca94610e8f87fe8eea74e3c09ecc8",
+    "recorded_sha256": "f0ea708111c199d2141f2a4d3ef4f59639dca94610e8f87fe8eea74e3c09ecc8",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step10_fromP07_20261109",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P09",
+      "mode": "train",
+      "parent_sha256": "b9817154d25d16e65e332927f14d3f9d2146f41d5e2cd969bd1c77af5e058701",
+      "completed_updates": 400,
+      "cumulative_updates": 2042,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107"
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 49008,
+      "iteration": 2042,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0,
+      "task": {
+        "mode": "fixed10cm_monotone",
+        "current_goal_m": 0.1,
+        "final_goal_m": 0.1,
+        "no_curriculum_gate": true
+      }
+    }
+  },
+  {
+    "stage": "P10",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P10/ppo_run/model_199.pt",
+    "actual_sha256": "79c2f91e15f13ff36143fc025ea8a5fec7a80abd12b5928d6ef8e49653d0f9e6",
+    "recorded_sha256": "79c2f91e15f13ff36143fc025ea8a5fec7a80abd12b5928d6ef8e49653d0f9e6",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step10_fromP07_20261109",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P10",
+      "mode": "train",
+      "parent_sha256": "f0ea708111c199d2141f2a4d3ef4f59639dca94610e8f87fe8eea74e3c09ecc8",
+      "completed_updates": 200,
+      "cumulative_updates": 2242,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107",
+      "step_target_revision": "v201_route_step10_20261109",
+      "step_goal_m": 0.1
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 53808,
+      "iteration": 2242,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0,
+      "task": {
+        "mode": "balanced_phase",
+        "target_step_m": 0.1,
+        "randomized_start_foot": true,
+        "mirror_mean_at_final": true
+      }
+    }
+  },
+  {
+    "stage": "P11",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P11/ppo_run/model_399.pt",
+    "actual_sha256": "222ad5e2e21c1f27f594cd09c52c266a23d9302c85ee5739d712a2da160ccb82",
+    "recorded_sha256": "222ad5e2e21c1f27f594cd09c52c266a23d9302c85ee5739d712a2da160ccb82",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step10_fromP07_20261109",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P11",
+      "mode": "train",
+      "parent_sha256": "7bc17d9efd20f15bf6b47533199f13c12453e0207bfaa0a131f96acfad2d425c",
+      "completed_updates": 400,
+      "cumulative_updates": 2642,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107",
+      "step_target_revision": "v201_route_step10_20261109",
+      "step_goal_m": 0.1
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 63408,
+      "iteration": 2642,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0,
+      "task": {
+        "mode": "repaired_multimotion",
+        "target_step_m": 0.1,
+        "side_step_m": 0.1,
+        "turn_gait_required": false,
+        "forward_backward_gait_required": true
+      },
+      "local_loss_update": 400
+    }
+  },
+  {
+    "stage": "P12",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P12/ppo_run/model_399.pt",
+    "actual_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+    "recorded_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step10_fromP07_20261109",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P12",
+      "mode": "train",
+      "parent_sha256": "222ad5e2e21c1f27f594cd09c52c266a23d9302c85ee5739d712a2da160ccb82",
+      "completed_updates": 400,
+      "cumulative_updates": 3042,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107",
+      "step_target_revision": "v201_route_step10_20261109",
+      "step_goal_m": 0.1
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 73008,
+      "iteration": 3042,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0,
+      "task": {
+        "mode": "repaired_multimotion",
+        "target_step_m": 0.1,
+        "side_step_m": 0.1,
+        "turn_gait_required": false,
+        "forward_backward_gait_required": true
+      },
+      "local_loss_update": 400
+    }
+  },
+  {
+    "stage": "P13",
+    "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_v201route_step10_fromP07_20261109/runs/P13/ppo_run/model_399.pt",
+    "actual_sha256": "04fa5e1153a4e8472f03bbc33b7be73e07b3139ed196d55eff2a866c06943382",
+    "recorded_sha256": "04fa5e1153a4e8472f03bbc33b7be73e07b3139ed196d55eff2a866c06943382",
+    "checkpoint_lineage": {
+      "branch": "xduck_2_0_2_v201route_step10_fromP07_20261109",
+      "model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+      "stage": "P13",
+      "mode": "train",
+      "parent_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+      "completed_updates": 400,
+      "cumulative_updates": 3442,
+      "step_measurement_revision": "v201_route_contact_measurement_20261108",
+      "body_frame_revision": "v201_route_step13_contact_20261108",
+      "gait_style_revision": "signed_foot_style_v3_20261107",
+      "step_target_revision": "v201_route_step10_20261109",
+      "step_goal_m": 0.1
+    },
+    "completed_curriculum": {
+      "env_steps_per_env": 82608,
+      "iteration": 3442,
+      "dr_multiplier": 2.5,
+      "air_time_threshold_s": 0.22,
+      "reference_weight": 0.0,
+      "cadence_weight": 0.0,
+      "task": {
+        "mode": "repaired_multimotion",
+        "target_step_m": 0.1,
+        "side_step_m": 0.1,
+        "turn_gait_required": false,
+        "forward_backward_gait_required": true
+      },
+      "local_loss_update": 400
+    }
+  }
+]

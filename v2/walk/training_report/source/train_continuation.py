@@ -1,0 +1,34 @@
+import argparse,time,hashlib,inspect,os
+from runtime_helper import *
+from unilab.training.rsl_rl import normalize_ppo_train_cfg,RslRlVecEnvWrapper,attach_checkpoint_progress
+from rsl_rl.runners import OnPolicyRunner
+from mirror_policy import MirrorMLP
+from head_freeze import install_head_zero,assert_head_zero
+ap=argparse.ArgumentParser();ap.add_argument('--smoke',action='store_true');ap.add_argument('--envs',type=int);args=ap.parse_args();initialize();start=time.time();parent_path=B/'inputs/parent_P12_399.pt';parent_sha=hashlib.sha256(parent_path.read_bytes()).hexdigest();assert parent_sha=='90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6';parent=torch.load(parent_path,map_location='cpu',weights_only=False);c=OmegaConf.load(B/'runs/P12/TRAINING_CONFIG.yaml');n=args.envs or (64 if args.smoke else 4096);total=2 if args.smoke else 100
+if args.smoke:c.algo.algorithm.num_mini_batches=4
+e=env(c,n);runner=None;updates=0
+try:
+ e.step_counter=int(parent['infos']['unilab_progress']['env_steps_per_env']);e._update_curriculum();e.set_loss_update(400);wrapped=RslRlVecEnvWrapper(e,device='cuda');tc=normalize_ppo_train_cfg(OmegaConf.to_container(c.algo,resolve=True));E.apply_ppo_runtime_flags(tc,c,training_enabled=True);tc['logger']='none' if args.smoke else 'tensorboard';tc.setdefault('runner',{})['logger']=tc['logger'];runner=OnPolicyRunner(wrapped,tc,log_dir=None if args.smoke else str(B/'runs/P12/ppo_run'),device='cuda');actor=runner.alg.actor;sd=parent['actor_state_dict'];mean=sd['obs_normalizer._mean'];std=sd['obs_normalizer._std'];actor.mlp=MirrorMLP(actor.mlp,mean.to('cuda'),std.to('cuda'),float(sd['mlp.blend']),heading_gain=float(sd['mlp.heading_gain']));actor.load_state_dict(sd,strict=True);runner.alg.critic.load_state_dict(parent['critic_state_dict'],strict=True);install_head_zero(actor,.15);assert_head_zero(actor)
+ for k,v in actor.state_dict().items():assert torch.equal(v.cpu(),sd[k]),('Parent actor changed',k)
+ for k,v in runner.alg.critic.state_dict().items():assert torch.equal(v.cpu(),parent['critic_state_dict'][k]),('Parent critic changed',k)
+ assert len(parent['optimizer_state_dict']['param_groups'])==len(runner.alg.optimizer.param_groups)==1
+ runner.alg.optimizer.load_state_dict(parent['optimizer_state_dict']);runner.alg.learning_rate=float(runner.alg.optimizer.param_groups[0]['lr']);runner.current_learning_iteration=int(parent['iter'])+1;actor.obs_normalizer.eval();normalizer={k:v.clone() for k,v in actor.obs_normalizer.state_dict().items()};original_train_mode=runner.alg.train_mode
+ def frozen_train_mode():original_train_mode();actor.obs_normalizer.eval()
+ runner.alg.train_mode=frozen_train_mode;obs,_=wrapped.reset();assert obs['actor'].shape==(n,61);assert obs['critic'].shape==(n,76)
+ model=e._backend._cpu_model;flex=e._flex_joint_ids;dofs=e._flex_dof_ids;K=e._backend._device_model.jnt_stiffness.numpy()[:,flex];D=e._backend._device_model.dof_damping.numpy()[:,dofs];kr=K/e._nominal_flex_stiffness[flex];dr=D/e._nominal_flex_damping[dofs];assert len(flex)==48 and kr.min()>=.9-1e-6 and kr.max()<=1.1+1e-6 and dr.min()>=.9-1e-6 and dr.max()<=1.1+1e-6;assert np.std(kr,axis=0).min()>0
+ state=e._backend.get_physics_state();assert abs(state[:,1+model.jnt_qposadr[flex]]).max()>1e-6
+ proof=dict(status='PARENT_EXACT_AND_FLEX_DR_ACTIVE',parent_sha256=parent_sha,parent_stage='P12',excluded_stage='P13',actor_exact=True,critic_exact=True,optimizer_restored=True,learning_rate=runner.alg.learning_rate,normalizer_frozen=True,actor_obs_dim=61,critic_obs_dim=76,num_envs=n,rollout_steps=24,passive_dofs=48,nq=model.nq,nv=model.nv,physics_microsteps=e.cfg.physics_microsteps,stiffness_ratio=[float(kr.min()),float(kr.max())],damping_ratio=[float(dr.min()),float(dr.max())],bank_passive_state_preserved=True,step_goal_m=float(e.cfg.step_goal_m),task_mode=e.cfg.task_mode,env_steps_per_env=int(e.step_counter),model_sha256=hashlib.sha256((B/'physics/effective_training.mjb').read_bytes()).hexdigest(),head_output_zero=True)
+ atomic(B/'audit'/('PREFLIGHT_BINDING.json' if args.smoke else 'TRAINING_BINDING.json'),proof);print('BINDING',json.dumps(proof),flush=True);OmegaConf.save(c,B/'runs/P12/EFFECTIVE_CONFIG.yaml');attach_checkpoint_progress(e,runner);original_update=runner.alg.update
+ def save_checkpoint(count):
+  dest=(B/'audit'/f'smoke_update_{count:03d}.pt') if args.smoke else B/'runs/P12/ppo_run'/f'flex_update_{count:03d}.pt';dest.parent.mkdir(parents=True,exist_ok=True);info=dict(new_lineage=dict(branch=B.name,model_sha256=proof['model_sha256'],parent_physics_sha256=parent['infos']['new_lineage']['model_sha256'],stage='P12',mode='fixture' if args.smoke else 'train',parent_sha256=parent_sha,completed_updates=count,cumulative_updates=3042+count,step_measurement_revision='v201_route_contact_measurement_20261108',step_target_revision='v201_route_step10_20261109',step_goal_m=.1,training_revision='P12_final_to_flexDR100_20261114',P13_excluded=True),flex_continuation=proof);old_iter=runner.current_learning_iteration;runner.current_learning_iteration=int(parent['iter'])+count;temp=dest.with_suffix('.tmp');runner.save(str(temp),infos=info);runner.current_learning_iteration=old_iter;os.replace(temp,dest);return str(dest)
+ def update():
+  global updates
+  result=original_update();updates+=1;e.set_loss_update(400+updates);assert_head_zero(actor)
+  for k,v in actor.obs_normalizer.state_dict().items():assert torch.equal(v,normalizer[k]),('Normalizer changed',k)
+  latest=save_checkpoint(updates) if updates==1 or updates%10==0 or updates==total else None;elapsed=time.time()-start;free,capacity=torch.cuda.mem_get_info();status=dict(status='RUNNING',mode='smoke' if args.smoke else 'formal',pid=os.getpid(),completed_updates=updates,total_updates=total,inherited_updates=3042,cumulative_updates=3042+updates,num_envs=n,rollout_steps=24,elapsed_s=elapsed,mean_s_per_update=elapsed/updates,env_steps_per_env=int(e.step_counter),latest_checkpoint=latest,gpu_used_bytes=capacity-free,updated_unix=time.time());atomic(B/('SMOKE_STATUS.json' if args.smoke else 'STATUS.json'),status);print('FLEX_PROGRESS',json.dumps(status),flush=True);return result
+ runner.alg.update=update;runner.learn(num_learning_iterations=total,init_at_random_ep_len=False);assert updates==total;final=save_checkpoint(updates);atomic(B/('audit/SMOKE_COMPLETE.json' if args.smoke else 'COMPLETE.json'),dict(status='COMPLETE',new_updates=updates,cumulative_updates=3042+updates,parent_stage='P12',P13_excluded=True,final_checkpoint=final,elapsed_s=time.time()-start,physics_sha256=proof['model_sha256'],parent_sha256=parent_sha));print('FLEX_COMPLETE',final,flush=True)
+except Exception as error:
+ atomic(B/('SMOKE_FAILURE.json' if args.smoke else 'FAILURE.json'),dict(error=repr(error),completed_updates=updates,updated_unix=time.time()));raise
+finally:
+ if runner is not None:wrapped.close()
+ else:e.close()

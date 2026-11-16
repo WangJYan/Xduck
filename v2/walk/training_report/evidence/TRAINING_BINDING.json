@@ -1,0 +1,33 @@
+{
+  "status": "PARENT_EXACT_AND_FLEX_DR_ACTIVE",
+  "parent_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+  "parent_stage": "P12",
+  "excluded_stage": "P13",
+  "actor_exact": true,
+  "critic_exact": true,
+  "optimizer_restored": true,
+  "learning_rate": 3e-05,
+  "normalizer_frozen": true,
+  "actor_obs_dim": 61,
+  "critic_obs_dim": 76,
+  "num_envs": 4096,
+  "rollout_steps": 24,
+  "passive_dofs": 48,
+  "nq": 69,
+  "nv": 68,
+  "physics_microsteps": 16,
+  "stiffness_ratio": [
+    0.90000048828125,
+    1.0999990234375
+  ],
+  "damping_ratio": [
+    0.9000003337860107,
+    1.0999983151753743
+  ],
+  "bank_passive_state_preserved": true,
+  "step_goal_m": 0.1,
+  "task_mode": "headturn",
+  "env_steps_per_env": 73008,
+  "model_sha256": "82a74a5eb50786bd7c219b29bb0ee27b47724533856dc33766dc20daf6b27ab9",
+  "head_output_zero": true
+}

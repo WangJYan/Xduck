@@ -1,0 +1,221 @@
+{
+  "scope": "Current hardware P12 ONNX08a333... from checkpoint90dff4...; all selected P00-P13 ancestors also checked. Original model reference is Desktop/Xduck_v2.0.2.zip.",
+  "source_zip_sha256": "04d9f353ccf204d41dd2e4d7ac79ae607633e230ba595d4ec175f67dfccd5821",
+  "physics_hash": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+  "nominal_model": {
+    "mass_kg": 10.29314,
+    "foot_mass_kg": [
+      0.189,
+      0.189
+    ],
+    "nominal_root_height_m": 0.323327006098734,
+    "settled_bank_median_root_height_m": 0.322878360748291,
+    "whole_COM_HOME_world_m": [
+      -0.04434376251084262,
+      -0.0006266288418208721,
+      0.2538404298125281
+    ],
+    "source_vs_training_max_errors": {
+      "body_mass": 0.0,
+      "body_ipos": 0.0,
+      "body_inertia": 1.734723475976807e-18,
+      "body_pos": 0.0,
+      "body_quat": 0.0,
+      "jnt_range": 0.0,
+      "jnt_axis": 0.0,
+      "qpos0": 0.0
+    }
+  },
+  "ancestry_all_checkpoint_hashes_match": true,
+  "late_DR": {
+    "reset_owner": "<class 'unilab.envs.locomotion.xduck_gf43x40.balanced_env.BalancedPhaseReset'>",
+    "bank_rows": 288,
+    "unique_mass_com_sets": 96,
+    "root_body_mass_kg": 1.05925,
+    "root_mass_ratio_theory": [
+      0.875,
+      1.125
+    ],
+    "whole_mass_theory_kg": [
+      10.160733749999999,
+      10.42554625
+    ],
+    "actual_bank_whole_mass_minmax_kg": [
+      10.166531562805176,
+      10.419951438903809
+    ],
+    "feet_mass_randomized": false,
+    "local_COM_body_names": [
+      "base_link",
+      "neck_pitch",
+      "head_pitch",
+      "head_yaw",
+      "head_roll"
+    ],
+    "local_COM_halfwidth_m": 0.015675,
+    "whole_COM_delta_at_fixed_HOME_min_mm": [
+      -3.79473688034692,
+      -3.3296887275860927,
+      -3.3310403929960875
+    ],
+    "whole_COM_delta_at_fixed_HOME_max_mm": [
+      3.720443230472749,
+      3.2474129287439037,
+      3.8764120834456905
+    ],
+    "foot_friction_bank_minmax": [
+      0.2760778069496155,
+      1.7390837669372559
+    ],
+    "armature_bank_minmax": [
+      0.19076380133628845,
+      0.3175021708011627
+    ],
+    "gpu_bank_parameter_max_errors": {
+      "body_mass": 0.0,
+      "body_inertia": 0.0,
+      "body_ipos": 0.0,
+      "geom_friction": 0.0,
+      "dof_armature": 0.0
+    },
+    "source": "P05 and later use sampled bank parameter/state bundles; no independent fresh continuous parameter draw after the bank overwrites the reset plan."
+  },
+  "height_criteria": {
+    "metadata_standing_band_m": [
+      0.302878360748291,
+      0.34287836074829103
+    ],
+    "metadata_fall_height_m": 0.252878360748291,
+    "P12_reward_height_free_band_m": [
+      0.262878360748291,
+      0.34287836074829103
+    ],
+    "P12_training_termination_source": "    def _terminated(self, upvector: np.ndarray) -> np.ndarray:\n        return upvector[:, 2] < np.cos(np.deg2rad(70.0))\n",
+    "P12_training_termination_test": {
+      "angles_deg": [
+        0.0,
+        20.0,
+        30.0,
+        31.0,
+        45.0,
+        69.0,
+        71.0
+      ],
+      "terminated": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    "qualification": "tilt<20deg and rootheight>contract fall_height; source policy_validation/evaluation",
+    "finding": "Nominal height was adapted, but the25.29cm and20deg qualification thresholds are not the P12 training termination rule. Training inherits70deg tilt only, with no height cutoff in that predicate; posture penalties still apply."
+  },
+  "legacy_constants": {
+    "route_plan_robot_model_path": "/Users/xiaoyaozi/Desktop/Xduck_2.0.1",
+    "reward_mass_scale_reference_kg": 10.352,
+    "actual_nominal_mass_kg": 10.29314,
+    "angular_momentum_reward_coefficient_relative_correction_if_rebased": 1.0114694430810733,
+    "comment": "Old path is metadata only; actual scene/hash binds v2.0.2.10.352 affects one reward normalization, not physical mass. DR amplitudes inherit the route and are not component-specific uncertainty estimates."
+  },
+  "bank_reports": [
+    {
+      "file": "new_standing_bank.npz",
+      "sha256": "53b34a25789e68ff650721a2036f4b3e2227fe98a837047e5d5396861e34467b",
+      "frozen_sha256": "53b34a25789e68ff650721a2036f4b3e2227fe98a837047e5d5396861e34467b",
+      "hash_matches": true,
+      "rows": 288,
+      "unique_mass_com_sets": 96,
+      "mass_minmax_kg": [
+        10.166531562805176,
+        10.419951438903809
+      ],
+      "max_local_COM_delta_m": 0.015666561673427642,
+      "root_height_min_median_max_m": [
+        0.320613831281662,
+        0.32343924045562744,
+        0.3260858356952667
+      ]
+    },
+    {
+      "file": "HOME_nominal_bank.npz",
+      "sha256": "8cb0f28a4a7792755fdea613e0e6d91194939e18e4c83a58e3ed7402f30fb1b7",
+      "frozen_sha256": "8cb0f28a4a7792755fdea613e0e6d91194939e18e4c83a58e3ed7402f30fb1b7",
+      "hash_matches": true,
+      "rows": 288,
+      "unique_mass_com_sets": 96,
+      "mass_minmax_kg": [
+        10.241599082946777,
+        10.345934867858887
+      ],
+      "max_local_COM_delta_m": 0.006262168130343623,
+      "root_height_min_median_max_m": [
+        0.32276782393455505,
+        0.322878360748291,
+        0.3229548931121826
+      ]
+    },
+    {
+      "file": "heldout_standing_bank.npz",
+      "sha256": "ec7efc999cda1f5be8d0ef09509141c3ec21ea65c4f0fc083022ab89878b31c9",
+      "frozen_sha256": "ec7efc999cda1f5be8d0ef09509141c3ec21ea65c4f0fc083022ab89878b31c9",
+      "hash_matches": true,
+      "rows": 288,
+      "unique_mass_com_sets": 96,
+      "mass_minmax_kg": [
+        10.163302421569824,
+        10.424578666687012
+      ],
+      "max_local_COM_delta_m": 0.015659102697824417,
+      "root_height_min_median_max_m": [
+        0.32027095556259155,
+        0.323482871055603,
+        0.3256498873233795
+      ]
+    }
+  ],
+  "conclusion": "Nominal physical mass,COM,inertia,limits and initialheight match suppliedv2.0.2. Actual DR centers are new-model values, but mass randomization only changes base_link and COM randomization only changes specified bodies; late coverage is a finite96-parameter standing bank. Training/qualification height/fall semantics differ and some legacy metadata/reward constants remain. Cannot claim every adaptation item is fully consistent or attribute real failure uniquely to one finding. Old-route verification confirms trunk-onlymassDR and70deg-training/20deg-acceptance were already present in originalv1.1.4P12; do not classify those as newly introduced regressions.",
+  "not_modified": "Training routes, weights, model files, deployed parameters unchanged; GPU reset-only reconstruction performed without PPO.",
+  "v114_comparison_update": {
+    "evidence": "Original20261106 reproduction payload SHA-addressed blobs, not inferred from new-model copied code. Root balanced_env.py equals frozen installed project copy.",
+    "weight_DR": {
+      "v114_target_body": "trunk_base",
+      "v202_target_body": "base_link",
+      "same_mechanism": true,
+      "formula": "Only trunk mass and inertia: base_value*(1+(uniform(.95,1.05)-1)*DR_multiplier); late multiplier2.5 =>.875..1.125",
+      "v114_nominal_mass_kg": 8.8933,
+      "v114_trunk_mass_kg": 0.3951,
+      "v202_nominal_mass_kg": 10.29314,
+      "v202_trunk_mass_kg": 1.05925
+    },
+    "termination": {
+      "v114_training": "tilt>70deg; no height check in inherited termination predicate",
+      "v202_training": "tilt>70deg; no height check in inherited termination predicate",
+      "v114_acceptance": "max_tilt<20deg and min rootheight>0.25m",
+      "v202_acceptance": "max_tilt<20deg and min rootheight>0.252878360748291m",
+      "inherited_design": true
+    },
+    "actual_bank_coverage": {
+      "v114": {
+        "rows": 8192,
+        "distinct_mass_COM_parameter_sets": 4096,
+        "whole_mass_minmax_kg": [
+          8.843918800354004,
+          8.942649841308594
+        ]
+      },
+      "v202": {
+        "rows": 288,
+        "distinct_mass_COM_parameter_sets": 96,
+        "whole_mass_minmax_kg": [
+          10.166531562805176,
+          10.419951438903809
+        ]
+      }
+    },
+    "correction": "These two rules are inherited from the old route. Their presence alone is not evidence of a new-model adaptation regression and cannot explain why v1.1.4 worked but v2.0.2 failed. The finite standing-bank mass/COM coverage actually differs and must be tracked separately; its causal impact is not established."
+  }
+}

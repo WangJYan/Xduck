@@ -1,0 +1,24 @@
+{
+  "report_date": "2026-11-16 Asia/Shanghai",
+  "requested_label": "v2.0.2 v1柔性行走版本（用户内部命名）",
+  "source_file": "/Users/xiaoyaozi/Desktop/v3/P12_flexDR100.onnx",
+  "source_sha256": "40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20",
+  "verified_against": "5090 exports/EXPORT_METADATA.json",
+  "parent_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+  "checkpoint_sha256": "7dff7f556f2ab25934b544c19ff543cbcfcf8d5d03fa42feae93b4194c3f863e",
+  "rigid_model_sha256": "be1642544ab7a8190262cb3877f99d7cef1758eb26371959b45a42c4d8434d60",
+  "flex_model_sha256": "82a74a5eb50786bd7c219b29bb0ee27b47724533856dc33766dc20daf6b27ab9",
+  "PPO_updates": 3142,
+  "supervised_updates": {
+    "P07_bootstrap": 800,
+    "P11_BC": 1800
+  },
+  "selected_lineage_PPO_transition_count": 269884416,
+  "excluded_stages": [
+    "P04",
+    "P08",
+    "P13"
+  ],
+  "file_confusion_resolved": "User corrected Desktop/v2 to Desktop/v3; report targets Desktop/v3 only",
+  "package_scope": "Report, ONNX, consumer, config records, selected audit evidence, flex orchestration scripts and simulation videos. No .pt checkpoints, full owner source tree, standing bank arrays or physical mesh assets; not a standalone full reproduction environment."
+}

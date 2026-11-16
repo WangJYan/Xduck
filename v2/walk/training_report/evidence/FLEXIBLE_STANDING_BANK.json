@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "rows": 288,
+  "independent_worlds": 96,
+  "nq": 69,
+  "nv": 68,
+  "held_HOME": true,
+  "physically_settled": true,
+  "passive_deflection_nonzero": true,
+  "stiffness_ratio": [
+    0.9000812377929688,
+    1.0999818115234374
+  ],
+  "sha256": "48d7582a20e120e6f0375dabfc4c1b3c2d3eb35427853f82e5d31a81e46b87f3",
+  "elapsed_s": 83.37993049621582
+}

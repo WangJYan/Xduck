@@ -1,0 +1,11 @@
+{
+  "status": "COMPLETE",
+  "new_updates": 100,
+  "cumulative_updates": 3142,
+  "parent_stage": "P12",
+  "P13_excluded": true,
+  "final_checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_2_P12_flexDR100_20261114/runs/P12/ppo_run/flex_update_100.pt",
+  "elapsed_s": 3416.5335218906403,
+  "physics_sha256": "82a74a5eb50786bd7c219b29bb0ee27b47724533856dc33766dc20daf6b27ab9",
+  "parent_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6"
+}

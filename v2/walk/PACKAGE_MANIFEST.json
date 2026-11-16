@@ -1,0 +1,231 @@
+{
+  "date": "2026-11-16",
+  "version": "v2/walk;v2.0.2 robot",
+  "PPO_updates": 3142,
+  "onnx_sha256": "40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20",
+  "parent_checkpoint_sha256": "90dff450c863c0a8ee5c58237b9c1be857d37413853c47f33d55ec3fb91242f6",
+  "final_checkpoint_sha256": "7dff7f556f2ab25934b544c19ff543cbcfcf8d5d03fa42feae93b4194c3f863e",
+  "physics_sha256": "82a74a5eb50786bd7c219b29bb0ee27b47724533856dc33766dc20daf6b27ab9",
+  "files": {
+    "ARCHIVE_INVENTORY.json": {
+      "bytes": 114132,
+      "sha256": "022f5dfe9ea20679a4f6a04fff46c420d24efec882012bf2f2918a10f990220c"
+    },
+    "README.md": {
+      "bytes": 5962,
+      "sha256": "7d953a5d05d45dc7c59025628a38864e1bd3ff530e5c36862136924b563d5755"
+    },
+    "archives/effective_training.mjb.gz": {
+      "bytes": 64061716,
+      "sha256": "83de1345c3b845e6ba3dd91f88684e41da85401a4f470e9138fce124137ca350"
+    },
+    "archives/flex_continuation_runtime.tar.gz": {
+      "bytes": 76941151,
+      "sha256": "a3de43fe744a13f0b605b27b4348bfd8e4a51cbc21397a3bf5af7d2e9723af93"
+    },
+    "archives/rigid_lineage_checkpoints_and_sources.tar.gz": {
+      "bytes": 76947132,
+      "sha256": "c6b249e9aa9cbdcbb80d655785d87c5480ce2d63e1e72b14f96b9293093e067e"
+    },
+    "policy/P12_flexDR100.onnx": {
+      "bytes": 808834,
+      "sha256": "40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20"
+    },
+    "policy/xc_walk_stand.py": {
+      "bytes": 16534,
+      "sha256": "c581d1ae712a57855cb60947ce97adaa104538c21ef5290115b70b8bb720ca04"
+    },
+    "tools/verify_archive.py": {
+      "bytes": 1531,
+      "sha256": "87addf71dfeb9ede2ca41fc7ba1a4e44a58a2e357f564938e2667fa0ccfd8494"
+    },
+    "training_report/COMPLETE.json": {
+      "bytes": 463,
+      "sha256": "56f863ea9329546506947615da95a063b813bc66652ad71d420771e76805c289"
+    },
+    "training_report/EFFECTIVE_CONFIG.yaml": {
+      "bytes": 10958,
+      "sha256": "90e5f7f11896528e9616161633a163a4729f9ed734b46d45b974ef3fb4c94a3e"
+    },
+    "training_report/EXPORT_METADATA.json": {
+      "bytes": 809,
+      "sha256": "76ffe818f96f0e56916c8c6c9ae6f5b90a7a1db12d4b166c27c9091a87e25e60"
+    },
+    "training_report/P07_formal_bootstrap_REPORT.json": {
+      "bytes": 345,
+      "sha256": "5c5d1568efea11d664a002360a9e9381d4500b7a5396953ccc2da7adca4aae37"
+    },
+    "training_report/P12_flexDR100.onnx": {
+      "bytes": 808834,
+      "sha256": "40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20"
+    },
+    "training_report/REMOTE_TRAINING_EVIDENCE.json": {
+      "bytes": 224705,
+      "sha256": "6ea470369ce28120671db506bb13f992d79e1617ae13500c6292f7bfe349c436"
+    },
+    "training_report/REPORT_MANIFEST.json": {
+      "bytes": 1289,
+      "sha256": "f170acdc3d4db3129e993d1555793d8711b6cf6f2928983bd5a2e2be14bf5e9a"
+    },
+    "training_report/build_report.py": {
+      "bytes": 19120,
+      "sha256": "e6b13ece1fb5b9fd4e52f645159768f00d58db4828486996298dba8ee4ca7ab6"
+    },
+    "training_report/configs/MODEL_CONTRACT.json": {
+      "bytes": 8083,
+      "sha256": "10a86425d4811ea3a9b5a39cc766760a469d9e032d58f2802d4fe549ff22319a"
+    },
+    "training_report/configs/P00_TRAINING_CONFIG.json": {
+      "bytes": 13367,
+      "sha256": "2fbbc945c65b0272246d0287bbdbe48a494c8909373a1a32697859d86a281f47"
+    },
+    "training_report/configs/P01_TRAINING_CONFIG.json": {
+      "bytes": 13640,
+      "sha256": "464350b2be81e10642354ba6f05b518345f7c3a391ff5bacf2111392aee31405"
+    },
+    "training_report/configs/P02_TRAINING_CONFIG.json": {
+      "bytes": 13642,
+      "sha256": "98a54bd710b24455b42778e4e9f523d8403458f88f0cd40c481fe937ad789f8f"
+    },
+    "training_report/configs/P03_TRAINING_CONFIG.json": {
+      "bytes": 13661,
+      "sha256": "a8aeb042879b9940d193dad4139de022be9604481e0e97fec15132a212c24dc3"
+    },
+    "training_report/configs/P05_TRAINING_CONFIG.json": {
+      "bytes": 12449,
+      "sha256": "037bc6a008275af4221a9684245cf1b963e1e32703804535dc72123577977eff"
+    },
+    "training_report/configs/P06_TRAINING_CONFIG.json": {
+      "bytes": 12465,
+      "sha256": "c77909371e3526eb4b2c64e3a5ba65691b07f15a5d74cc8435c5b70cb7709354"
+    },
+    "training_report/configs/P07_TRAINING_CONFIG.json": {
+      "bytes": 12496,
+      "sha256": "3a73fee086f26d7e3c5db35f847cadccee7d47551178c7a210d552862b45ca07"
+    },
+    "training_report/configs/P09_TRAINING_CONFIG.json": {
+      "bytes": 13710,
+      "sha256": "d5ea4a2f7d585ca02b3fe010d9abd40405803a065809ee1d0063a566e1f44ba6"
+    },
+    "training_report/configs/P10_TRAINING_CONFIG.json": {
+      "bytes": 13930,
+      "sha256": "5b613df71fb03856457645f4aef4c7262b5fd65aba1219aed1125e545f9a26cb"
+    },
+    "training_report/configs/P11_TRAINING_CONFIG.json": {
+      "bytes": 14010,
+      "sha256": "b7c5ec31110353c9d8b549f88f4ced7a23f5f36b65fa46ed6b772bd1fe503d62"
+    },
+    "training_report/configs/P12_IO_CONTRACT.json": {
+      "bytes": 5657,
+      "sha256": "bce4f09e065ed24b71d15054164c1f1e63db0910a0182548d4710bc3bc5dbe02"
+    },
+    "training_report/configs/P12_TRAINING_CONFIG.json": {
+      "bytes": 13984,
+      "sha256": "2ac654f89228cf6884afafa337a80576c8b2776ec46e0f280b426c51ce37d213"
+    },
+    "training_report/configs/TRAINING_CONFIG.yaml": {
+      "bytes": 10958,
+      "sha256": "90e5f7f11896528e9616161633a163a4729f9ed734b46d45b974ef3fb4c94a3e"
+    },
+    "training_report/evidence/01_前进后退_正面斜45度.mp4": {
+      "bytes": 9505748,
+      "sha256": "8131c49f17b9f800d50ea76304a40780eaf04bd144372df784b61e31b691e785"
+    },
+    "training_report/evidence/02_原地左右转_正面斜45度.mp4": {
+      "bytes": 8707982,
+      "sha256": "b0ff1a38783f0082c61c50f43bd41af210f856d183ebfab44fdd6e76412b6a86"
+    },
+    "training_report/evidence/ALL_STAGE_MODEL_PROVENANCE.json": {
+      "bytes": 15088,
+      "sha256": "97e942d1d376b23ba7d7d3e1790d4960cadcb4e41565d47a44feb99285cd9d28"
+    },
+    "training_report/evidence/BANK_PARAMETER_AUDIT.json": {
+      "bytes": 1644,
+      "sha256": "b830993f6c30c4fd1a5b6b861f42f128a52de21dc7ad6950991fefcd2e879ea7"
+    },
+    "training_report/evidence/FLEXIBLE_STANDING_BANK.json": {
+      "bytes": 367,
+      "sha256": "f6ef3956298c28a9c85cf25163fb4408b0d842f8bed7121e3f1e624dae6a2f6b"
+    },
+    "training_report/evidence/TRAINING_BINDING.json": {
+      "bytes": 860,
+      "sha256": "93a3d6088b676bb2a5f27078efefa83942b57235d8b89354701aaa007fde2d6e"
+    },
+    "training_report/evidence/TRAINING_MODEL_PARAMETER_AUDIT.json": {
+      "bytes": 8397,
+      "sha256": "478b47c4717d898e2fc4bb6ad6de42fe4aba90a887becac12e83d553006fa99e"
+    },
+    "training_report/evidence/VIDEO_MANIFEST.json": {
+      "bytes": 3910,
+      "sha256": "fb828ffcf9bdf4bc3d76ad4c7ef65e5e218afc51058fa1426fc8ac2e122c7836"
+    },
+    "training_report/evidence/VIDEO_STEP_MEASUREMENT.json": {
+      "bytes": 27635,
+      "sha256": "0cdab89c13c55f48a57e7535f98933d7a9b2a2b3e4cbb5c5b848a9927787252e"
+    },
+    "training_report/evidence/backward_step_events.csv": {
+      "bytes": 4403,
+      "sha256": "b55cf95737c04a515f35ba3280d5d9ab0e15ac3579122e062c3bb05bd623de1e"
+    },
+    "training_report/evidence/forward_step_events.csv": {
+      "bytes": 5165,
+      "sha256": "7484eb3dbf805452f3dca7ce6c7aca708758ff0e9a700dfa06bb457017bf918e"
+    },
+    "training_report/evidence/parent_MODEL_CONTRACT.json": {
+      "bytes": 4705,
+      "sha256": "17ab5425c774a7d800389b98c090c258f866c48f5024a923c8f92cfec1954d05"
+    },
+    "training_report/evidence/parent_P12_IO_CONTRACT.json": {
+      "bytes": 5445,
+      "sha256": "18d3826329a160d3a10cc26725afb952401764ee234c42fa974f5c9f729606b2"
+    },
+    "training_report/evidence/stage_model_and_DR_binding.csv": {
+      "bytes": 3113,
+      "sha256": "05115fb525e50feb398ac6bd43dc322a5e94b84a9f7cd42799a38570f9aa82f6"
+    },
+    "training_report/evidence/前进步长_连续落脚帧核对.png": {
+      "bytes": 631174,
+      "sha256": "bfdbb4f098b62fb3147b2c06342e7df82dae8bf958efe88ead50643380e66687"
+    },
+    "training_report/source/build_training_physics.py": {
+      "bytes": 5513,
+      "sha256": "6f86f4e4cf8694c897002a096d5f96c7b50e7beb6171b1e516fb50fc6ef2f095"
+    },
+    "training_report/source/collect_flexible_bank.py": {
+      "bytes": 2884,
+      "sha256": "c895876c2a2dc97436532aa3e978cc28752847e9f0f80e56adfa9e067fab36ec"
+    },
+    "training_report/source/export_final.py": {
+      "bytes": 3788,
+      "sha256": "498bbd2dc0441d1f3bc7ceaa411e7a688ab807caa9c629264060a2a49954ceed"
+    },
+    "training_report/source/flex_continue.py": {
+      "bytes": 1519,
+      "sha256": "9ba028e27611a86d4d49fd8afd35d55391bc89b18a6a9a7d3e9bc962f8905cf7"
+    },
+    "training_report/source/patch_mechanics_contract.py": {
+      "bytes": 876,
+      "sha256": "40f2147aa2717f12fec9005b9d63521b24423f4617047df80aa3fad01fa2b460"
+    },
+    "training_report/source/run_pipeline.py": {
+      "bytes": 1021,
+      "sha256": "f998c8d5bfbbbc6b02d46f43e390a89313a222dc46cd3f03646c53437600eed7"
+    },
+    "training_report/source/runtime_helper.py": {
+      "bytes": 956,
+      "sha256": "ac8d32d9a690bfded2d3b893b96cc3e730ac87ce70b7da519d7c12442d5f6dda"
+    },
+    "training_report/source/train_continuation.py": {
+      "bytes": 6859,
+      "sha256": "6c993318251bda09dedafb284a3d1464f450acd5ac572b04482f44f0da7a6131"
+    },
+    "training_report/v2.0.2_v1柔性行走模型_完整训练过程.html": {
+      "bytes": 20655,
+      "sha256": "b5d06f73fc9d973e6860512bc9bd0767611ad91158759fb9391279a1e151c113"
+    },
+    "training_report/xc_walk_stand.py": {
+      "bytes": 16534,
+      "sha256": "c581d1ae712a57855cb60947ce97adaa104538c21ef5290115b70b8bb720ca04"
+    }
+  }
+}

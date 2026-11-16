@@ -1,0 +1,9 @@
+{
+  "original_branch": "simulation",
+  "original_commit": "7c9a61d06d3d4a243245c00e52df7a4ed8ab319b",
+  "destination": "v1/",
+  "verified_original_files": 3868,
+  "verification": "Every original tracked blob is identical at v1/<original path>; no original content edits",
+  "v2_walk": "Desktop/v3/P12_flexDR100.onnx;3142PPO",
+  "date": "2026-11-16"
+}

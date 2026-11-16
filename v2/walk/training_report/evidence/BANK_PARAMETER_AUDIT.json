@@ -1,0 +1,56 @@
+[
+  {
+    "file": "new_standing_bank.npz",
+    "sha256": "53b34a25789e68ff650721a2036f4b3e2227fe98a837047e5d5396861e34467b",
+    "frozen_sha256": "53b34a25789e68ff650721a2036f4b3e2227fe98a837047e5d5396861e34467b",
+    "hash_matches": true,
+    "rows": 288,
+    "unique_mass_com_sets": 96,
+    "mass_minmax_kg": [
+      10.166531562805176,
+      10.419951438903809
+    ],
+    "max_local_COM_delta_m": 0.015666561673427642,
+    "root_height_min_median_max_m": [
+      0.320613831281662,
+      0.32343924045562744,
+      0.3260858356952667
+    ]
+  },
+  {
+    "file": "HOME_nominal_bank.npz",
+    "sha256": "8cb0f28a4a7792755fdea613e0e6d91194939e18e4c83a58e3ed7402f30fb1b7",
+    "frozen_sha256": "8cb0f28a4a7792755fdea613e0e6d91194939e18e4c83a58e3ed7402f30fb1b7",
+    "hash_matches": true,
+    "rows": 288,
+    "unique_mass_com_sets": 96,
+    "mass_minmax_kg": [
+      10.241599082946777,
+      10.345934867858887
+    ],
+    "max_local_COM_delta_m": 0.006262168130343623,
+    "root_height_min_median_max_m": [
+      0.32276782393455505,
+      0.322878360748291,
+      0.3229548931121826
+    ]
+  },
+  {
+    "file": "heldout_standing_bank.npz",
+    "sha256": "ec7efc999cda1f5be8d0ef09509141c3ec21ea65c4f0fc083022ab89878b31c9",
+    "frozen_sha256": "ec7efc999cda1f5be8d0ef09509141c3ec21ea65c4f0fc083022ab89878b31c9",
+    "hash_matches": true,
+    "rows": 288,
+    "unique_mass_com_sets": 96,
+    "mass_minmax_kg": [
+      10.163302421569824,
+      10.424578666687012
+    ],
+    "max_local_COM_delta_m": 0.015659102697824417,
+    "root_height_min_median_max_m": [
+      0.32027095556259155,
+      0.323482871055603,
+      0.3256498873233795
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "steps": 800,
+  "seed_sha256": "999d1f3fd9d5dc04a0f1f5a3b1965949985cff66a367110bf6402f77a9801bff",
+  "holdout_raw_RMS": [
+    0.0031770612113177776,
+    0.00179734465200454,
+    0.0022772634401917458,
+    0.003374445252120495
+  ],
+  "holdout_quality_pass": true,
+  "performance_gate_enforced": false,
+  "ppo_updates": 0
+}

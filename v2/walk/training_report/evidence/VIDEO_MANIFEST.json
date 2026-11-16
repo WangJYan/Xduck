@@ -1,0 +1,125 @@
+{
+  "policy_sha256": "40c392fa41a30c657ca21528151120fa877983ad906181ef98c29985a17c2d20",
+  "physics_sha256": "82a74a5eb50786bd7c219b29bb0ee27b47724533856dc33766dc20daf6b27ab9",
+  "parent": "P12; P13 excluded",
+  "new_updates": 100,
+  "passive_joints": 48,
+  "domain_randomization": false,
+  "stiffness_damping": "Nominal training model, no DR draw for this playback",
+  "control_dt_s": 0.02,
+  "motor_dt_s": 0.001,
+  "physics_dt_s": 6.25e-05,
+  "protocol": "2s current Stand, 6s final Walk, 2s current Stand; twist filter +=0.2*(requested-filtered) each20ms; motor measured jitter seed71114114; per-command23.5Nm PD estimate guard; current model limits",
+  "coordinate_assumption": "same current-model motor coordinates as previous simulation, actual hardware zero mapping unverified",
+  "camera": "front45 tracks position and yaw; inset shows world XY and heading",
+  "results": [
+    {
+      "id": "forward",
+      "title": "前进",
+      "planned_seconds": 10,
+      "simulated_seconds": 10.0,
+      "pitch_min_max_deg": [
+        -0.05693448769451876,
+        16.268351214880013
+      ],
+      "max_tilt_deg": 16.77187945372434,
+      "min_root_height_m": 0.283905303848278,
+      "net_xy_m": [
+        2.239816887576255,
+        -0.1175309831184195
+      ],
+      "yaw_change_deg": 37.82779954007472,
+      "walk_mean_body_velocity_m_s": [
+        0.3496182336918935,
+        0.006187908896930443,
+        0.04810622902206814
+      ],
+      "first_severe_tilt_or_low_root_s": null,
+      "clipped_target_frame_fraction": 0.0,
+      "guard_triggered_commands": 0,
+      "guard_min_scale": 1.0,
+      "finite": true
+    },
+    {
+      "id": "backward",
+      "title": "后退",
+      "planned_seconds": 10,
+      "simulated_seconds": 10.0,
+      "pitch_min_max_deg": [
+        -7.332169223122904,
+        15.757694097909054
+      ],
+      "max_tilt_deg": 16.158620938605264,
+      "min_root_height_m": 0.3020029669098913,
+      "net_xy_m": [
+        -1.7037737607321402,
+        0.0441508659364208
+      ],
+      "yaw_change_deg": -25.551900930595455,
+      "walk_mean_body_velocity_m_s": [
+        -0.2729962760466353,
+        0.005574438552359176,
+        0.017250968741990846
+      ],
+      "first_severe_tilt_or_low_root_s": null,
+      "clipped_target_frame_fraction": 0.0,
+      "guard_triggered_commands": 0,
+      "guard_min_scale": 1.0,
+      "finite": true
+    },
+    {
+      "id": "turn_left",
+      "title": "原地左转",
+      "planned_seconds": 10,
+      "simulated_seconds": 10.0,
+      "pitch_min_max_deg": [
+        -0.5210778668200338,
+        8.507126455333333
+      ],
+      "max_tilt_deg": 10.358340252837309,
+      "min_root_height_m": 0.28883568138622695,
+      "net_xy_m": [
+        -0.19513615848753474,
+        -0.05461795209839959
+      ],
+      "yaw_change_deg": 157.76615376836634,
+      "walk_mean_body_velocity_m_s": [
+        -0.011538155265018094,
+        0.03377409753181709,
+        -0.0026736464840323906
+      ],
+      "first_severe_tilt_or_low_root_s": null,
+      "clipped_target_frame_fraction": 0.0,
+      "guard_triggered_commands": 0,
+      "guard_min_scale": 1.0,
+      "finite": true
+    },
+    {
+      "id": "turn_right",
+      "title": "原地右转",
+      "planned_seconds": 10,
+      "simulated_seconds": 10.0,
+      "pitch_min_max_deg": [
+        -0.3766292687516794,
+        6.844255319961144
+      ],
+      "max_tilt_deg": 9.476608210082915,
+      "min_root_height_m": 0.2935442500042683,
+      "net_xy_m": [
+        -0.18164488892730468,
+        0.007827712356026811
+      ],
+      "yaw_change_deg": -137.93284649342831,
+      "walk_mean_body_velocity_m_s": [
+        -0.011620876034331274,
+        -0.0352785216584609,
+        -0.0014223499403962737
+      ],
+      "first_severe_tilt_or_low_root_s": null,
+      "clipped_target_frame_fraction": 0.0,
+      "guard_triggered_commands": 0,
+      "guard_min_scale": 1.0,
+      "finite": true
+    }
+  ]
+}
