@@ -24,3 +24,21 @@ dev-key/
 # Keil build output and user settings
 **/MDK-ARM/CtrBoard-H7_ALL/
 *.uvguix.*
+
+# Per-device project partitions: keep only placeholders for generated content.
+**/20-build/**
+!**/20-build/**/
+!**/20-build/**/.gitkeep
+!**/20-build/.gitkeep
+**/30-artifacts/**
+!**/30-artifacts/**/
+!**/30-artifacts/**/.gitkeep
+!**/30-artifacts/.gitkeep
+**/50-logs/**
+!**/50-logs/**/
+!**/50-logs/**/.gitkeep
+!**/50-logs/.gitkeep
+**/90-temp/**
+!**/90-temp/**/
+!**/90-temp/**/.gitkeep
+!**/90-temp/.gitkeep

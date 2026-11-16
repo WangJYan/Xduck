@@ -1,5 +1,22 @@
-# 124 STM32
+# Rider · stm32
 
-STM32 来自本地当前工程，与 2026-11-16 DM 峰值版本构建清单 1,093 项全部匹配。该设备为 5+5、DM-J10422P-2EC，构建时必须使用 `H7DM_RIDER_5X5=ON` 和 `H7DM_DM_J10422P=ON`；RK3566 使用 `robotd/rider-5x5` 与 `mediad/rider-5x5` 特性。电机调试验收门禁仍保留，不能只凭源码归档视为已完成运动验收。
+设备编号 **124** 的 STM32 H7 下位机固件工程，沿用 `driver` 分支的八个工程分区。
 
-工程入口：`stm32-h7-dm/CtrBoard-H7_ALL/CMakeLists.txt`。源码哈希：`SOURCE-SHA256SUMS`；来源：`PROVENANCE.json`。本次未编译、烧录或操作电机。
+- [工程目录与流程](00-docs/ENGINEERING_WORKFLOW.md)
+- [源码工程](10-source/stm32-h7-dm/)
+- [来源记录](00-docs/PROVENANCE.json)
+- [当前源码校验清单](00-docs/SOURCE-SHA256SUMS)
+- [部署入口说明](40-deploy/README.md)
+
+```text
+00-docs/       工程说明、来源与校验记录
+10-source/     完整源码工程
+20-build/      构建缓存
+30-artifacts/  交付产物
+40-deploy/     发布与部署说明
+50-logs/       build / test / deploy 日志
+60-tools/      工程检查工具
+90-temp/       临时文件
+```
+
+从本目录运行 `./60-tools/check-layout.sh` 检查目录和源码哈希。构建参数与设备差异见 [设备说明](../README.md)。
