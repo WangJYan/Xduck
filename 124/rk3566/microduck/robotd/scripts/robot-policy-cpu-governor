@@ -1,0 +1,91 @@
+#!/usr/bin/python3
+"""Hold CPU and DDR performance governors for the resident policy lifetime.
+
+CPU-only performance leaves RK3566 DDR at 324 MHz between short inference bursts.
+Keep exact previous governors for rollback and managed stops. Environment overrides
+are only for the filesystem regression; the production service uses fixed paths.
+"""
+import json
+import os
+import signal
+from pathlib import Path
+import sys
+import time
+
+CPU_ROOT = Path(os.environ.get('XDUCK_CPUFREQ_ROOT', '/sys/devices/system/cpu/cpufreq'))
+DMC_ROOT = Path(os.environ.get('XDUCK_DMC_ROOT', '/sys/class/devfreq/dmc'))
+STATE = Path(os.environ.get('XDUCK_PERFORMANCE_STATE', '/run/robot-policy-performance/previous.json'))
+
+
+def write(path, value):
+    path.write_text(value+'\n')
+    if path.read_text().strip() != value:
+        raise RuntimeError(f'{path} did not retain {value}')
+
+
+def restore(compatibility=True):
+    if not STATE.exists():
+        # Compatibility when stopping the previous CPU-only service during update.
+        if compatibility:
+            for policy in CPU_ROOT.glob('policy[0-9]*'):
+                write(policy/'scaling_governor', 'ondemand')
+        return
+    errors = []
+    for name, previous in json.loads(STATE.read_text()).items():
+        try:
+            write(Path(name), previous)
+        except (OSError, RuntimeError) as error:
+            errors.append(str(error))
+    if errors:
+        raise RuntimeError('; '.join(errors))
+    STATE.unlink()
+
+
+def start():
+    targets = [(policy/'scaling_governor', policy/'scaling_available_governors')
+               for policy in sorted(CPU_ROOT.glob('policy[0-9]*'))]
+    if not targets:
+        raise RuntimeError('no CPU frequency policies')
+    targets.append((DMC_ROOT/'governor', DMC_ROOT/'available_governors'))
+    previous = {}
+    # Validate all targets before changing any governor.
+    for target, available in targets:
+        if 'performance' not in available.read_text().split():
+            raise RuntimeError(f'performance governor unavailable: {available}')
+        previous[str(target)] = target.read_text().strip()
+    if STATE.exists():
+        raise RuntimeError('previous performance snapshot exists; stop before starting again')
+    STATE.parent.mkdir(parents=True, exist_ok=True)
+    with STATE.open('x') as output:
+        json.dump(previous, output)
+        output.flush()
+        os.fsync(output.fileno())
+    try:
+        for target, _ in targets:
+            write(target, 'performance')
+        # Verify the clock actually rose, not just the governor label. The board
+        # supports 1056 MHz; 780 MHz is the minimum validated policy clock.
+        deadline = time.monotonic()+1
+        while int((DMC_ROOT/'cur_freq').read_text()) < 780_000_000:
+            if time.monotonic() >= deadline:
+                raise RuntimeError('DDR did not reach the 780 MHz policy minimum')
+            time.sleep(.02)
+    except BaseException:
+        restore()
+        raise
+    print('robot-policy-cpu-governor: CPU and DDR performance verified', flush=True)
+
+
+if __name__ == '__main__':
+    def interrupted(signum, _frame):
+        raise SystemExit(128+signum)
+    for signum in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
+        signal.signal(signum, interrupted)
+    if sys.argv[1:] == ['performance']:
+        start()
+    elif sys.argv[1:] == ['ondemand']:
+        restore()
+    elif sys.argv[1:] == ['cleanup']:
+        restore(compatibility=False)
+    else:
+        raise SystemExit('usage: robot-policy-cpu-governor performance|ondemand')

@@ -1,0 +1,340 @@
+#!/usr/bin/python3
+"""Bounded flight recorder for policy deadlines. No robot socket or device IO."""
+import argparse
+import collections
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import shutil
+import signal
+import socket
+import subprocess
+import time
+
+MARKER = "policy-timeout-event "
+EVENTS = ("sched/sched_switch", "sched/sched_wakeup", "irq/irq_handler_entry",
+          "irq/irq_handler_exit", "irq/softirq_entry", "irq/softirq_exit")
+LINE = re.compile(r"\[(\d+)\].*?\s(\d+\.\d+): (\w+): (.*)")
+SWITCH = re.compile(r"prev_comm=(.*?) prev_pid=(\d+) prev_prio=\d+ prev_state=(\S+) ==> next_comm=(.*?) next_pid=(\d+)")
+WAKE = re.compile(r"comm=(.*?) pid=(\d+) ")
+
+
+def event_from_journal(line):
+    entry = json.loads(line)
+    if entry.get("_SYSTEMD_UNIT") != "robotd.service":
+        return None
+    value = entry.get("MESSAGE", "")
+    # journalctl JSON exports non-printable fields (including ANSI escapes)
+    # as byte arrays; duplicate fields can also be arrays of strings.
+    if isinstance(value, list):
+        if all(isinstance(part, int) and 0 <= part <= 255 for part in value):
+            candidates = [bytes(value).decode("utf-8", "replace")]
+        else:
+            candidates = [part for part in value if isinstance(part, str)]
+    else:
+        candidates = [value] if isinstance(value, str) else []
+    messages = [re.sub(r"\x1b\[[0-9;]*m", "", candidate) for candidate in candidates]
+    message = next((candidate for candidate in messages if MARKER in candidate), "")
+    if MARKER not in message:
+        return None
+    event, _ = json.JSONDecoder().raw_decode(message.split(MARKER, 1)[1])
+    start, end = event["request"]["request_started_ns"], event["timeout_ns"]
+    if not isinstance(start, int) or not isinstance(end, int) or not (0 < start < end and end-start < 60_000_000_000):
+        raise ValueError("invalid policy diagnostic time window")
+    event["journal_cursor"] = entry.get("__CURSOR")
+    return event
+
+
+def analyze(trace, event):
+    """Partition the request window into actual CPU occupants, including IRQs.
+
+    Only attribute a competing occupant to starvation when the worker was
+    runnable. Sleeping/D-state/unknown intervals remain separate.
+    """
+    start = event["request"]["request_started_ns"] / 1e9
+    end = event["timeout_ns"] / 1e9
+    worker = (event.get("worker") or {}).get("pid")
+    cpu = event.get("cpu", 3)
+    names = {}
+    bounds = {}
+    current = None
+    state = "unknown"
+    interrupts = []
+    previous = None
+    first = last = None
+    occupants = collections.Counter()
+    runnable = collections.Counter()
+    interrupted = collections.Counter()
+    states = collections.Counter()
+    for line in trace.splitlines():
+        match = LINE.search(line)
+        if not match:
+            continue
+        event_cpu, timestamp, kind, body = int(match[1]), float(match[2]), match[3], match[4]
+        bounds.setdefault(event_cpu, [timestamp, timestamp])[1] = timestamp
+        if event_cpu != cpu and kind != "sched_wakeup":
+            continue
+        first = timestamp if first is None else first
+        last = timestamp
+        if previous is not None:
+            duration = max(0.0, min(timestamp, end)-max(previous, start)) * 1000
+            actor = interrupts[-1] if interrupts else current or "unknown"
+            occupants[actor] += duration
+            worker_state = ("interrupted" if interrupts else "running") if current and current.startswith(f"tid={worker} ") else state
+            states[worker_state] += duration
+            if worker_state == "runnable" and not actor.startswith(f"tid={worker} "):
+                runnable[actor] += duration
+            if worker_state == "interrupted":
+                interrupted[actor] += duration
+        previous = timestamp
+        if kind == "sched_switch":
+            switch = SWITCH.search(body)
+            if switch:
+                prev_name, prev_pid, prev_state, next_name, next_pid = switch.groups()
+                names[prev_pid] = prev_name
+                names[next_pid] = next_name
+                if int(prev_pid) == worker:
+                    state = "runnable" if prev_state.startswith("R") else "blocked_or_sleeping"
+                current = f"tid={next_pid} comm={next_name}"
+                if int(next_pid) == worker:
+                    state = "running"
+        elif kind == "sched_wakeup":
+            wake = WAKE.search(body)
+            if wake and int(wake[2]) == worker and not (current or "").startswith(f"tid={worker} "):
+                state = "runnable"
+        elif kind in ("irq_handler_entry", "softirq_entry"):
+            interrupts.append(f"{kind}: {body}")
+        elif kind in ("irq_handler_exit", "softirq_exit"):
+            prefix = kind.replace("exit", "entry") + ":"
+            if interrupts and interrupts[-1].startswith(prefix):
+                interrupts.pop()
+    covered_ms = sum(occupants.values())
+    window_ms = (end-start)*1000
+    def label(actor):
+        match = re.match(r"tid=(\d+) comm=", actor)
+        return "tid={} comm={}".format(match[1], names.get(match[1], actor.split(" comm=", 1)[1])) if match else actor
+    def rank(values):
+        combined = collections.Counter()
+        for key, value in values.items():
+            combined[label(key)] += value
+        return [{"occupant": key, "ms": round(value, 6)}
+                for key, value in combined.most_common() if value > 0]
+    def history_covered(item):
+        counters = event.get("trace_loss_counters", {}).get(str(item), {})
+        if counters.get("commit overrun", 0) or counters.get("dropped events", 0):
+            return False
+        if "recording_started_ns" in event:
+            if any(key not in counters for key in ("overrun", "commit overrun", "dropped events")):
+                return False
+            return (event["recording_started_ns"] <= start*1e9 and event["recording_stopped_ns"] >= end*1e9
+                    and (not counters.get("overrun", 0) or item in bounds and bounds[item][0] <= start))
+        return item in bounds and bounds[item][0] <= start and bounds[item][1] >= end
+    return {"window_ms": window_ms, "covered_ms": covered_ms,
+            "uncovered_ms": max(0, window_ms-covered_ms),
+            "trace_first_s": first, "trace_last_s": last,
+            "per_cpu_trace_bounds_s": bounds,
+            "cross_cpu_history_covered": all(history_covered(item) for item in event.get("recorded_cpus", bounds)),
+            "window_covered": first is not None and first <= start and last >= end and occupants["unknown"] == 0,
+            "cpu_occupants": rank(occupants),
+            "worker_runnable_wait_occupants": rank(runnable),
+            "worker_interrupt_occupants": rank(interrupted),
+            "worker_states_ms": dict(states),
+            "note": "CPU occupancy excludes separately counted IRQ/softirq intervals; sleeping/blocked time is not CPU starvation. Inspect trace and loss counters before assigning a cause."}
+
+
+def thread_metadata():
+    result = []
+    for proc in Path("/proc").iterdir():
+        if not proc.name.isdigit():
+            continue
+        try:
+            cgroup = (proc / "cgroup").read_text().strip()
+            for task in (proc / "task").iterdir():
+                text = (task / "stat").read_text()
+                name, fields = text.split(" (", 1)[1].rsplit(") ", 1)
+                fields = fields.split()
+                result.append(dict(pid=int(proc.name), tid=int(task.name), comm=name,
+                                   ppid=int(fields[1]), nice=int(fields[16]),
+                                   start_ticks=int(fields[19]), cgroup=cgroup))
+        except (OSError, ValueError, IndexError):
+            continue
+    return result
+
+
+class Recorder:
+    def __init__(self, trace_root, output, cpu, instance=None):
+        output.mkdir(parents=True, exist_ok=True, mode=0o700)
+        self.lock = (output / "recorder.lock").open("a")
+        try:
+            fcntl.flock(self.lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BaseException:
+            self.lock.close()
+            raise
+        instance = instance or "robot-policy-diagnostics-" + hashlib.sha256(str(output.resolve()).encode()).hexdigest()[:12]
+        self.root = trace_root / "instances" / instance
+        self.output, self.cpu = output, cpu
+        try:
+            # A service killed by SIGKILL cannot remove its tracefs instance.
+            # The exclusive state lock and output-specific name let a restart
+            # recover its own stale ring without disturbing another recorder.
+            if self.root.exists():
+                self.write("tracing_on", "0")
+                self.write("events/enable", "0")
+                self.root.rmdir()
+            self.root.mkdir()
+            self.write("tracing_on", "0")
+            self.write("buffer_size_kb", "8192")  # 8 MiB for the one selected CPU.
+            self.write("trace_clock", "mono")
+            # Wakeups are emitted on the waking CPU, which can differ from
+            # the target CPU. Recording only CPU3 would silently miss them.
+            self.write("tracing_cpumask", format((1 << os.cpu_count()) - 1, "x"))
+            self.write("current_tracer", "nop")
+            for event in EVENTS:
+                expression = f"target_cpu == {cpu}" if event == "sched/sched_wakeup" else f"common_cpu == {cpu}"
+                self.write(f"events/{event}/filter", expression)
+                self.write(f"events/{event}/enable", "1")
+            self.write("trace", "")
+            self.write("tracing_on", "1")
+            self.armed_ns = time.monotonic_ns()
+            for partial in output.iterdir():
+                if re.fullmatch(r"[0-9a-f]{8}-\d+\.partial", partial.name) and partial.is_dir():
+                    shutil.rmtree(partial)
+            self.prune()
+        except BaseException:
+            self.close()
+            raise
+
+    def write(self, path, value):
+        (self.root / path).write_text(value)
+
+    def capture(self, event):
+        event = dict(event, cpu=self.cpu, recorded_cpus=list(range(os.cpu_count())),
+                     recording_started_ns=self.armed_ns)
+        # Freeze only our ring. Re-arm before JSON parsing, metadata collection
+        # or disk export so these never prolong the recording gap.
+        self.write("tracing_on", "0")
+        event["recording_stopped_ns"] = time.monotonic_ns()
+        try:
+            trace = (self.root / "trace").read_text()
+            snapshots = {entry.parent.name: entry.read_text()
+                         for entry in sorted((self.root / "per_cpu").glob("cpu*/stats"))}
+            stats = "\n".join(f"{name}:\n{text}" for name,text in snapshots.items())
+            event["trace_loss_counters"] = {
+                name.removeprefix("cpu"): {key: int(value) for key,value in
+                    re.findall(r"^(overrun|commit overrun|dropped events):\s*(\d+)", text, re.M)}
+                for name,text in snapshots.items()}
+        finally:
+            self.write("trace", "")
+            self.write("tracing_on", "1")
+            self.armed_ns = time.monotonic_ns()
+        boot = Path("/proc/sys/kernel/random/boot_id").read_text().strip()
+        name = f"{boot[:8]}-{event['timeout_ns']}"
+        destination = self.output / name
+        if destination.exists():
+            return destination
+        partial = self.output / (name + ".partial")
+        partial.mkdir(mode=0o700)
+        try:
+            (partial / "trace.txt").write_text(trace)
+            (partial / "trace-stats.txt").write_text(stats)
+            metadata = {"boot_id": boot, "cpu": self.cpu, "event": event,
+                        "captured_monotonic_ns": time.monotonic_ns(),
+                        "threads": thread_metadata()}
+            (partial / "event.json").write_text(json.dumps(metadata, indent=2)+"\n")
+            (partial / "attribution.json").write_text(json.dumps(analyze(trace, event), indent=2)+"\n")
+            for file in partial.iterdir():
+                with file.open("rb") as stream:
+                    os.fsync(stream.fileno())
+            partial.rename(destination)
+            fd = os.open(self.output, os.O_RDONLY | os.O_DIRECTORY)
+            try:
+                os.fsync(fd)
+            finally:
+                os.close(fd)
+        except BaseException:
+            shutil.rmtree(partial)
+            raise
+        self.prune()
+        return destination
+
+    def prune(self):
+        # Ignore foreign directories and incomplete captures; never prune an
+        # arbitrary directory supplied via --output.
+        own = [p for p in self.output.iterdir() if re.fullmatch(r"[0-9a-f]{8}-\d+", p.name) and p.is_dir()]
+        for path in sorted(own, key=lambda p: p.stat().st_mtime_ns, reverse=True)[8:]:
+            shutil.rmtree(path)
+
+    def close(self):
+        try:
+            if self.root.exists():
+                self.write("tracing_on", "0")
+                self.write("events/enable", "0")
+                self.root.rmdir()
+        finally:
+            self.lock.close()
+
+
+def ready():
+    address = os.environ.get("NOTIFY_SOCKET")
+    if address:
+        with socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM) as notifier:
+            notifier.connect("\0" + address[1:] if address.startswith("@") else address)
+            notifier.sendall(b"READY=1")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--trace-root", type=Path, default=Path("/sys/kernel/tracing"))
+    parser.add_argument("--output", type=Path, default=Path("/var/lib/robot-policy-diagnostics"))
+    parser.add_argument("--cpu", type=int, default=3)
+    parser.add_argument("--self-test-seconds", type=float, help="Capture only; no Journal or robot access")
+    args = parser.parse_args()
+    os.umask(0o077)
+    signal.signal(signal.SIGTERM, lambda *_: (_ for _ in ()).throw(SystemExit(0)))
+    cursor = None
+    if args.self_test_seconds is None:
+        # This board's RTC can start months behind and NTP jumps the wall clock.
+        # A boot-scoped Journal cursor avoids replaying old incidents or losing
+        # new ones during a wall-clock correction or journalctl startup.
+        latest = subprocess.check_output(["journalctl", "-b", "-n", "1", "-o", "json", "--no-pager"], text=True)
+        cursor = json.loads(latest)["__CURSOR"]
+    recorder = Recorder(args.trace_root, args.output, args.cpu)
+    journal = None
+    try:
+        if args.self_test_seconds is not None:
+            ready()
+            start = time.monotonic_ns()
+            time.sleep(args.self_test_seconds)
+            event = {"request": {"request_started_ns": start, "action": "self_test",
+                     "model": "none", "sequence": 0}, "timeout_ns": time.monotonic_ns(), "worker": None}
+            print(recorder.capture(event), flush=True)
+            return
+        journal = subprocess.Popen(["journalctl", "-b", "-u", "robotd.service", "-f", "-o", "json",
+                                    "--after-cursor", cursor, "-n", "all", "--no-pager"],
+                                   stdout=subprocess.PIPE, text=True)
+        ready()
+        print("Policy CPU flight recorder ready", flush=True)
+        for line in journal.stdout:
+            try:
+                event = event_from_journal(line)
+                if event:
+                    print(f"Policy timeout evidence saved: {recorder.capture(event)}", flush=True)
+            except (ValueError, KeyError, TypeError) as error:
+                print(f"Invalid policy diagnostic event: {error}", flush=True)
+        raise RuntimeError("Journal stream exited")
+    finally:
+        if journal:
+            journal.terminate()
+            try:
+                journal.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                journal.kill()
+                journal.wait()
+        recorder.close()
+
+
+if __name__ == "__main__":
+    main()

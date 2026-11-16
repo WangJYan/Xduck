@@ -1,0 +1,17 @@
+{
+  "source_kind": "Local engineering source verified against installed peak firmware build manifest",
+  "source_path": "10-source/stm32/stm32-h7-dm",
+  "base_revision": "90b1a189c21703cfb1dd8ed36ccf7c4b0833543e",
+  "includes_uncommitted_source": true,
+  "build_options": [
+    "CMAKE_BUILD_TYPE=Release",
+    "H7DM_RIDER_5X5=ON",
+    "H7DM_DM_J10422P=ON"
+  ],
+  "build_manifest_files_verified": 1093,
+  "auto_enable": false,
+  "motion_commissioned": false,
+  "device": "124",
+  "archived_on": "2026-11-16",
+  "stm32_usb_serial": "385733633134"
+}

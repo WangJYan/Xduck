@@ -1,0 +1,47 @@
+# Raise the RK3566 CPU-frequency governor only while robotd's resident policy workers exist.
+# This unit deliberately owns the narrow sysfs write instead of weakening robotd's
+# ProtectKernelTunables sandbox or granting any privilege to uploaded Python policy code.
+
+[Unit]
+Description=Policy inference CPU and DDR frequency governors
+# Debian's cpufrequtils oneshot writes ondemand during boot. Let it finish first,
+# then set performance before robotd and its policy workers start.
+Requires=cpufrequtils.service
+After=cpufrequtils.service
+# PartOf follows managed stop/restart. BindsTo would turn an unexpected robotd exit into a
+# stop job, cancelling robotd's Restart=always and leaving the web without telemetry.
+PartOf=robotd.service
+Before=robotd.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+RuntimeDirectory=robot-policy-performance
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+CPUAffinity=0-2
+ExecStart=/usr/local/sbin/robot-policy-cpu-governor performance
+ExecStop=/usr/local/sbin/robot-policy-cpu-governor ondemand
+ExecStopPost=/usr/local/sbin/robot-policy-cpu-governor cleanup
+TimeoutStartSec=5s
+TimeoutStopSec=5s
+User=root
+Group=root
+
+# The privileged operations are CPU and DMC governor writes. Keep the rest of the host read-only
+# and inaccessible; ProtectKernelTunables cannot be enabled because it would make that exact sysfs
+# subtree read-only.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_UNIX
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+
+# No [Install] section: robotd is the only owner of this lifecycle.

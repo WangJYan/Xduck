@@ -1,0 +1,8 @@
+Device: 122 / rk3566-2
+STM32 UID: 00140044,3333510e,35383530
+Date: 2026-11-11 (Asia/Shanghai)
+Source HEAD: 90b1a189c21703cfb1dd8ed36ccf7c4b0833543e
+Local working tree patch: source.patch
+CMake: Release H7DM_IMU_MOUNT_Z180=ON H7DM_CAN_CAPTURE=ON H7DM_BENCH_ID1_ONLY=OFF
+H7DM_MOTOR_AUTO_ENABLE=0
+IMU: body=[-sensor X,-sensor Y,+sensor Z]

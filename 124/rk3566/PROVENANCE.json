@@ -1,0 +1,30 @@
+{
+  "device": "124",
+  "hostname": "rk3566-3",
+  "soc_serial": "cd291a37700858c3",
+  "stm32_usb_serial": "385733633134",
+  "archived_on": "2026-11-16",
+  "source_kind": "read-only device source mirror",
+  "source_path": "/home/xduck3/xrange/10-source/rk3566",
+  "installed_version_toml": "version = \"0.10.0-dev.local.1794804003.g90b1a18.rider124.peak\"\nchannel = \"daemon\"\nrevision = \"90b1a189c21703cfb1dd8ed36ccf7c4b0833543e-rider124-5x5-20261116\"\nbinaries = [\"btd\", \"configd\", \"mediad\", \"padd\", \"pet-detect\", \"pet-features\", \"robotctl\", \"robotd\", \"sounds\", \"tofd\", \"updaterd\", \"xpad-usbd\"]\n",
+  "excluded": [
+    "target/",
+    ".git/",
+    "caches",
+    "secrets/",
+    "dev-key/",
+    "*.key",
+    "*.pem",
+    ".env*"
+  ],
+  "verification": "Every archived source file matches device SHA256; see SOURCE-SHA256SUMS.",
+  "release_source_comparison": {
+    "manifest_entries": 361,
+    "verified": 359,
+    "excluded": [
+      "deploy/dev-key/README.md",
+      "deploy/dev-key/team.dev.pub"
+    ],
+    "changed": []
+  }
+}
