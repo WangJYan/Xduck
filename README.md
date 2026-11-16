@@ -4,7 +4,7 @@
 
 本仓库集中管理 Xduck 与 Rider 系列设备的控制代码。RK3566 运行 Linux 服务，负责策略推理、控制调度、网页与通信；STM32 H7 负责电机总线、底层反馈和实时保护。两端通过 USB 串口上的 DMUSB v4 协议协作。
 
-当前收录 **121、122、124、125** 四台设备的源码，每台设备分别保存 `rk3566/` 和 `stm32/`，方便查找对应版本、比较设备差异和追溯构建来源。
+当前收录 **xduck1（121）、xduck2（122）、Rider（124）、Rider Mini（125）** 四台设备的源码，每台设备分别保存 `rk3566/` 和 `stm32/`，方便查找对应版本、比较设备差异和追溯构建来源。
 
 [设备与版本](#设备与版本) · [目录结构](#目录结构) · [系统组成](#系统组成) · [开始阅读](#开始阅读) · [源码来源与校验](#源码来源与校验)
 
@@ -14,8 +14,8 @@
 
 | 设备 | 平台与配置 | 主要区别 | 源码入口 |
 | --- | --- | --- | --- |
-| **121** | Xduck，14 电机 GF/I2RT 配置 | 基础设备版本，包含控制、策略、网页与媒体相关模块 | [RK3566](121/rk3566/microduck/) · [STM32](121/stm32/stm32-h7-dm/) |
-| **122** | Xduck，14 电机 GF/I2RT 配置 | 独立蓝牙屏、IMU 安装方向适配，以及 CPU 隔离、CPU/DDR 性能与策略超时诊断相关改动 | [设备说明](122/README.md) · [RK3566](122/rk3566/microduck/) · [STM32](122/stm32/stm32-h7-dm/) |
+| **121** | **xduck1**，14 电机 GF/I2RT 配置 | 基础设备版本，包含控制、策略、网页与媒体相关模块 | [RK3566](121/rk3566/microduck/) · [STM32](121/stm32/stm32-h7-dm/) |
+| **122** | **xduck2**，14 电机 GF/I2RT 配置 | 独立蓝牙屏、IMU 安装方向适配，以及 CPU 隔离、CPU/DDR 性能与策略超时诊断相关改动 | [设备说明](122/README.md) · [RK3566](122/rk3566/microduck/) · [STM32](122/stm32/stm32-h7-dm/) |
 | **124** | Rider，10 电机 DM-J10422P-2EC 配置 | CAN1 ID 1–5、CAN2 ID 6–10；5+5 关节布局、Rider 网页、单个 SuperMimic 策略槽 | [设备说明](124/README.md) · [RK3566](124/rk3566/microduck/) · [STM32](124/stm32/stm32-h7-dm/) |
 | **125** | Rider Mini，12 电机配置 | CAN1 奇数 ID／右侧、CAN2 偶数 ID／左侧；独立 Yesense USB IMU，网页以 HTTP-only 模式运行 | [设备说明](125/README.md) · [适配记录](125/RIDER_MINI_PORT.md) · [RK3566](125/rk3566/microduck/) · [STM32](125/stm32/stm32-h7-dm/) |
 
@@ -26,7 +26,7 @@
 ```text
 Xduck/
 ├── README.md
-├── 121/                         # Xduck 基础设备
+├── 121/                         # xduck1 基础设备
 │   ├── rk3566/
 │   │   ├── microduck/           # 完整 Rust workspace、网页、脚本和设计文档
 │   │   ├── SOURCE-SHA256SUMS    # 归档源码校验清单
@@ -35,7 +35,7 @@ Xduck/
 │       ├── stm32-h7-dm/         # STM32 H7 C/C++ 固件工程
 │       ├── SOURCE-SHA256SUMS
 │       └── PROVENANCE.json      # 来源与核对记录
-├── 122/                         # Xduck 设备专用版本
+├── 122/                         # xduck2 设备专用版本
 │   ├── rk3566/
 │   └── stm32/
 ├── 124/                         # Rider 5+5 / DM 电机版本
@@ -92,7 +92,7 @@ flowchart TD
 
 ## 开始阅读
 
-先选择设备，例如 122：
+先选择设备，例如 xduck2（122）：
 
 ```sh
 git clone https://github.com/x-rangecraft/Xduck.git
