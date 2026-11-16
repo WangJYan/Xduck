@@ -1,8 +1,0 @@
-device=124
-model=DM-J10422P-2EC
-profile=H7DM_RIDER_5X5=ON,H7DM_DM_J10422P=ON
-CAN_FD=1m/4m
-working_caps=400 Nm peak,120 rpm (12.5663706 rad/s) output shaft
-wire_mapping=12.566/20/500 unchanged
-MOTOR_AUTO_ENABLE=0
-commissioning_marker=absent

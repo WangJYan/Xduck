@@ -1,8 +1,0 @@
-[Unit]
-Description=Robot control and policy CPU reservation
-
-[Slice]
-# Separate from system.slice: housekeeping services are restricted to CPUs0-2.
-# robotd still needs all four CPUs for its per-thread IPC/control affinity.
-AllowedCPUs=0-3
-CPUWeight=10000
