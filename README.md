@@ -1,8 +1,8 @@
 # xduck
 
-**连接机器人模型、仿真训练、策略部署与真机控制的项目仓库。**
+**连接机械结构、机器人模型、仿真训练、策略部署与真机控制的项目仓库。**
 
-xduck 围绕 Xduck 与 Rider 系列机器人，整理从模型迭代到真机运行的工程资源：机器人定义与网格、仿真训练任务、ONNX 策略及配套 Python 消费代码，以及 RK3566 上位机与 STM32 H7 下位机程序。
+xduck 围绕 Xduck 与 Rider 系列机器人，整理从机械零件、模型迭代到真机运行的工程资源：机械零件 STL、机器人定义与网格、仿真训练任务、ONNX 策略及配套 Python 消费代码，以及 RK3566 上位机与 STM32 H7 下位机程序。
 
 `main` 只保存整个仓库的介绍与导航。具体源码、模型和实验资料按用途放在对应分支中。
 
@@ -10,12 +10,19 @@ xduck 围绕 Xduck 与 Rider 系列机器人，整理从模型迭代到真机运
 
 | 分支 | 主要内容 | 从这里开始 |
 | --- | --- | --- |
+| **[mechanical](https://github.com/x-rangecraft/Xduck/tree/mechanical)** | 最终机械零件 STL、零件索引与文件校验清单 | [机械零件介绍](https://github.com/x-rangecraft/Xduck/blob/mechanical/README.md) |
 | **[model](https://github.com/x-rangecraft/Xduck/tree/model)** | 机器人模型与版本迭代，包括机器人定义、几何网格和配套配置 | [模型版本介绍](https://github.com/x-rangecraft/Xduck/blob/model/README.md) |
 | **[simulation](https://github.com/x-rangecraft/Xduck/tree/simulation)** | 按机器人版本组织的仿真与训练工程、任务配置、策略和评估资料 | [仿真与训练介绍](https://github.com/x-rangecraft/Xduck/blob/simulation/README.md) |
 | **[simtoreal](https://github.com/x-rangecraft/Xduck/tree/simtoreal)** | 电机仿真模型、策略部署版本、ONNX 与配套 Python 接口文件 | [Sim-to-Real 介绍](https://github.com/x-rangecraft/Xduck/blob/simtoreal/README.md) |
 | **[driver](https://github.com/x-rangecraft/Xduck/tree/driver)** | 四台设备的 RK3566、STM32 完整控制工程、协议与设备适配说明 | [设备驱动与控制介绍](https://github.com/x-rangecraft/Xduck/blob/driver/README.md) |
 
 ## 项目组成
+
+### 机械零件 · mechanical
+
+保存“最终零件”目录中的 16 个 STL 文件，包括机壳、头壳、面罩、护甲、小腿护板、左右脚、电池上盖、分电板保护壳和 IMU 固定板。保留原始文件名与几何内容，并提供零件索引和 SHA256 校验清单。
+
+[查看机械零件分支](https://github.com/x-rangecraft/Xduck/tree/mechanical) · [直接浏览零件](https://github.com/x-rangecraft/Xduck/tree/mechanical/最终零件)
 
 ### 机器人模型 · model
 
@@ -74,7 +81,7 @@ git clone --branch driver https://github.com/x-rangecraft/Xduck.git
 cd Xduck
 ```
 
-获取其他内容时，将 `driver` 替换为 `model`、`simulation` 或 `simtoreal`。具体环境、构建参数和操作步骤见对应分支的 README。
+获取其他内容时，将 `driver` 替换为 `mechanical`、`model`、`simulation` 或 `simtoreal`。具体环境、构建参数和操作步骤见对应分支的 README。
 
 各分支按用途独立维护。使用模型或策略接入设备时，应结合对应版本核对关节名称与顺序、方向、零位、限位、观测定义和电机参数；模型版本号与设备编号之间的适配关系以具体工程记录为准。
 
