@@ -1,0 +1,97 @@
+{
+  "version_name": "v2.0.2 v1站立模型",
+  "hashes": {
+    "body2700": {
+      "path": "/home/xingchen/Xduck_branches/xduck_2_0_1_early_head_20261106/runs/block_2700/final.pt",
+      "sha256": "843c90e92eeb3fb265af9d04a7f74f8adf33933847a83566aa7a54d506313a66"
+    },
+    "selected_feature_precise": {
+      "path": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_reference_repair_20261107/feature_precise.pt",
+      "sha256": "28efbd7d65457fb41cce6d63c4afbab54fc494801683577c4acfec5aef6f7dc6"
+    },
+    "source_reference": {
+      "path": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_reference_repair_20261107/source_reference.pt",
+      "sha256": "cfbc8504b496e255c602d7992fcb5acb570bfdc8bc091f5399ac052ba657c4a0"
+    },
+    "v1_ONNX": {
+      "path": "/home/xingchen/Xduck_exports/xc_standing.onnx",
+      "sha256": "016f26b78f9c67226d695a3d57b176d36b4e57b381a3de77568ffd02f99fdbc3"
+    },
+    "export_v202_adapter": {
+      "path": "/home/xingchen/Xduck_exports/v201_policy_for_v202_20261108/policy_v202_adapter.onnx",
+      "sha256": "c99b617eb50501104d07019e58cd09f28ac93ac3e54c459736394acbfbaa699a"
+    }
+  },
+  "counts": {
+    "main_updates": 2700,
+    "main_samples": 221184000,
+    "head_selected_ancestry_updates": 1440,
+    "head_selected_ancestry_samples": 29491200,
+    "head_branch_lineage_hash_check_except_declared_transformation": true,
+    "v1_ONNX_initializer_tensors_equal_v202_export": true
+  },
+  "selected_head_runs": [
+    {
+      "run": "repair032",
+      "updates": 32,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/source2700.pt",
+      "sha256": "967b2489fab3cac8bf492da76e71df97048c4d8038e3c45b75038239df1ed14c"
+    },
+    {
+      "run": "repair096",
+      "updates": 64,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair032/final.pt",
+      "sha256": "84e0786555a4c561b71b254fea0d590f87ff5b2721a404b074b3bb60be778491"
+    },
+    {
+      "run": "repair224",
+      "updates": 128,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair096/final.pt",
+      "sha256": "d5a3d628dbf238c78a2301849a6d400dcb9c34e909a42ffbe775f4559ac658bf"
+    },
+    {
+      "run": "protected064",
+      "updates": 64,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair224/final.pt",
+      "sha256": "3e7537518c5b1df992b30c61ae8c88af4e278bedc4fabb345b1df67e53c5f412"
+    },
+    {
+      "run": "protected_quiet320",
+      "updates": 256,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/protected064/final.pt",
+      "sha256": "fb5fdf848456c6ad5ac2dc49e5e1cf8470dc3d5bfdd7be1511e0885371ad19b5"
+    },
+    {
+      "run": "protected_quiet576",
+      "updates": 256,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/protected_quiet320/final.pt",
+      "sha256": "df49bc0b61353e99fdb55b7e388eb8b2530257dcbf36e2e4f2c01459b63e0a86"
+    },
+    {
+      "run": "standing128",
+      "updates": 128,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/source_head576.pt",
+      "sha256": "e1fa409bcc8f38983414c928d8f1bddd7ab5a5997b315442c0c123a34928069b"
+    },
+    {
+      "run": "standing256",
+      "updates": 128,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/runs/standing128/final.pt",
+      "sha256": "851f8b6502c7b5a57ff2004654b9a87361b643e414bd512d990feb8b7f32b9b6"
+    },
+    {
+      "run": "standing512",
+      "updates": 256,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/runs/standing256/final.pt",
+      "sha256": "c8814359d63460c82888df3a490078ea63b0c76ddc028504edf698122005047b"
+    },
+    {
+      "run": "reference128",
+      "updates": 128,
+      "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_reference_repair_20261107/source_reference.pt",
+      "sha256": "ded5f30ca8e377ef4bd302dde3b7e32cd0117439789f62001a86fc2aaa1e88ec"
+    }
+  ],
+  "main_training_stopped_on_head_gate": true,
+  "training_restarted": false
+}

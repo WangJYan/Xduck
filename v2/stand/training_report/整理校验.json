@@ -1,0 +1,16 @@
+{
+  "version_name": "v2.0.2 v1站立模型",
+  "on_disk_identity_verified": true,
+  "completed_main_blocks": 23,
+  "selected_repair_blocks": 10,
+  "body_updates": 2700,
+  "selected_repair_updates": 1440,
+  "total_ancestry_updates": 4140,
+  "body_samples": 221184000,
+  "repair_samples": 29491200,
+  "source_chain_hash_checks_passed": true,
+  "export_initializers_match": true,
+  "planned_pilot16_pilot32_not_counted": true,
+  "not_selected_runs_excluded": true,
+  "no_training_started": true
+}

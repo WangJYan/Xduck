@@ -1,0 +1,131 @@
+{
+  "model": "Xduck_2.0.1",
+  "reference_keyframe": "HOME",
+  "frame_semantics": {
+    "motor_zero": "User-specified mechanical/electrical zero; do not use as standing reward reference",
+    "mjcf_ref": "MJCF kinematic coordinate reference, separately recorded per joint",
+    "standing_reference": "HOME keyframe; all actor relative joint positions and head delta commands reference HOME"
+  },
+  "home_qpos": [
+    0.0,
+    0.0,
+    0.323227,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.08,
+    0.394,
+    -0.061,
+    -0.455,
+    -0.26,
+    -0.27748112810894915,
+    0.0,
+    0.0,
+    0.0,
+    -0.08,
+    -0.394,
+    0.061,
+    0.455
+  ],
+  "home_ctrl": [
+    0.0,
+    0.08,
+    0.394,
+    -0.061,
+    -0.455,
+    -0.26,
+    -0.27748112810894915,
+    0.0,
+    0.0,
+    0.0,
+    -0.08,
+    -0.394,
+    0.061,
+    0.455
+  ],
+  "goal_height_m": 0.322972,
+  "geometric_home_root_height_m": 0.323227,
+  "height_calibration_file": "audit/HEIGHT_CALIBRATION.json",
+  "height_reference_body": "base_link",
+  "height_reference_plane_z_m": 0.0,
+  "height_thresholds": {
+    "stable_geometry_min_m": 0.292972,
+    "settle_score_zero_m": 0.24297199999999997,
+    "settle_score_full_m": 0.292972
+  },
+  "height_binding_requirements": [
+    "env.goal_height_m in every phase must come from this contract",
+    "init qpos must come from HOME; do not overwrite its geometric root z with the settled reward target",
+    "height goal ratio = goal_height_m / HOME root z",
+    "settle outcome, completion tests, head eligibility and evaluators consume the same goal_height_m",
+    "recovery-style thresholds at 0.18/0.235 m require new-model posture validation, not blanket replacement",
+    "recalibrate and invalidate derived thresholds if HOME, sole geometry, gains or motor parameters change"
+  ],
+  "imu_rotation_physical_to_policy": [
+    [
+      1.1102230246251565e-16,
+      3.691553636350446e-17,
+      -0.9999999999999997
+    ],
+    [
+      -1.2009370950487302e-16,
+      0.9999999999999997,
+      3.6915536363504444e-17
+    ],
+    [
+      0.9999999999999997,
+      1.2009370950487302e-16,
+      1.1102230246251565e-16
+    ]
+  ],
+  "observation_dim": 61,
+  "critic_dim": 76,
+  "action_dim": 14,
+  "physics_dt_s": 0.001,
+  "control_dt_s": 0.02,
+  "runtime_model_adapter_required": true,
+  "target_low_rad": [
+    -1.19999,
+    -0.11999,
+    -2.99999,
+    -1.09999,
+    -1.3999899999999998,
+    -0.26999,
+    -1.537471128108949,
+    -1.99999,
+    -0.44999,
+    -0.34998999999999997,
+    -1.19999,
+    -2.99999,
+    -0.7999900000000001,
+    -1.29999
+  ],
+  "target_high_rad": [
+    0.34998999999999997,
+    1.19999,
+    2.99999,
+    0.7999900000000001,
+    1.29999,
+    1.29999,
+    0.8625088718910509,
+    1.99999,
+    0.44999,
+    1.19999,
+    0.19999,
+    1.99999,
+    1.09999,
+    1.3999899999999998
+  ],
+  "head_tilt_limit_deg": 30.0,
+  "head_slew_rad_s": [
+    0.8,
+    1.0,
+    1.2,
+    0.45
+  ],
+  "head_soft_motion_behavior": "pause target ramp; retain command and bias history",
+  "head_hard_exit": "measured tilt>=30deg, invalid permission or persistent leg instability",
+  "head_reentry": "seed from measured head position"
+}

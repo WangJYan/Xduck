@@ -1,0 +1,25 @@
+from pathlib import Path
+import json,hashlib,torch,onnx
+from omegaconf import OmegaConf
+B=Path('/home/xingchen/Xduck_branches');X=Path('/home/xingchen/Xduck_exports');O=X/'v202_v1_standing_training_history_20261116';O.mkdir(exist_ok=True);base=B/'xduck_2_0_1_early_head_20261106';blocks=json.load(open(base/'execution_blocks.json'));main=[]
+for block in blocks:
+ if int(block['end'])>2700:continue
+ run=Path(block['run']);d=json.load(open(run/'completion.json'));c=OmegaConf.to_container(OmegaConf.load(run/'CONFIG.yaml'),resolve=True);e=c['env'];sd=torch.load(run/'final.pt',map_location='cpu',weights_only=True);g=sd.get('optimizer_state_dict',{}).get('param_groups',[])
+ main.append(dict(index=block['index'],start=int(block['start']),end=int(block['end']),completion=d,config_file=str(run/'CONFIG.yaml'),config=c,optimizer_final_lrs=[x['lr'] for x in g],numpy_torch_seed=int(block['seed_numpy_torch']),saved_algo_seed=c['algo'].get('seed'),owner=block['owner']))
+selected=[('xduck_2_0_1_head_repair30_20261107','repair032'),('xduck_2_0_1_head_repair30_20261107','repair096'),('xduck_2_0_1_head_repair30_20261107','repair224'),('xduck_2_0_1_head_repair30_20261107','protected064'),('xduck_2_0_1_head_repair30_20261107','protected_quiet320'),('xduck_2_0_1_head_repair30_20261107','protected_quiet576'),('xduck_2_0_1_standing_head_20261107','standing128'),('xduck_2_0_1_standing_head_20261107','standing256'),('xduck_2_0_1_standing_head_20261107','standing512'),('xduck_2_0_1_head_reference_repair_20261107','reference128')]
+repairs=[];nonselected=[]
+for branch,name in selected:
+ run=B/branch/'runs'/name;d=json.load(open(run/'completion.json'));c=OmegaConf.to_container(OmegaConf.load(run/'CONFIG.yaml'),resolve=True);ck=torch.load(run/'final.pt',map_location='cpu',weights_only=True);lrs=[x['lr'] for x in ck['optimizer_state_dict']['param_groups']];full=run/'FULL_ENV_CONFIG.json';repairs.append(dict(branch=branch,run=name,completion=d,config=c,config_file=str(run/'CONFIG.yaml'),full_env=json.load(open(full)) if full.exists() else None,optimizer_final_lrs=lrs,checkpoint_iter=ck.get('iter'),head_reference_bound=float(ck['actor_state_dict']['head_reference_bound']) if 'head_reference_bound' in ck['actor_state_dict'] else None))
+for branch in sorted(set(x[0] for x in selected)):
+ for f in sorted((B/branch/'runs').glob('*/completion.json')):
+  if (branch,f.parent.name) not in selected:
+   d=json.load(open(f));nonselected.append(dict(branch=branch,run=f.parent.name,updates=d.get('updates'),source=d.get('source'),checkpoint_sha256=d.get('checkpoint_sha256'),reason='Not on selected final weight ancestry; experimental branch or smoke'))
+# Collect source/transform declarations exactly as saved.
+audit={}
+for branch,file in [('xduck_2_0_1_head_repair30_20261107','audit/SOURCE.json'),('xduck_2_0_1_standing_head_20261107','audit/SOURCE.json'),('xduck_2_0_1_head_reference_repair_20261107','audit/SOURCE.json'),('xduck_2_0_1_head_reference_repair_20261107','audit/FEATURE_FIX.json'),('xduck_2_0_1_head_reference_repair_20261107','audit/FEATURE_TESTS.json')]:audit[branch+'/'+file]=json.load(open(B/branch/file))
+paths={'body2700':base/'runs/block_2700/final.pt','selected_feature_precise':B/'xduck_2_0_1_head_reference_repair_20261107/feature_precise.pt','source_reference':B/'xduck_2_0_1_head_reference_repair_20261107/source_reference.pt','v1_ONNX':X/'xc_standing.onnx','export_v202_adapter':X/'v201_policy_for_v202_20261108/policy_v202_adapter.onnx'};hashes={k:dict(path=str(p),sha256=hashlib.sha256(p.read_bytes()).hexdigest()) for k,p in paths.items()};m=onnx.load(str(paths['v1_ONNX']));a=onnx.load(str(paths['export_v202_adapter']));tensors=lambda mm:{v.name:hashlib.sha256(onnx.numpy_helper.to_array(v).tobytes()).hexdigest() for v in mm.graph.initializer}
+lineage=all(repairs[i]['completion']['source_sha256']==repairs[i-1]['completion']['checkpoint_sha256'] for i in range(1,len(repairs)) if repairs[i]['run']!='reference128')
+summary=dict(main_updates=sum(x['completion']['updates'] for x in main),main_samples=sum(x['completion']['samples'] for x in main),head_selected_ancestry_updates=sum(x['completion']['updates'] for x in repairs),head_selected_ancestry_samples=sum(x['completion']['samples'] for x in repairs),head_branch_lineage_hash_check_except_declared_transformation=lineage,v1_ONNX_initializer_tensors_equal_v202_export=tensors(m)==tensors(a))
+r=dict(hashes=hashes,summary=summary,main_blocks=main,selected_head_repair_chain=repairs,not_selected_runs=nonselected,audit=audit,main_driver_status=json.load(open(base/'status.json')),selected_status=json.load(open(B/'xduck_2_0_1_head_reference_repair_20261107/status.json')),v201_contract=json.load(open(base/'model_contract.json')),v202_contract=json.load(open(B/'xduck_2_0_2_from0_20261107/model_contract.json')))
+(O/'TRAINING_EVIDENCE.json').write_text(json.dumps(r,ensure_ascii=False,indent=2));print('SUMMARY',summary)
+for x in repairs:print(x['run'],'updates',x['completion']['updates'],'source',x['completion']['source'],'LR',x['optimizer_final_lrs'],'seed',x['config']['env'].get('discovery_seed'),'bound',x['head_reference_bound'])

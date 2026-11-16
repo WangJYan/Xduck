@@ -1,0 +1,18 @@
+{
+  "checkpoint": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair096/final.pt",
+  "checkpoint_sha256": "84e0786555a4c561b71b254fea0d590f87ff5b2721a404b074b3bb60be778491",
+  "source": "/home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair032/final.pt",
+  "source_sha256": "967b2489fab3cac8bf492da76e71df97048c4d8038e3c45b75038239df1ed14c",
+  "updates": 64,
+  "num_envs": 1024,
+  "samples": 1310720,
+  "seconds": 124.37389779090881,
+  "optimizer_preserved": true,
+  "actor_weight_change_max": 0.014928042888641357,
+  "head_active_frames": 545042,
+  "head_pause_frames": 39510,
+  "head_nonquiet_violations": 0,
+  "head_alignment_errors": 0,
+  "tilt_limit_deg": 30.0,
+  "inference_target_error_rad": 1.2516975402832032e-07
+}

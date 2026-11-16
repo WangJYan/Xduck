@@ -1,0 +1,295 @@
+# coding: utf-8
+from pathlib import Path
+import json,hashlib,shutil,zipfile
+P=Path(__file__).resolve().parent;D=json.loads((P/'TRAINING_EVIDENCE.json').read_text());root=P.parents[1]
+name='v2.0.2 v1站立模型'
+main=D['main_blocks'];repairs=D['selected_head_repair_chain'];summ=D['summary']
+# Preserve readable per-stage evidence, with explicit original remote path.
+configdir=P/'配置快照';configdir.mkdir(exist_ok=True);completiondir=P/'完成记录';completiondir.mkdir(exist_ok=True)
+for x in main:
+ tag='main_'+str(x['end']).zfill(4);(configdir/(tag+'.json')).write_text(json.dumps(dict(original_path=x['config_file'],config=x['config']),ensure_ascii=False,indent=2));(completiondir/(tag+'.json')).write_text(json.dumps(x['completion'],ensure_ascii=False,indent=2))
+for x in repairs:
+ (configdir/(x['run']+'.json')).write_text(json.dumps(dict(original_path=x['config_file'],config=x['config'],effective_env=x['full_env']),ensure_ascii=False,indent=2));(completiondir/(x['run']+'.json')).write_text(json.dumps(x['completion'],ensure_ascii=False,indent=2))
+
+def f(v):
+ if v is None:return '-'
+ if isinstance(v,float):return format(v,'.7g')
+ if isinstance(v,(list,dict)):return json.dumps(v,ensure_ascii=False,separators=(',',':'))
+ return str(v)
+lines=[name+'：实际阶段与检查点清单','日期：2026-11-16','本表使用完成记录、运行CONFIG和最终优化器LR；planned_blocks.csv不作为实际执行结果。','','A. 主训（4096环境，每轮20步；每轮81920控制样本）','区间 | 轮数 | 脚本seed | YAML algo.seed | 配置LR | 最终优化器LR | entropy | phase/level | DR倍数 | 头部范围比例 | checkpointSHA']
+for x in main:
+ e=x['config']['env'];a=x['config']['algo']['algorithm'];mult=e.get('dr_multipliers',[1.]*4)[e.get('discovery_level',0)] if e.get('dr_curriculum_enabled') else 1.
+ lines.append(' | '.join([str(x['start'])+'-'+str(x['end']),str(x['completion']['updates']),str(x['numpy_torch_seed']),str(x['saved_algo_seed']),f(a['learning_rate']),f(x['optimizer_final_lrs']),f(a['entropy_coef']),e.get('discovery_phase','-')+'/'+str(e.get('discovery_level','-')),f(mult),f(e.get('head_range_fraction',0)),x['completion']['sha256']]))
+lines+=['','B. 最终选中权重的修复祖先链（1024环境，每轮20步；每轮20480样本）','run名 | 本段轮数 | 修复祖先累计轮数 | seed(env.discovery) | 优化器最终LR组 | 来源 | checkpointSHA']
+cum=0
+for x in repairs:
+ cum+=x['completion']['updates'];lines.append(' | '.join([x['run'],str(x['completion']['updates']),str(cum),str(x['config']['env'].get('discovery_seed')),f(x['optimizer_final_lrs']),x['completion']['source'],x['completion']['checkpoint_sha256']]))
+lines+=['','C. 已运行但不在最终选中祖先链','这些分支可能消耗过训练时间，但不能累加成选中模型的轮数。']
+for x in D['not_selected_runs']:lines.append(x['branch']+'/'+x['run']+' | updates='+str(x['updates'])+' | '+x['reason'])
+lines+=['','D. 计数口径',f"主训 {summ['main_updates']}轮，{summ['main_samples']:,}样本；选中修复链 {summ['head_selected_ancestry_updates']}轮，{summ['head_selected_ancestry_samples']:,}样本。",'合计祖先链4140次PPO更新、250675200个控制样本；不同阶段环境数不同，也不是一个始终不变的网络结构连续训练4140轮。','最终零头命令所用冻结身体网络仍是主训2700版本。','原计划2716/2732两个pilot块没有完成，不计入这里；repair032恰好也是32轮，不能混称原pilot32。']
+(P/'实际阶段与检查点清单.txt').write_text('\n'.join(lines)+'\n')
+
+text='''v2.0.2 v1站立模型训练过程完整说明
+整理日期：2026-11-16
+
+一、版本对象与统计口径
+
+本说明统一使用“v2.0.2 v1站立模型”作为当前版本名称，对应桌面v1/xc_standing.onnx。
+当前ONNX SHA256：016f26b78f9c67226d695a3d57b176d36b4e57b381a3de77568ffd02f99fdbc3。
+选定PT：feature_precise.pt，SHA256：28efbd7d65457fb41cce6d63c4afbab54fc494801683577c4acfec5aef6f7dc6。
+冻结基础身体：block_2700/final.pt，SHA256：843c90e92eeb3fb265af9d04a7f74f8adf33933847a83566aa7a54d506313a66。
+实际来源路径与物理模型版本见附录，正文按当前版本名称描述。
+
+已核对23个主训完成块、10个最终选中修复块的来源及配置；未计入冒烟或未选中实验分支。
+主训2700轮（4096环境×20步），221184000样本。
+选定修复祖先链1440轮（1024环境×20步），29491200样本。
+两者祖先链合计4140次PPO更新、250675200控制样本，但不能叫“身体从零连续训练4140轮”：后续大部分只更新头部专家，冻结身体保持2700轮。
+完成记录中的PPO学习净耗时合计约6.16小时：主训约5.31小时、选定修复约0.85小时。它不含全部初始化、编译、排队、评估、导出，也不含弃用分支的耗时。
+原七阶段计划最后两段16轮pilot没有按原路线完成；不能用计划的2732轮代替实际记录。
+
+二、实际训练主链
+
+随机初始化
+  -> 主训0-300：基础站立与恢复
+  -> 主训300-1300：混合恢复任务，300轮后开始头部命令课程
+  -> 主训1300-1800：站稳与交接收敛
+  -> 主训1800-2200：最高难度推扰及DR
+  -> 主训2200-2700：solver4联合微调，冻结归一化
+  -> 2700验收发现头部门控问题，停止原驱动
+  -> 30度门控修复224轮
+  -> 冻结2700身体，保护式头部专家训练576轮
+  -> 取消物理角度/静止门控，仅站立任务训练512轮
+  -> HOME参考动作结构下训练128轮
+  -> 物理范围归一化指令特征、修正幅度收紧至±0.01rad（不再PPO）
+  -> 选定feature_precise.pt，仿真评估、TorchScript导出
+  -> 当前模型接口适配和ONNX导出，形成桌面v1文件
+
+三、训练前准备
+
+1. 模型与参考姿态
+使用HOME作为站立参考，而不是把关节读数全0当作站立目标。
+主训保存物理模型总质量10.3464kg，21个qpos、20个速度自由度、14个主动关节，无额外柔性自由度。
+HOME根部几何高度0.323227m；静置标定站立奖励目标高度0.322972m。初始化高度与奖励高度是两个值。
+当前发布模型总质量10.29314kg，对应重新标定目标高度约0.3228222679m。
+这些都是仿真模型数值，不能等同于真机称重或电机编码器校准结论。
+
+2. 初态与历史重采集
+基础初态生成4096例。
+历史状态仅作为提案，不继承旧策略权重、不直接照搬旧观测和电机历史。
+提案库3089例，经新物理模型400ms重放后接受2894例、拒绝195例，并重新生成传感器与目标历史。
+最终库：俯卧398、仰卧412、行走交接1573、起身交接511；heldout合计711例。
+训练/评估分开；交接状态提案不等于已训练并验证了新行走策略。
+
+3. 算法、控制与电机
+PPO，actor为61输入、512-256-128 ELU网络、14输出；critic76输入。
+主训4096环境，每轮20步，每环境每轮0.4秒控制数据。
+物理/电机步长1ms，策略控制20ms（50Hz）；主训physics_microsteps=1。
+PPO主要设置：clip0.2、gamma0.995、lambda0.95、5个learning epochs、4个mini-batches、max_grad_norm1、desired_KL0.01。
+0-1300主学习率自适应；1300后由脚本按保存配置固定。
+初始无resume、保存initial.pt；后续加载完整检查点和优化器状态，并检查权重与来源一致。
+
+电机采用归档GF43X40-10共享等效模型。与旧v1.1.4对应阶段的核心代码、calibration.json、通信与反馈模型一致。
+Kp（训练顺序）：[90,90,75,100,90,75,90,75,90,90,90,75,100,90]。
+Kd：[2.5,2.5,2.5,3,3,2.5,2.5,2.5,2.5,2.5,2.5,2.5,3,3]。
+包括5.307062等效驱动缩放在内的校准参数是旧版本原有，并非本次新增。
+整机摩擦采用smooth_coupled_approx近似；不是已独立完成整机验证的真实静摩擦模型。
+
+四、主训2700轮的五段过程
+
+A. 0-300：基础站立与恢复
+分块0-25、25-100、100-200、200-300；都从本分支检查点连续续训。
+脚本种子41021，YAML algo.seed也为41021。
+前100轮为discovery，100-300为settle；头部跟随不启用。
+配置初始LR3e-4、entropy0.01，自适应LR；最终优化器LR各块不同，详见阶段清单，不能把配置LR当实际全程恒定值。
+目的是先建立新身体站立/倾斜/推扰恢复能力，没有固定的仰卧起身动作轨迹。
+
+B. 300-1300：混合恢复与早期头部课程
+分块300-500、500-700、700-900、900-1100、1100-1300，各200轮。
+头部范围比例依次5%、15%、35%、65%、100%。
+DR课程倍数依次1、1.25、1.5、1.75、2；数据难度逐步升至3。
+配置LR3e-4，自适应，后若干块最终优化器LR约4.5e-4。
+采样包含静站、倾斜、推扰、倒地恢复和交接，不是只练头。
+原头部额外跟随仅在kind0站立任务、姿态和速度足够稳定时启用：进入约tilt<8度、保持tilt<12度；动作反作用与安全退出条件均在当时实现里。
+后来的取消门控属于修复过程，不能倒写成这段原本就没有门控。
+推扰从约5-18N、0.1-0.35秒逐步升到7-36N、0.12-0.7秒。
+
+C. 1300-1800：共同收敛与交接稳定
+每100轮一块，共5块。
+固定LR依次1e-4、1e-4、7e-5、5e-5、5e-5；entropy从0.003逐渐降到0.0015。
+DR倍数2，头部全幅。
+站稳/步行或起身交接质量继续强化，同时加入安静目标变化代价等。
+后期reset权重约[.08,.10,.42,.18,.22]，依次为静站、倾斜、推扰、地面恢复、交接。
+
+D. 1800-2200：最高难度身体抗扰
+每100轮一块，DR倍数2.1、2.25、2.4、2.5。
+固定LR7e-5、7e-5、5e-5、5e-5。
+最高推扰课程32-40N、持续1.0-1.5秒；模型学习的是全身恢复，不表示这些场景全部全程不倒。
+头部仍只在对应站立任务训练，推扰/地面恢复不给非零头部跟随任务。
+
+E. 2200-2700：solver4和头部联合微调
+每100轮一块，共500轮。actor改成JointSolverActor，网络宽度不变，但一次控制内部做4次小步目标求解。
+从2200开始冻结actor/critic的观测归一化统计，保留完整优化器续训。
+实际保存CONFIG及优化器LR均为3e-5，entropy0.001；旧计划表中写的1e-4不是这段实际执行值。
+静站比例增加，reset权重[.45,.05,.20,.12,.18]；头部全幅，fine_weight约0.30。
+2700块完成后，驱动头部验收报unstable head gate，状态stopped_on_failure；不是整体验收完全通过。
+body2700是后续所有保护式修复的冻结身体来源。
+
+五、最终选中头部修复链（合计1440轮）
+
+1. 30度门控修复：repair032 -> repair096 -> repair224
+本段新增32、64、128轮，累计224；都是1024环境×20步，固定LR1e-4。
+命令范围35%、65%、100%；脚本/环境种子2026110701/02/03。
+此时仍在原网络上训练头/腿协同，后续检查发现全身平衡与头部跟随相互影响，转向保护身体结构。
+repair352是另一条试验，没有进入最终选中链。
+
+2. 保护式专家：protected064 -> protected_quiet320 -> protected_quiet576
+实际新增64、256、256轮，共576。
+这里的320/576是该分支命名，不包含前面的224轮；而protected192是从064分出的未选中支线。
+把原body2700的MLP复制为冻结base_mlp；头部专家MLP从前面repair224初始化，继续学习头部跟随及全身平衡。
+基础身体与归一化冻结；零头命令与原body2700动作一致性每段验证，基础权重张量也验证未变。
+64轮先保留混合任务，再转静站任务权重[1,0,0,0,0]。
+优化器三组有效LR：专家MLP5e-5、head_error_gain/head_command_gain1.5e-3、critic2e-4。
+种子2026110712、2026110721、2026110723。
+
+3. 取消物理门控的站立任务训练：standing128 -> standing256 -> standing512
+新增128、128、256轮，共512；从protected_quiet576接续。
+按用户要求不再用倾角、静止或扰动来暂停头部任务，只用站立任务scope决定是否给命令。
+范围比例50%、75%、100%；种子2026110733/35/37；三组LR仍5e-5/1.5e-3/2e-4。
+冻结身体继续保持原2700。不是把身体再完整训练512轮。
+这版虽继续训练，但发现较大头部指令的目标本身有偏差，不能认为只加轮数就解决了。
+
+4. HOME参考结构：reference128
+从standing512构建source_reference，只加入head_reference_bound=.025rad的缓冲参数，保留已有权重与优化器矩。
+头部目标参数化改为HOME+指令+有界神经修正；网络继续学修正和腿部平衡。
+在这个新结构下增加128轮，1024×20，共2621440样本；种子2026110791；LR三组仍5e-5/1.5e-3/2e-4。
+这一段实际训练的修正上限是±.025rad，不能把最终±.01rad说成128轮一直使用的值。
+
+5. feature_precise物化与选择：不新增PPO
+诊断发现冻结的经验归一化使头部指令放大过多，历史指令std约[.0202,.0251,.0333,.0121]；例如1.2rad指令归一化后可达约27.7。
+专家头部指令改用cmd/[.6,.6,1.2,.25]，基础身体仍用原归一化。
+同时从reference128生成两个候选：修正幅度±.025的feature_normalized、±.01的feature_precise。
+这一步没有更新神经网络权重，但更改输入特征/动作参数化会改变策略行为，不是单纯重命名文件。
+选定feature_precise。其零头命令对body2700解码目标差验证为0，稳态参考误差与增量约束检查通过。
+feature_smoke等只验证最终类/加载/训练契约，其检查点没有替换交付模型。
+
+六、奖励和DR的实际含义
+
+奖励大类：直立、高度、头部/腿部姿态、髋对齐、平静站立、恢复进展/完成、非足部接触与失败成本、动作和速度平滑；交接另有完成质量评分。
+HOME是相对观测基准和软奖励参考，不是部署后强制锁定所有关节角的传统位置控制目标。
+回正奖励有pose_gate：tilt soft10/off25度，再乘高度/速度/角速度/支撑条件；candidate>.5才积累calm_hold。
+这使部分细姿态奖励在恢复中间区段弱化或关闭。该门槛是训练奖励机制，不是实机Python里一个25度开关。
+hip_goal索引[0,1,9,10]约束yaw/roll，不直接包含hip_pitch[2,11]；但一般leg_pose和posture_band仍覆盖它们。
+
+基础DR范围：质量/惯量.95-1.05，脚底摩擦.7-1.3，电枢惯量.9-1.1，Kp/Kd乘数.9-1.1，电机输出/摩擦/响应时间乘数各.9-1.1，IMU安装扰动上限12度，足底几何倾斜±3度。
+课程围绕1放大质量/惯量、脚底摩擦、电枢惯量，同时放大观测噪声和COM课程幅度；不把所有电机/Kp参数统一放大。
+2.5倍课程下实际保存FULL_ENV：质量/惯量.875-1.125，脚底摩擦.25-1.75，电枢惯量.75-1.25；Kp/Kd和电机三项仍.9-1.1。
+重要噪声口径：保存YAML noise.level=2，课程2.5倍后有效FULL_ENV noise.level=5。修复阶段FULL_ENV已直接证明这一点；不能把配置2写成有效环境始终2。
+完整随机化字段、独立环境/sole/jitter seed，见配置快照与TRAINING_EVIDENCE.json。
+
+七、最终控制器与导出
+
+输入float32[batch,61]：gyro0:3、gravity3:6、关节相对HOME6:20、关节速度20:34、上次位置目标历史34:48、速度指令48:51、头部指令51:55，其余55:61在站立/恢复任务置零。
+历史编码：(previous_target-HOME)/.12，不是上一次raw动作。
+输出14维raw增量动作；外部解码clip(previous_target+increment*tanh(raw),low,high)。
+增量：[.015,.010,.080,.060,.075,.110,.025,.025,.010,.015,.010,.080,.060,.075]rad/20ms。
+4次内部求解和归一化已经嵌入导出，不得在外面再次归一化或重复求解。
+
+当前结构：
+- cmd全0：blend0，走冻结body2700。新增显式头部参考修正不介入。
+- cmd非0：按maxabs(cmd)/.02混入专家；头部参考为HOME+cmd+.01*tanh(head_raw)，受限位和每步增量约束。
+- 身体与专家不是同一份最终训练权重；新的头部跟随修复不等于零命令下的身体恢复也被重训。
+
+先导出TorchScript standing_head_policy.ts；随后在2026-11-08导出ONNX opset17、动态batch。
+提供旧参考版policy_v201_original.onnx和当前接口适配版policy_v202_adapter.onnx；后者在观测相对位置和历史中嵌入两个模型HOME的微差适配。
+各1185条合成观测经checker/CPU ORT验证；当前适配版实际解码目标最大差约2.384e-7rad。
+桌面v1/xc_standing.onnx与该适配导出张量initializer逐项相同；桌面文件输出名actions、固定batch1，与原raw_action动态batch导出文件字节哈希不同，因此不能仅比较文件SHA就认成不同训练权重。
+ONNX数值等价不证明物理零位、实机接触和动力学已经校准。
+
+八、仿真验证与实机现状（不要混为训练轮数）
+
+当时选定模型在训练物理模型上：头部常用/极限/组合合计176例通过非倒地站稳及跟随误差检查；身体176例最终站稳。
+普通推扰24例中17例全程不倒，其余倒后恢复。最终站稳不等于推扰全程不倒。
+身体抖动验收未合格，原status已标记tracking_validated_body_smoothness_pending，不能称全部完成验收。
+
+迁移到当前物理模型后的独立检查：身体176例最终175例站稳，仰卧23/24；普通推扰24例最终都稳、全程不倒17/24；更强推扰144例最终134例稳、全程不倒19例。
+头部常用幅度56例、多轴32例在相应协议下通过；新增负颈部-.08rad端点有4例未达精度，原身体控制器低限仍在约-.26999绝对角。
+这些是特定协议的仿真结果，不是实机通过率或对所有连续状态的保证。
+
+11月11-16日真机排查：122出现开启站立后前倾，以及恢复时长时间维持折叠颈目标；121旧硬件/旧v11记录未出现同程度长期卡住。
+已核实：数值消费链路可重放一致、两份MJCF没有关节正负方向反转、电机核心和旧对应阶段一致；同目标整机位置响应仍与标称模型不同。
+尚未唯一定位物理触发因素。电机角/模型角对应与实际标零需要实物核准，不能只凭qpos0另加偏移或修改网页HOME。
+曾准备的角度转换文件已撤为候选，Desktop/v1恢复原消费文件，当前ONNX权重未改变；本整理没有重新训练或操作机器人。
+
+九、复现入口与完整记录
+
+本包提供训练过程和证据，不含所有大型权重/状态库，不是一个无需路径绑定即可重新开训的独立环境。
+主训入口：train_block.py --index <块编号> --resume <上一块final.pt>；首块不带resume。
+头部修复入口依次为head_repair30的train.py/train_protected.py、standing_head的train_protected.py、head_reference_repair的train_protected.py。
+参考结构和物化入口prepare_reference.py、materialize_feature.py；导出export_reference.py，以及当前ONNX导出脚本。
+实际复现必须使用新的隔离根目录，重绑定execution_blocks、物理/数据/配置路径，保留对应源快照和完整优化器，不能直接在已完成的run目录覆盖运行。
+所有命令仅作为历史入口说明，本次未执行训练。
+
+附录A：检查点血缘与原始路径
+
+当前版本名称为v2.0.2 v1；它的基础身体训练实际保存于原2.0.1分支，随后完成修复并用于2.0.2。为方便核查，保留原路径，不改写历史。
+主训根目录：/home/xingchen/Xduck_branches/xduck_2_0_1_early_head_20261106。
+修复根目录依次：xduck_2_0_1_head_repair30_20261107、xduck_2_0_1_standing_head_20261107、xduck_2_0_1_head_reference_repair_20261107。
+当前交付不来自另两条从零试验分支：xduck_2_0_2_from0_20261107（3084版）与xduck_2_0_2_body_baseline_20261108（完成628版），它们不能插入当前权重血缘。
+原计划第6段为2700结构/门控验收；实际在该处失败。原第7段2700-2716-2732未作为已完成训练发生，实际改走上述修复链。
+
+附录B：如何查本包
+
+一页概览.txt：快速阅读。
+实际阶段与检查点清单.txt：23段主训、10段选中修复、弃用分支、种子、LR和检查点SHA。
+TRAINING_EVIDENCE.json：完整配置、completion、FULL_ENV、来源链与哈希。
+配置快照/：每段配置转换为JSON，标注原始远端路径；这是值的快照，不冒充原YAML字节原件。
+完成记录/：每段completion值；checkpoint_sha只标识文件，不等于所有物理/实机测试已通过。
+源码摘录/：训练和控制结构的关键脚本，供理解；真正复现仍以每个run的source_snapshot及完整工程为准。
+'''
+(P/'v2.0.2_v1站立模型_训练过程完整说明.txt').write_text(text)
+overview='''v2.0.2 v1站立模型：一页概览
+2026-11-16
+
+版本：Desktop/v1/xc_standing.onnx；SHA256 016f26b78f9c67226d695a3d57b176d36b4e57b381a3de77568ffd02f99fdbc3。
+
+主训：
+0-300 基础站立/恢复，随机初始化，不启用头部跟随。
+300-1300 混合恢复任务，头部范围5/15/35/65/100%，DR1到2。
+1300-1800 共同收敛，固定LR逐步降到5e-5，DR2。
+1800-2200 强推扰，DR2.1到2.5，最高32-40N持续1-1.5s。
+2200-2700 solver4联合微调，归一化冻结，实际LR3e-5；2700时头部门控验收未通过。
+
+后续选中链：
+30度修复224轮 -> 保护身体的头部专家576轮 -> 无物理门控、仅站立任务512轮 -> HOME参考结构训练128轮 -> 特征缩放与±.01rad修正候选选择（无新增PPO）。
+修复祖先共1440轮；原2716/2732两个pilot未按计划完成。
+
+统计：
+2700轮主训：4096环境×20步，221184000样本。
+1440轮修复：1024环境×20步，29491200样本。
+祖先链合计4140次PPO更新；最终零头命令身体分支仍冻结在2700版本。
+
+最终控制：
+61维观测、14维raw增量输出，20ms控制；归一化和4次内部求解在ONNX内。
+非零头命令：HOME+命令+±.01rad神经修正；零命令：原body2700。
+
+当前结论：
+特定仿真协议下头部跟随和身体最终站稳通过，但身体抖动、迁移极限范围和真机前倾/卡住仍有未解决项，不能写成全部实机验收完成。
+版本称呼按当前v2.0.2 v1；原训练路径和检查点血缘在完整说明附录中保留。
+此包只整理，不启动训练、不改设备或部署。
+'''
+(P/'一页概览.txt').write_text(overview)
+# Attach the key original scripts without adding framework or checkpoints.
+src=P/'源码摘录';src.mkdir(exist_ok=True)
+files={
+'主训_train_block.py':root/'output/xduck_2_0_1_early_head_20261106/train_block.py',
+'原头部课程_quiet_head.py':root/'output/xduck_2_0_1_early_head_20261106/quiet_head.py',
+'保护专家_train_protected.py':root/'output/xduck_2_0_1_head_reference_repair_20261107/train_protected.py',
+'参考结构_prepare_reference.py':root/'output/xduck_2_0_1_head_reference_repair_20261107/prepare_reference.py',
+'最终物化_materialize_feature.py':root/'output/xduck_2_0_1_head_reference_repair_20261107/materialize_feature.py',
+'最终推理_inference_policy.py':root/'output/xduck_2_0_1_head_reference_repair_20261107/inference_policy.py',
+'最终actor_protected_actor.py':root/'output/xduck_2_0_1_head_reference_repair_20261107/protected_actor.py'}
+for n,fpath in files.items():
+ if fpath.exists():shutil.copy2(fpath,src/n)
+# Keep the machine-readable summary small as well as the full evidence.
+(P/'版本与轮次摘要.json').write_text(json.dumps(dict(version_name=name,hashes=D['hashes'],counts=summ,selected_head_runs=[dict(run=x['run'],updates=x['completion']['updates'],source=x['completion']['source'],sha256=x['completion']['checkpoint_sha256']) for x in repairs],main_training_stopped_on_head_gate=True,training_restarted=False),ensure_ascii=False,indent=2))
+print('reports generated',len(text),'characters')

@@ -1,0 +1,58 @@
+v2.0.2 v1站立模型：实际阶段与检查点清单
+日期：2026-11-16
+本表使用完成记录、运行CONFIG和最终优化器LR；planned_blocks.csv不作为实际执行结果。
+
+A. 主训（4096环境，每轮20步；每轮81920控制样本）
+区间 | 轮数 | 脚本seed | YAML algo.seed | 配置LR | 最终优化器LR | entropy | phase/level | DR倍数 | 头部范围比例 | checkpointSHA
+0-25 | 25 | 41021 | 41021 | 0.0003 | [0.0008779149519890263] | 0.01 | discovery/0 | 1 | 0 | 92e81491ea0d98d0729e54056630c02033f0be84eb58df043564e93beb5dd16f
+25-100 | 75 | 41021 | 41021 | 0.0003 | [0.0002562890625000001] | 0.01 | discovery/0 | 1 | 0 | 7cd982fde98a446de884c1765de27347e58a29d82fa000801a01336805d153b8
+100-200 | 100 | 41021 | 41021 | 0.0003 | [0.00011390625000000006] | 0.01 | settle/0 | 1 | 0 | 16a2ee18a1cc135658bd99b7fadd1c537938a21c33b814238963f8becfd7f24d
+200-300 | 100 | 41021 | 41021 | 0.0003 | [1e-05] | 0.01 | settle/0 | 1 | 0 | 8fdc2982a8bc5bd83a245b2a2a1838ced616cbba06985458b1ea083c5d81086d
+300-500 | 200 | 135350 | 41021 | 0.0003 | [0.00045] | 0.01 | settle/0 | 1 | 0.05 | d42a88742f58afd692625fd8482149f51578de2e492db71d8d5c4afa8fdde230
+500-700 | 200 | 155350 | 41021 | 0.0003 | [0.00045000000000000004] | 0.01 | settle/0 | 1.25 | 0.15 | cfa1458733323c3fb94801efd931c57eb292926b8fa12b502a59f58e29bbda49
+700-900 | 200 | 155351 | 41021 | 0.0003 | [0.00044999999999999993] | 0.01 | settle/1 | 1.5 | 0.35 | 92e6507997de1ef3fb0356574dedbede488ff7556583842c9516323b594c0995
+900-1100 | 200 | 155352 | 41021 | 0.0003 | [0.00044999999999999993] | 0.01 | settle/2 | 1.75 | 0.65 | a5fbe6862b7b236fb1bb22983135a4ca3f4a2ca282f7053bb757c1a0d24c9839
+1100-1300 | 200 | 155353 | 41021 | 0.0003 | [0.0003] | 0.01 | settle/3 | 2 | 1 | 5fac05cc4ea191b5980ca65d89f232f534ae843e86ac5b9ac2a3542ce4cc5484
+1300-1400 | 100 | 2026102601 | 2026102601 | 0.0001 | [0.0001] | 0.003 | settle/3 | 2 | 1 | b860976070f974523be28e1f36c62d2627f02bda2f96a41ce39d36071e5cc4bd
+1400-1500 | 100 | 2026102602 | 2026102602 | 0.0001 | [0.0001] | 0.0025 | settle/3 | 2 | 1 | 47ce15305bba81077a560dca0a536051be85343b6b2a20b896d8174907413cfc
+1500-1600 | 100 | 2026102603 | 2026102603 | 7e-05 | [7e-05] | 0.002 | settle/3 | 2 | 1 | 70ee1c9bc2e5ace91eb56e133e70df5a7bb906765961cc05786e32e64d2febb7
+1600-1700 | 100 | 2026102604 | 2026102604 | 5e-05 | [5e-05] | 0.0015 | settle/3 | 2 | 1 | b8957fdaabc424b4d82cc1e8cec575df7f14493118e7e27f931d2cab1e7887b1
+1700-1800 | 100 | 2026102605 | 2026102605 | 5e-05 | [5e-05] | 0.0015 | settle/3 | 2 | 1 | 84a1f0244386b30daa8ebe08580e37943e4423fad754ae870e32d57df4486cab
+1800-1900 | 100 | 2026102651 | 2026102651 | 7e-05 | [7e-05] | 0.002 | settle/3 | 2.1 | 1 | 29dd7e4403027a9984e0eb0a41d7edbe4d02d9c68f0c705aa93ece289ac0e899
+1900-2000 | 100 | 2026102652 | 2026102652 | 7e-05 | [7e-05] | 0.002 | settle/3 | 2.25 | 1 | da25c566948d8ffc548773a9987040a20af7cac8f7b13ff58308bc915c01d25f
+2000-2100 | 100 | 2026102653 | 2026102653 | 5e-05 | [5e-05] | 0.0015 | settle/3 | 2.4 | 1 | 160eae8e214ba77564b23905c72fdb1fe52dd9b7968b0b0edef29f1a4b053665
+2100-2200 | 100 | 2026102654 | 2026102654 | 5e-05 | [5e-05] | 0.0015 | settle/3 | 2.5 | 1 | 15b31fbb81f01320b4516f9aa784bab3621738ef5fbccbec8e9c0fe37fea77c5
+2200-2300 | 100 | 2026102791 | 41021 | 3e-05 | [3e-05] | 0.001 | settle/3 | 2.5 | 1 | e4202af82be00e13abbf2d871e3a5f3ae4be0061cf90ef1914d6c0267c0cb850
+2300-2400 | 100 | 2026102792 | 41021 | 3e-05 | [3e-05] | 0.001 | settle/3 | 2.5 | 1 | b7485382c04b0e0b13e4574d1904220e8b3fe8e262624681df8d025dcf83767e
+2400-2500 | 100 | 2026102793 | 41021 | 3e-05 | [3e-05] | 0.001 | settle/3 | 2.5 | 1 | 607db1554740cf8aec60764ef97ef2b960fbace3a00e863851c1ad481eb244ce
+2500-2600 | 100 | 2026102794 | 41021 | 3e-05 | [3e-05] | 0.001 | settle/3 | 2.5 | 1 | 17902ca1b9a4c764143cce919046b0200e8cd99332adc4856a36b4fc4c6d36f8
+2600-2700 | 100 | 2026102795 | 41021 | 3e-05 | [3e-05] | 0.001 | settle/3 | 2.5 | 1 | 843c90e92eeb3fb265af9d04a7f74f8adf33933847a83566aa7a54d506313a66
+
+B. 最终选中权重的修复祖先链（1024环境，每轮20步；每轮20480样本）
+run名 | 本段轮数 | 修复祖先累计轮数 | seed(env.discovery) | 优化器最终LR组 | 来源 | checkpointSHA
+repair032 | 32 | 32 | 2026110701 | [0.0001] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/source2700.pt | 967b2489fab3cac8bf492da76e71df97048c4d8038e3c45b75038239df1ed14c
+repair096 | 64 | 96 | 2026110702 | [0.0001] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair032/final.pt | 84e0786555a4c561b71b254fea0d590f87ff5b2721a404b074b3bb60be778491
+repair224 | 128 | 224 | 2026110703 | [0.0001] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair096/final.pt | d5a3d628dbf238c78a2301849a6d400dcb9c34e909a42ffbe775f4559ac658bf
+protected064 | 64 | 288 | 2026110712 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/repair224/final.pt | 3e7537518c5b1df992b30c61ae8c88af4e278bedc4fabb345b1df67e53c5f412
+protected_quiet320 | 256 | 544 | 2026110721 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/protected064/final.pt | fb5fdf848456c6ad5ac2dc49e5e1cf8470dc3d5bfdd7be1511e0885371ad19b5
+protected_quiet576 | 256 | 800 | 2026110723 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_repair30_20261107/runs/protected_quiet320/final.pt | df49bc0b61353e99fdb55b7e388eb8b2530257dcbf36e2e4f2c01459b63e0a86
+standing128 | 128 | 928 | 2026110733 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/source_head576.pt | e1fa409bcc8f38983414c928d8f1bddd7ab5a5997b315442c0c123a34928069b
+standing256 | 128 | 1056 | 2026110735 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/runs/standing128/final.pt | 851f8b6502c7b5a57ff2004654b9a87361b643e414bd512d990feb8b7f32b9b6
+standing512 | 256 | 1312 | 2026110737 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_standing_head_20261107/runs/standing256/final.pt | c8814359d63460c82888df3a490078ea63b0c76ddc028504edf698122005047b
+reference128 | 128 | 1440 | 2026110791 | [5e-05,0.0015,0.0002] | /home/xingchen/Xduck_branches/xduck_2_0_1_head_reference_repair_20261107/source_reference.pt | ded5f30ca8e377ef4bd302dde3b7e32cd0117439789f62001a86fc2aaa1e88ec
+
+C. 已运行但不在最终选中祖先链
+这些分支可能消耗过训练时间，但不能累加成选中模型的轮数。
+xduck_2_0_1_head_reference_repair_20261107/feature_smoke | updates=4 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_head_reference_repair_20261107/reference_smoke | updates=4 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_head_repair30_20261107/protected192 | updates=128 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_head_repair30_20261107/protected_smoke | updates=5 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_head_repair30_20261107/repair352 | updates=128 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_head_repair30_20261107/smoke | updates=5 | Not on selected final weight ancestry; experimental branch or smoke
+xduck_2_0_1_standing_head_20261107/standing_smoke | updates=4 | Not on selected final weight ancestry; experimental branch or smoke
+
+D. 计数口径
+主训 2700轮，221,184,000样本；选中修复链 1440轮，29,491,200样本。
+合计祖先链4140次PPO更新、250675200个控制样本；不同阶段环境数不同，也不是一个始终不变的网络结构连续训练4140轮。
+最终零头命令所用冻结身体网络仍是主训2700版本。
+原计划2716/2732两个pilot块没有完成，不计入这里；repair032恰好也是32轮，不能混称原pilot32。
