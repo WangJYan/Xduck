@@ -1,0 +1,78 @@
+{
+  "stages": [
+    {
+      "stage": "01_0_1000",
+      "start_updates": 0,
+      "end_updates": 1000,
+      "owner": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/owners/B0_2000",
+      "config_dir": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/01_0_1000",
+      "parent": null
+    },
+    {
+      "stage": "02_1000_1500",
+      "start_updates": 1000,
+      "end_updates": 1500,
+      "owner": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/owners/B0_2000",
+      "config_dir": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/02_1000_1500",
+      "parent": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/01_0_1000/train/model_999.pt"
+    },
+    {
+      "stage": "03_1500_2000",
+      "start_updates": 1500,
+      "end_updates": 2000,
+      "owner": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/owners/B0_2000",
+      "config_dir": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/03_1500_2000",
+      "parent": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/02_1000_1500/train/model_1499.pt"
+    },
+    {
+      "stage": "04_2000_2400",
+      "start_updates": 2000,
+      "end_updates": 2400,
+      "owner": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/owners/B2000_2400",
+      "config_dir": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/04_2000_2400",
+      "parent": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/03_1500_2000/train/model_1999.pt"
+    },
+    {
+      "stage": "05_2400_2500",
+      "start_updates": 2400,
+      "end_updates": 2500,
+      "owner": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/owners/B2400_2500",
+      "config_dir": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/05_2400_2500",
+      "parent": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/04_2000_2400/train/model_2399.pt"
+    }
+  ],
+  "from_scratch": true,
+  "original_method_and_curriculum": true,
+  "checkpoint_interval": 100,
+  "evaluation_mode": "stage_end_read_only",
+  "performance_gates": false,
+  "original_standing_head_rewards_retained": true,
+  "extra_safety_or_head_gate": false,
+  "parent_stage1": null,
+  "model_sha256": "3d38da27f1e9a7f3892efafd5bb55d189c60053b5eab3ade245b481a73670135",
+  "source_audit": [
+    {
+      "owner": "B0_2000",
+      "original_python_files_checked": 444,
+      "only_model_adapter_differences": [
+        "project/src/unilab/envs/locomotion/microduck_dm4310/reset_support.py"
+      ]
+    },
+    {
+      "owner": "B2000_2400",
+      "original_python_files_checked": 445,
+      "only_model_adapter_differences": [
+        "project/src/unilab/envs/locomotion/microduck_dm4310/reset_support.py"
+      ]
+    },
+    {
+      "owner": "B2400_2500",
+      "original_python_files_checked": 447,
+      "only_model_adapter_differences": [
+        "project/src/unilab/envs/locomotion/microduck_dm4310/reset_support.py",
+        "project/src/unilab/envs/locomotion/xduck_gf43x40/standing_handoff.py",
+        "project/src/unilab/envs/locomotion/xduck_gf43x40/handoff_feedback.py"
+      ]
+    }
+  ]
+}

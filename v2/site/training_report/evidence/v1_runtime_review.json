@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "actual_model_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "results": [
+    {
+      "file": "122_sit_20261114_101905.jsonl",
+      "checked_rows": 119,
+      "actual_policy_vs_reference_observation_max_error": 0.0,
+      "actual_policy_vs_recorded_target_max_error_rad": 1.1920928966180355e-07,
+      "actual_policy_vs_reference_kp_kd_max_difference": 0.0,
+      "rise_observation_vs_reference_max_difference": 0.0
+    },
+    {
+      "file": "122_sit_20261114_111837.jsonl",
+      "checked_rows": 149,
+      "actual_policy_vs_reference_observation_max_error": 0.0,
+      "actual_policy_vs_recorded_target_max_error_rad": 1.1920928966180355e-07,
+      "actual_policy_vs_reference_kp_kd_max_difference": 0.0,
+      "rise_observation_vs_reference_max_difference": 0.0
+    }
+  ]
+}

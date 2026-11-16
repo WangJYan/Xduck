@@ -1,0 +1,38 @@
+{
+  "state": "complete",
+  "pid": 1810662,
+  "source": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/seated_head_repaired.pt",
+  "source_sha256": "4088794a344160531af59799e78c2bfe0b56d955248feee0c7021c5ad3740b21",
+  "local_updates": 300,
+  "initial_global_iteration": 2699,
+  "num_envs": 2048,
+  "only_descent_parameters_trainable": true,
+  "settled_policy_exact": true,
+  "old_rise_exact": true,
+  "clearance_points": [
+    32,
+    32,
+    32
+  ],
+  "started_utc": "2026-11-09T06:10:03.134939+00:00",
+  "seconds": 991.3194050788879,
+  "checkpoint": "/home/xingchen/Xduck/B2500_descent_repair_20261109/descent300/final.pt",
+  "sha256": "de1b1be9bd0b31a768b0f61e1f70676765a691af6178581308ac1e8829afecb3",
+  "all_frozen_weights_verified": true,
+  "learned_gain": [
+    0.8964431881904602,
+    0.900581419467926,
+    0.8961583971977234,
+    0.8988900184631348,
+    0.8941980004310608,
+    0.9007476568222046,
+    0.9010288119316101,
+    0.89854496717453,
+    0.8964233994483948,
+    0.9014602899551392,
+    0.9037706851959229,
+    0.8993736505508423,
+    0.8962556719779968,
+    0.8977959156036377
+  ]
+}

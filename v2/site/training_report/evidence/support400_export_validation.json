@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checkpoint_sha256": "5067f573410dcb8b4c2ee03d604783488762251c4610f91253b37dcfdb5c04b4",
+  "onnx_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "actual_trajectory_observations": 67200,
+  "max_onnx_vs_torch_error": 2.6226043701171875e-06,
+  "max_onnx_vs_recorded_action_error": 3.039836883544922e-06,
+  "max_decoded_target_error_rad": 2.5250017643418943e-07,
+  "consumer_checked_rows": 128,
+  "max_consumer_observation_error": 4.76837158203125e-07,
+  "max_consumer_target_error_rad": 1.4547025806166403e-07
+}

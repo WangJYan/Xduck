@@ -1,0 +1,10 @@
+{
+  "source": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/repair200/final.pt",
+  "source_sha256": "601a2b4b37245e2d6bd97648e8501564019cdb172cb194e42190d6fac5762678",
+  "checkpoint": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/seated_head_repaired.pt",
+  "sha256": "4088794a344160531af59799e78c2bfe0b56d955248feee0c7021c5ad3740b21",
+  "PPO_updates": 200,
+  "only_metadata_changed_from_trained_checkpoint": true,
+  "scope": "Learned residual enabled only under seated posture command; standing uses frozen original actor",
+  "standing_training_discarded": true
+}

@@ -1,0 +1,38 @@
+{
+  "state": "complete",
+  "pid": 1846660,
+  "source": "descent300/final.pt",
+  "source_sha256": "de1b1be9bd0b31a768b0f61e1f70676765a691af6178581308ac1e8829afecb3",
+  "local_updates": 600,
+  "initial_global_iteration": 2998,
+  "num_envs": 2048,
+  "only_descent_parameters_trainable": true,
+  "settled_policy_exact": true,
+  "old_rise_exact": true,
+  "clearance_points": [
+    32,
+    32,
+    32
+  ],
+  "started_utc": "2026-11-09T08:17:29.881512+00:00",
+  "seconds": 1731.173888206482,
+  "checkpoint": "/home/xingchen/Xduck/B2500_descent_repair_20261109/curriculum600/final.pt",
+  "sha256": "a2ee8daacbe48fa735769efccbda47f79e0ec601c6d8d49b14258db9ca680bae",
+  "all_frozen_weights_verified": true,
+  "learned_gain": [
+    0.8925493359565735,
+    0.9020308256149292,
+    0.9114827513694763,
+    0.8947134613990784,
+    0.8831863403320312,
+    0.9001092910766602,
+    0.9003540873527527,
+    0.8969661593437195,
+    0.8971419930458069,
+    0.8986027836799622,
+    0.8983457684516907,
+    0.9018487334251404,
+    0.8995445370674133,
+    0.8936784863471985
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "archived_date": "2026-11-16",
+  "task": "v2.0.2/v1 sit-rise support400",
+  "model_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "new_lineage_ppo_updates": 4000,
+  "legacy_rise_ppo_updates_separately_counted": 2500,
+  "robot_validation_passed": false,
+  "scope": "Training narrative,9 actual configs,lineage/status/validation evidence and exact deployed ONNX/consumer. Not a complete standalone training runtime.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 7269,
+      "sha256": "0d8eeec149063667f6ea8609dd155bbb662c5ced25a0404c858644b374b04344"
+    },
+    {
+      "path": "policy/deploy.yaml",
+      "bytes": 6764,
+      "sha256": "3bb7f53a0ff2550bc435a937c0d58cbe47860f642a5dac0546910069ce636177"
+    },
+    {
+      "path": "policy/export_validation.json",
+      "bytes": 561,
+      "sha256": "a6e544e92ad010501202aa5a057283755a92e79522fe690e668ed1912ff0d63b"
+    },
+    {
+      "path": "policy/policy_io.json",
+      "bytes": 8145,
+      "sha256": "fbb1b29e7aa57b8beab58b50cef860fddf0402b6b2bc858b255f57055f738452"
+    },
+    {
+      "path": "policy/xc_site.onnx",
+      "bytes": 1924781,
+      "sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2"
+    },
+    {
+      "path": "policy/xc_site.py",
+      "bytes": 12030,
+      "sha256": "1111aca21593b46ee4e343a1e41daf1f50b517fd45cae5afbc33ca7e273edce3"
+    },
+    {
+      "path": "tools/verify_archive.py",
+      "bytes": 724,
+      "sha256": "606e48a0f770e0966c4a8d9746181c945dba66363fe982acc8a5c08ee7e9b35e"
+    },
+    {
+      "path": "training_report/SHA256.json",
+      "bytes": 4343,
+      "sha256": "dbe21cc711aba2e3a9f551c5a613dc309d40fba657c80ce975384f63937b26f6"
+    },
+    {
+      "path": "training_report/configs/base/01_0_1000/lineage_complete.json",
+      "bytes": 215,
+      "sha256": "300308ee3fb5e778b64dba4e7f4c331aaa026f890f44ee55589eddeaba420489"
+    },
+    {
+      "path": "training_report/configs/base/01_0_1000/lineage_start.json",
+      "bytes": 183,
+      "sha256": "12a4e5f14885d5b72b56b07e1dd74b399570fe00516d57e63597005a7f1ec124"
+    },
+    {
+      "path": "training_report/configs/base/01_0_1000/train.yaml",
+      "bytes": 15197,
+      "sha256": "32ea16c7a86b3a551f37c951404a902db4ceae64bc90247b8a7617e7a78fc495"
+    },
+    {
+      "path": "training_report/configs/base/02_1000_1500/lineage_complete.json",
+      "bytes": 219,
+      "sha256": "7cf3f3698cda053b2bf56f29901e39057d51ba7c306a4cdb734e79df065ba74b"
+    },
+    {
+      "path": "training_report/configs/base/02_1000_1500/lineage_start.json",
+      "bytes": 405,
+      "sha256": "c5d947fc2f96de87fe2b3bd0fae5845e409681191b9580d12e5e032bbf6189b2"
+    },
+    {
+      "path": "training_report/configs/base/02_1000_1500/train.yaml",
+      "bytes": 15373,
+      "sha256": "b10e4f970c893c3e0cd064f5a17dde0c220e578ff9879fa33c28c0f6a0a43a4e"
+    },
+    {
+      "path": "training_report/configs/base/03_1500_2000/lineage_complete.json",
+      "bytes": 219,
+      "sha256": "3c2a2e565e75b1defcf5b4e91f715f797ed000e93979350da41d3729182af12a"
+    },
+    {
+      "path": "training_report/configs/base/03_1500_2000/lineage_start.json",
+      "bytes": 409,
+      "sha256": "b1042bc48016b2962e815a5738f61a68f69a5417a404972b5a263456487bb47e"
+    },
+    {
+      "path": "training_report/configs/base/03_1500_2000/train.yaml",
+      "bytes": 15402,
+      "sha256": "49c37f1dd83e7e6b27730d15487e7d366b36ed813917759f14edca890f7b9546"
+    },
+    {
+      "path": "training_report/configs/base/04_2000_2400/lineage_complete.json",
+      "bytes": 219,
+      "sha256": "e13b608ea8f9b15d3c8a0c08d3b4aa3280bfacd11ccad20024d6da98d087c9da"
+    },
+    {
+      "path": "training_report/configs/base/04_2000_2400/lineage_start.json",
+      "bytes": 409,
+      "sha256": "e30deb6a513a021d214ca9a4c8d2f5f0a79b1e1df205f2655bff728ff0102759"
+    },
+    {
+      "path": "training_report/configs/base/04_2000_2400/train.yaml",
+      "bytes": 16142,
+      "sha256": "e51ebf3d35685a9c2bd43666b7ff1a9cc433913b22e59bcde81bfd82510fe918"
+    },
+    {
+      "path": "training_report/configs/base/05_2400_2500/lineage_complete.json",
+      "bytes": 219,
+      "sha256": "1769b62d99a7069c21a93c18e876fa88ae9d22216a0a784b534aeced522214f1"
+    },
+    {
+      "path": "training_report/configs/base/05_2400_2500/lineage_start.json",
+      "bytes": 409,
+      "sha256": "cb08485540f353505c125a9164ed474901a97f687dd5a23dfb52cc9832178d73"
+    },
+    {
+      "path": "training_report/configs/base/05_2400_2500/train.yaml",
+      "bytes": 16413,
+      "sha256": "8fcc2d090f4a5c07e22f7ca697e26cb55873dd16d9732c35de2dca34203ffcaa"
+    },
+    {
+      "path": "training_report/configs/descent300/train.yaml",
+      "bytes": 12018,
+      "sha256": "0e83f3cf4af17daccd3bf9ad291d81ce32e2bf3dae782c96934e012b3ac4286d"
+    },
+    {
+      "path": "training_report/configs/descent600/train.yaml",
+      "bytes": 12090,
+      "sha256": "4a2fb9735229251e466eb0e4d50c611a1eed4bbf30a13f6095ea6c60f11b425f"
+    },
+    {
+      "path": "training_report/configs/head200/train.yaml",
+      "bytes": 11807,
+      "sha256": "c29ce7ee1833780b665a21f9720d06261f4379481faa045c791bbaf7f29add28"
+    },
+    {
+      "path": "training_report/configs/support400/train.yaml",
+      "bytes": 12033,
+      "sha256": "0b70ece95fdbf78cfce91fc307ca7870742fbe09bcbf809e3cd72a3f8f398306"
+    },
+    {
+      "path": "training_report/evidence/base_allowed_config_diff.json",
+      "bytes": 26521,
+      "sha256": "2a1991916d4de719269b399f93a75da95b693481eb7342d4aad4ed5a2e81c3bb"
+    },
+    {
+      "path": "training_report/evidence/base_prepared.json",
+      "bytes": 3112,
+      "sha256": "1ebd7453b4b19ab1c89dfcbc318bbf40748b5b28bb2e18e9d01f8539d439ff05"
+    },
+    {
+      "path": "training_report/evidence/base_run_record.txt",
+      "bytes": 1505,
+      "sha256": "b88cdcf6f8e7a8082846916cbbfe48602917e764a9ab03f74fad4c9c20ad245a"
+    },
+    {
+      "path": "training_report/evidence/descent300_eval.json",
+      "bytes": 6905,
+      "sha256": "71537ef7c14ecce0b73c4f178d5f2543be0ee8b2432c8e532500c8a3ad34f1d7"
+    },
+    {
+      "path": "training_report/evidence/descent300_status.json",
+      "bytes": 1107,
+      "sha256": "8b8dad82956b9eab9c61d7064649c97fbd9f2274890d9c937d9987b50b675aeb"
+    },
+    {
+      "path": "training_report/evidence/descent600_eval.json",
+      "bytes": 5920,
+      "sha256": "8c0f2cc5858128130f3f5dc3e69b44ab3ba4325e0d876935a282bccfbb568e2b"
+    },
+    {
+      "path": "training_report/evidence/descent600_status.json",
+      "bytes": 1057,
+      "sha256": "04580cf7fcf8ad0b78708ac3f2f02a995da66086e0cc542d067b46e16f2af43e"
+    },
+    {
+      "path": "training_report/evidence/factor_scan_findings.txt",
+      "bytes": 2329,
+      "sha256": "4b448182d141e16834087f1df221751e9d5de13e9d554eb9993e1cbffd535e94"
+    },
+    {
+      "path": "training_report/evidence/factor_scan_summary.json",
+      "bytes": 10498,
+      "sha256": "ba0e61edd028549d8d6ed68065ab618abd7d10d19c2394ed16592f49230ffa0a"
+    },
+    {
+      "path": "training_report/evidence/head200_packaged.json",
+      "bytes": 578,
+      "sha256": "718b3569df436d68f29152f642f392bd1fd40d404d06e1e0ca1ca383433e05da"
+    },
+    {
+      "path": "training_report/evidence/head200_status.json",
+      "bytes": 632,
+      "sha256": "bf094a525ca185f82dd63458eb965d711011bbb196693ea37114d91e011e4d60"
+    },
+    {
+      "path": "training_report/evidence/old_rise_merge_findings.txt",
+      "bytes": 6029,
+      "sha256": "811372d1f2bf36d2d9fbd46c509bc31f8263f33e0693bbfbafe9eb694fe60077"
+    },
+    {
+      "path": "training_report/evidence/support400_eval.json",
+      "bytes": 5808,
+      "sha256": "5b72079c5aa44a6164758a073efba770a3af1939a361181cf22c9b073b5bb792"
+    },
+    {
+      "path": "training_report/evidence/support400_export_validation.json",
+      "bytes": 561,
+      "sha256": "a6e544e92ad010501202aa5a057283755a92e79522fe690e668ed1912ff0d63b"
+    },
+    {
+      "path": "training_report/evidence/support400_extended_eval.json",
+      "bytes": 27417,
+      "sha256": "80604d11f6b10039afd22cb2d8a3a1553d84eedcf5e5718c7fe6a7a6ac53aa2f"
+    },
+    {
+      "path": "training_report/evidence/support400_policy_io.json",
+      "bytes": 8145,
+      "sha256": "fbb1b29e7aa57b8beab58b50cef860fddf0402b6b2bc858b255f57055f738452"
+    },
+    {
+      "path": "training_report/evidence/support400_status.json",
+      "bytes": 825,
+      "sha256": "cb9a784b8c89a2ca1cab237e972c19c40fbc2a75965c47813e5b3c1498a5733a"
+    },
+    {
+      "path": "training_report/evidence/v1_runtime_review.json",
+      "bytes": 832,
+      "sha256": "c128ff63ee43d1fbc952bb8ef11ecafb6766d9c405eb72125940adede88c81d2"
+    },
+    {
+      "path": "training_report/evidence/v1_static_review.json",
+      "bytes": 1261,
+      "sha256": "ce1e4fe5bd963fff0c1e68ee52d6fc84a6094ab28c04577e9713cd99561c6cc9"
+    },
+    {
+      "path": "training_report/lineage.json",
+      "bytes": 6870,
+      "sha256": "c50af18e0d7ecb54d78773fe8f91078a7f5c833bf8682cdeff41f4b88870e7f1"
+    },
+    {
+      "path": "training_report/训练过程说明.txt",
+      "bytes": 17473,
+      "sha256": "dc8421f49432d2e7df68087938bad93f09367064cd03c57f66dbd5223c83ffb7"
+    }
+  ]
+}

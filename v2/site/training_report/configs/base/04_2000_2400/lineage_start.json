@@ -1,0 +1,11 @@
+{
+  "parent": {
+    "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/03_1500_2000/train/model_1999.pt",
+    "completed_updates": 2000,
+    "sha256": "66e01ba4376c4f9d8b144945aea17bd58fe521ee2ed69817f618bed9e08e9696"
+  },
+  "fresh": false,
+  "global_start_updates": 2000,
+  "configured_updates": 400,
+  "config_sha256": "e51ebf3d35685a9c2bd43666b7ff1a9cc433913b22e59bcde81bfd82510fe918"
+}

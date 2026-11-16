@@ -1,0 +1,15 @@
+{
+  "state": "complete",
+  "pid": 1763900,
+  "source": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/05_2400_2500/train/model_2499.pt",
+  "source_sha256": "4bd2e624695b306c62a87e9b3ba04c17937b6e7adb85dc096f20981a84e1768c",
+  "updates": 200,
+  "num_envs": 2048,
+  "base_leg_weights_frozen": true,
+  "head_only_stochastic": true,
+  "started_utc": "2026-11-09T03:39:29.622110+00:00",
+  "seconds": 539.7748889923096,
+  "checkpoint": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/repair200/final.pt",
+  "sha256": "601a2b4b37245e2d6bd97648e8501564019cdb172cb194e42190d6fac5762678",
+  "frozen_base_verified": true
+}

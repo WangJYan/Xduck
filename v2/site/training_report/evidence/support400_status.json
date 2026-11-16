@@ -1,0 +1,25 @@
+{
+  "state": "complete",
+  "pid": 1881539,
+  "source": "/home/xingchen/Xduck/B2500_descent_repair_20261109/curriculum600/final.pt",
+  "source_sha256": "a2ee8daacbe48fa735769efccbda47f79e0ec601c6d8d49b14258db9ca680bae",
+  "local_updates": 400,
+  "initial_global_iteration": 3597,
+  "num_envs": 2048,
+  "only_seated_support_parameters_trainable": true,
+  "zero_head_descent_exact": true,
+  "old_rise_exact": true,
+  "zero_head_actual_states_checked": 9600,
+  "clearance_points": [
+    32,
+    32,
+    32,
+    32,
+    32
+  ],
+  "started_utc": "2026-11-09T10:05:33.931671+00:00",
+  "seconds": 1757.4733536243439,
+  "checkpoint": "/home/xingchen/Xduck/B2500_seated_support_repair_20261109/support400/final.pt",
+  "sha256": "5067f573410dcb8b4c2ee03d604783488762251c4610f91253b37dcfdb5c04b4",
+  "all_frozen_weights_verified": true
+}

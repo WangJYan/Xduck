@@ -1,0 +1,30 @@
+{
+  "sit_onnx_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "reference_onnx_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "model_identical": true,
+  "policy_class_and_function_ast_identical": true,
+  "config_operational_differences": {},
+  "metadata_differences": {
+    "model_filename": {
+      "actual": "xduck_v202_descent600.onnx",
+      "expected": "xduck_v202_support400.onnx"
+    },
+    "experiment": {
+      "actual": "B2500_descent_repair_20261109/curriculum600",
+      "expected": "B2500_seated_support_repair_20261109/support400"
+    },
+    "source_checkpoint_sha256": {
+      "actual": "a2ee8daacbe48fa735769efccbda47f79e0ec601c6d8d49b14258db9ca680bae",
+      "expected": "5067f573410dcb8b4c2ee03d604783488762251c4610f91253b37dcfdb5c04b4"
+    },
+    "onnx_sha256": {
+      "actual": "54f2feee7aac0e527f7bc23146e56c074aada6de8d331acdb3e7b04c8c41cf2b",
+      "expected": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2"
+    },
+    "status": {
+      "actual": "Candidate: nominal sit/rise passed, dynamic seated head contact remains",
+      "expected": "Nominal simulation regression passed; real-robot deployment candidate"
+    }
+  },
+  "user_files_unchanged": true
+}

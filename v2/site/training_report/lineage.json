@@ -1,0 +1,189 @@
+{
+  "version": "v2.0.2/v1/sit-rise/support400",
+  "organized_date": "2026-11-16",
+  "deployed_model": "/Users/mac/Desktop/v1/xc_site.onnx",
+  "onnx_sha256": "b74e00f47832e4c14e26ccc3b4f6f6ac23b490977c44554f6caf4fe5eac1e9b2",
+  "final_checkpoint_sha256": "5067f573410dcb8b4c2ee03d604783488762251c4610f91253b37dcfdb5c04b4",
+  "legacy_frozen_rise": {
+    "model_version": "1.1.2",
+    "updates": 2500,
+    "checkpoint_sha256": "cf19dc738f5b19cca775c654ee6662387667f6bb4edfa9e482b603082aef66c2",
+    "separate_training_history_not_counted_in_new_updates": true
+  },
+  "base_stages": [
+    {
+      "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/01_0_1000/train/model_999.pt",
+      "completed_updates": 1000,
+      "sha256": "d986afc73b202c4d95e53e7e3508087e7585a6c8c2da484383ce7c610f340666",
+      "stage": "01_0_1000",
+      "configured_budget": 1000,
+      "actual_updates": 1000,
+      "num_envs": 4096
+    },
+    {
+      "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/02_1000_1500/train/model_1499.pt",
+      "completed_updates": 1500,
+      "sha256": "6e79b8d027cb323e5248e13c37efdb56a52e03d9e323bb819f1e907db78b3dcc",
+      "stage": "02_1000_1500",
+      "configured_budget": 500,
+      "actual_updates": 500,
+      "num_envs": 4096
+    },
+    {
+      "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/03_1500_2000/train/model_1999.pt",
+      "completed_updates": 2000,
+      "sha256": "66e01ba4376c4f9d8b144945aea17bd58fe521ee2ed69817f618bed9e08e9696",
+      "stage": "03_1500_2000",
+      "configured_budget": 500,
+      "actual_updates": 500,
+      "num_envs": 4096
+    },
+    {
+      "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/04_2000_2400/train/model_2399.pt",
+      "completed_updates": 2400,
+      "sha256": "cc92b1d67f89d5b620454d7409d6e2fbe08299ca41be224c6926c69b16c5c5f2",
+      "stage": "04_2000_2400",
+      "configured_budget": 400,
+      "actual_updates": 400,
+      "num_envs": 4096
+    },
+    {
+      "path": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/05_2400_2500/train/model_2499.pt",
+      "completed_updates": 2500,
+      "sha256": "4bd2e624695b306c62a87e9b3ba04c17937b6e7adb85dc096f20981a84e1768c",
+      "stage": "05_2400_2500",
+      "configured_budget": 200,
+      "actual_updates": 100,
+      "num_envs": 4096
+    }
+  ],
+  "repairs": [
+    {
+      "state": "complete",
+      "pid": 1763900,
+      "source": "/home/xingchen/Xduck/B2500_v202_original_only_20261108/stages/05_2400_2500/train/model_2499.pt",
+      "source_sha256": "4bd2e624695b306c62a87e9b3ba04c17937b6e7adb85dc096f20981a84e1768c",
+      "updates": 200,
+      "num_envs": 2048,
+      "base_leg_weights_frozen": true,
+      "head_only_stochastic": true,
+      "started_utc": "2026-11-09T03:39:29.622110+00:00",
+      "seconds": 539.7748889923096,
+      "checkpoint": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/repair200/final.pt",
+      "sha256": "601a2b4b37245e2d6bd97648e8501564019cdb172cb194e42190d6fac5762678",
+      "frozen_base_verified": true,
+      "stage": "head200"
+    },
+    {
+      "state": "complete",
+      "pid": 1810662,
+      "source": "/home/xingchen/Xduck/B2500_v202_head_quiet_20261109/seated_head_repaired.pt",
+      "source_sha256": "4088794a344160531af59799e78c2bfe0b56d955248feee0c7021c5ad3740b21",
+      "local_updates": 300,
+      "initial_global_iteration": 2699,
+      "num_envs": 2048,
+      "only_descent_parameters_trainable": true,
+      "settled_policy_exact": true,
+      "old_rise_exact": true,
+      "clearance_points": [
+        32,
+        32,
+        32
+      ],
+      "started_utc": "2026-11-09T06:10:03.134939+00:00",
+      "seconds": 991.3194050788879,
+      "checkpoint": "/home/xingchen/Xduck/B2500_descent_repair_20261109/descent300/final.pt",
+      "sha256": "de1b1be9bd0b31a768b0f61e1f70676765a691af6178581308ac1e8829afecb3",
+      "all_frozen_weights_verified": true,
+      "learned_gain": [
+        0.8964431881904602,
+        0.900581419467926,
+        0.8961583971977234,
+        0.8988900184631348,
+        0.8941980004310608,
+        0.9007476568222046,
+        0.9010288119316101,
+        0.89854496717453,
+        0.8964233994483948,
+        0.9014602899551392,
+        0.9037706851959229,
+        0.8993736505508423,
+        0.8962556719779968,
+        0.8977959156036377
+      ],
+      "stage": "descent300"
+    },
+    {
+      "state": "complete",
+      "pid": 1846660,
+      "source": "descent300/final.pt",
+      "source_sha256": "de1b1be9bd0b31a768b0f61e1f70676765a691af6178581308ac1e8829afecb3",
+      "local_updates": 600,
+      "initial_global_iteration": 2998,
+      "num_envs": 2048,
+      "only_descent_parameters_trainable": true,
+      "settled_policy_exact": true,
+      "old_rise_exact": true,
+      "clearance_points": [
+        32,
+        32,
+        32
+      ],
+      "started_utc": "2026-11-09T08:17:29.881512+00:00",
+      "seconds": 1731.173888206482,
+      "checkpoint": "/home/xingchen/Xduck/B2500_descent_repair_20261109/curriculum600/final.pt",
+      "sha256": "a2ee8daacbe48fa735769efccbda47f79e0ec601c6d8d49b14258db9ca680bae",
+      "all_frozen_weights_verified": true,
+      "learned_gain": [
+        0.8925493359565735,
+        0.9020308256149292,
+        0.9114827513694763,
+        0.8947134613990784,
+        0.8831863403320312,
+        0.9001092910766602,
+        0.9003540873527527,
+        0.8969661593437195,
+        0.8971419930458069,
+        0.8986027836799622,
+        0.8983457684516907,
+        0.9018487334251404,
+        0.8995445370674133,
+        0.8936784863471985
+      ],
+      "stage": "descent600"
+    },
+    {
+      "state": "complete",
+      "pid": 1881539,
+      "source": "/home/xingchen/Xduck/B2500_descent_repair_20261109/curriculum600/final.pt",
+      "source_sha256": "a2ee8daacbe48fa735769efccbda47f79e0ec601c6d8d49b14258db9ca680bae",
+      "local_updates": 400,
+      "initial_global_iteration": 3597,
+      "num_envs": 2048,
+      "only_seated_support_parameters_trainable": true,
+      "zero_head_descent_exact": true,
+      "old_rise_exact": true,
+      "zero_head_actual_states_checked": 9600,
+      "clearance_points": [
+        32,
+        32,
+        32,
+        32,
+        32
+      ],
+      "started_utc": "2026-11-09T10:05:33.931671+00:00",
+      "seconds": 1757.4733536243439,
+      "checkpoint": "/home/xingchen/Xduck/B2500_seated_support_repair_20261109/support400/final.pt",
+      "sha256": "5067f573410dcb8b4c2ee03d604783488762251c4610f91253b37dcfdb5c04b4",
+      "all_frozen_weights_verified": true,
+      "stage": "support400"
+    }
+  ],
+  "new_accepted_lineage_updates": 4000,
+  "base_env_samples": 245760000,
+  "repair_env_samples": 73728000,
+  "total_new_env_samples": 319488000,
+  "discarded_runs_and_smoke_excluded": true,
+  "robot_validation_passed": false,
+  "no_training_during_this_documentation_task": true
+}
